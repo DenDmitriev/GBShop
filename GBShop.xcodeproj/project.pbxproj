@@ -98,11 +98,10 @@
 		9503786F2A44226900DDC848 /* GBShop */ = {
 			isa = PBXGroup;
 			children = (
-				950378702A44226900DDC848 /* GBShopApp.swift */,
-				950378722A44226900DDC848 /* ContentView.swift */,
-				950378742A44226A00DDC848 /* Assets.xcassets */,
-				950378792A44226A00DDC848 /* Persistence.swift */,
-				9503787B2A44226A00DDC848 /* GBShop.xcdatamodeld */,
+				95A4DE142A442A7500F9D078 /* App */,
+				95A4DE112A4429FF00F9D078 /* Core */,
+				95A4DE122A442A0300F9D078 /* Resources */,
+				95A4DE132A442A4700F9D078 /* Environments */,
 				950378762A44226A00DDC848 /* Preview Content */,
 			);
 			path = GBShop;
@@ -131,6 +130,79 @@
 				950378922A44226A00DDC848 /* GBShopUITestsLaunchTests.swift */,
 			);
 			path = GBShopUITests;
+			sourceTree = "<group>";
+		};
+		95A4DE112A4429FF00F9D078 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				95A4DE172A442B0200F9D078 /* CoreData */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		95A4DE122A442A0300F9D078 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				950378742A44226A00DDC848 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		95A4DE132A442A4700F9D078 /* Environments */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Environments;
+			sourceTree = "<group>";
+		};
+		95A4DE142A442A7500F9D078 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				950378702A44226900DDC848 /* GBShopApp.swift */,
+				95A4DE152A442A8600F9D078 /* BusinesLogic */,
+				95A4DE182A442B8100F9D078 /* Entity */,
+				95A4DE192A442B9D00F9D078 /* Assembly */,
+				95A4DE162A442A9800F9D078 /* Flow */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		95A4DE152A442A8600F9D078 /* BusinesLogic */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BusinesLogic;
+			sourceTree = "<group>";
+		};
+		95A4DE162A442A9800F9D078 /* Flow */ = {
+			isa = PBXGroup;
+			children = (
+				950378722A44226900DDC848 /* ContentView.swift */,
+				950378792A44226A00DDC848 /* Persistence.swift */,
+			);
+			path = Flow;
+			sourceTree = "<group>";
+		};
+		95A4DE172A442B0200F9D078 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				9503787B2A44226A00DDC848 /* GBShop.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		95A4DE182A442B8100F9D078 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		95A4DE192A442B9D00F9D078 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Assembly;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
