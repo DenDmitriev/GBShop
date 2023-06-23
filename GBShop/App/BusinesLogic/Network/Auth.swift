@@ -35,7 +35,7 @@ extension Auth: AuthRequestFactory {
     }
     
     func registerUser(userId: Int, login: String, password: String, email: String, gender: String, creditCard: String, bio: String, completionHandler: @escaping (AFDataResponse<RegisterUserResult>) -> Void) {
-        let requestModel = RegisterUser(baseUrl: baseUrl, login: userName, password: password)
+        let requestModel = RegisterUser(baseUrl: baseUrl, userId: Int, login: String, password: String, email: String, gender: String, creditCard: String, bio: String)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
