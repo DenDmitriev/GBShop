@@ -16,6 +16,12 @@
 		950378872A44226A00DDC848 /* GBShopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950378862A44226A00DDC848 /* GBShopTests.swift */; };
 		950378912A44226A00DDC848 /* GBShopUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950378902A44226A00DDC848 /* GBShopUITests.swift */; };
 		950378932A44226A00DDC848 /* GBShopUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950378922A44226A00DDC848 /* GBShopUITestsLaunchTests.swift */; };
+		9583AF332A4575D8008BAB2E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 9583AF322A4575D8008BAB2E /* Alamofire */; };
+		9583AF352A457605008BAB2E /* AbstractErrorParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF342A457605008BAB2E /* AbstractErrorParser.swift */; };
+		9583AF372A45760C008BAB2E /* ErrorParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF362A45760C008BAB2E /* ErrorParser.swift */; };
+		9583AF392A457619008BAB2E /* ResponseCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF382A457619008BAB2E /* ResponseCodable.swift */; };
+		9583AF3B2A457627008BAB2E /* AbstractRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF3A2A457627008BAB2E /* AbstractRequestFactory.swift */; };
+		9583AF3D2A45762F008BAB2E /* RequestRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF3C2A45762F008BAB2E /* RequestRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +54,11 @@
 		9503788C2A44226A00DDC848 /* GBShopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GBShopUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		950378902A44226A00DDC848 /* GBShopUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GBShopUITests.swift; sourceTree = "<group>"; };
 		950378922A44226A00DDC848 /* GBShopUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GBShopUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		9583AF342A457605008BAB2E /* AbstractErrorParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractErrorParser.swift; sourceTree = "<group>"; };
+		9583AF362A45760C008BAB2E /* ErrorParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorParser.swift; sourceTree = "<group>"; };
+		9583AF382A457619008BAB2E /* ResponseCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseCodable.swift; sourceTree = "<group>"; };
+		9583AF3A2A457627008BAB2E /* AbstractRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractRequestFactory.swift; sourceTree = "<group>"; };
+		9583AF3C2A45762F008BAB2E /* RequestRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9583AF332A4575D8008BAB2E /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,9 +144,22 @@
 			path = GBShopUITests;
 			sourceTree = "<group>";
 		};
+		9583AF302A45742B008BAB2E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				9583AF342A457605008BAB2E /* AbstractErrorParser.swift */,
+				9583AF362A45760C008BAB2E /* ErrorParser.swift */,
+				9583AF382A457619008BAB2E /* ResponseCodable.swift */,
+				9583AF3A2A457627008BAB2E /* AbstractRequestFactory.swift */,
+				9583AF3C2A45762F008BAB2E /* RequestRouter.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		95A4DE112A4429FF00F9D078 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				9583AF302A45742B008BAB2E /* Network */,
 				95A4DE172A442B0200F9D078 /* CoreData */,
 			);
 			path = Core;
@@ -221,6 +246,9 @@
 			dependencies = (
 			);
 			name = GBShop;
+			packageProductDependencies = (
+				9583AF322A4575D8008BAB2E /* Alamofire */,
+			);
 			productName = GBShop;
 			productReference = 9503786D2A44226900DDC848 /* GBShop.app */;
 			productType = "com.apple.product-type.application";
@@ -293,6 +321,9 @@
 				Base,
 			);
 			mainGroup = 950378642A44226900DDC848;
+			packageReferences = (
+				9583AF312A4575D8008BAB2E /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 9503786E2A44226900DDC848 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -336,9 +367,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				9503787A2A44226A00DDC848 /* Persistence.swift in Sources */,
+				9583AF372A45760C008BAB2E /* ErrorParser.swift in Sources */,
 				950378732A44226900DDC848 /* ContentView.swift in Sources */,
+				9583AF392A457619008BAB2E /* ResponseCodable.swift in Sources */,
+				9583AF3B2A457627008BAB2E /* AbstractRequestFactory.swift in Sources */,
+				9583AF352A457605008BAB2E /* AbstractErrorParser.swift in Sources */,
 				9503787D2A44226A00DDC848 /* GBShop.xcdatamodeld in Sources */,
 				950378712A44226900DDC848 /* GBShopApp.swift in Sources */,
+				9583AF3D2A45762F008BAB2E /* RequestRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -663,6 +699,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9583AF312A4575D8008BAB2E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9583AF322A4575D8008BAB2E /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9583AF312A4575D8008BAB2E /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		9503787B2A44226A00DDC848 /* GBShop.xcdatamodeld */ = {
