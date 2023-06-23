@@ -22,6 +22,8 @@
 		9583AF392A457619008BAB2E /* ResponseCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF382A457619008BAB2E /* ResponseCodable.swift */; };
 		9583AF3B2A457627008BAB2E /* AbstractRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF3A2A457627008BAB2E /* AbstractRequestFactory.swift */; };
 		9583AF3D2A45762F008BAB2E /* RequestRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF3C2A45762F008BAB2E /* RequestRouter.swift */; };
+		9583AF412A4578D8008BAB2E /* LoginResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF402A4578D8008BAB2E /* LoginResult.swift */; };
+		9583AF432A4578E2008BAB2E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF422A4578E2008BAB2E /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		9583AF382A457619008BAB2E /* ResponseCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseCodable.swift; sourceTree = "<group>"; };
 		9583AF3A2A457627008BAB2E /* AbstractRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractRequestFactory.swift; sourceTree = "<group>"; };
 		9583AF3C2A45762F008BAB2E /* RequestRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestRouter.swift; sourceTree = "<group>"; };
+		9583AF402A4578D8008BAB2E /* LoginResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResult.swift; sourceTree = "<group>"; };
+		9583AF422A4578E2008BAB2E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +223,8 @@
 		95A4DE182A442B8100F9D078 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				9583AF402A4578D8008BAB2E /* LoginResult.swift */,
+				9583AF422A4578E2008BAB2E /* User.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -368,6 +374,7 @@
 			files = (
 				9503787A2A44226A00DDC848 /* Persistence.swift in Sources */,
 				9583AF372A45760C008BAB2E /* ErrorParser.swift in Sources */,
+				9583AF412A4578D8008BAB2E /* LoginResult.swift in Sources */,
 				950378732A44226900DDC848 /* ContentView.swift in Sources */,
 				9583AF392A457619008BAB2E /* ResponseCodable.swift in Sources */,
 				9583AF3B2A457627008BAB2E /* AbstractRequestFactory.swift in Sources */,
@@ -375,6 +382,7 @@
 				9503787D2A44226A00DDC848 /* GBShop.xcdatamodeld in Sources */,
 				950378712A44226900DDC848 /* GBShopApp.swift in Sources */,
 				9583AF3D2A45762F008BAB2E /* RequestRouter.swift in Sources */,
+				9583AF432A4578E2008BAB2E /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
