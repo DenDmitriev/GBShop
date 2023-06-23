@@ -28,6 +28,21 @@ extension Auth: AuthRequestFactory {
         let requestModel = Login(baseUrl: baseUrl, login: userName, password: password)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
+    
+    func logout(userId: Int, completionHandler: @escaping (AFDataResponse<LogoutResult>) -> Void) {
+        let requestModel = Logout(baseUrl: baseUrl, userId: userId)
+        self.request(request: requestModel, completionHandler: completionHandler)
+    }
+    
+    func registerUser(userId: Int, login: String, password: String, email: String, gender: String, creditCard: String, bio: String, completionHandler: @escaping (AFDataResponse<RegisterUserResult>) -> Void) {
+        let requestModel = RegisterUser(baseUrl: baseUrl, login: userName, password: password)
+        self.request(request: requestModel, completionHandler: completionHandler)
+    }
+    
+    func changeUserData(userId: Int, login: String, password: String, email: String, gender: String, creditCard: String, bio: String, completionHandler: @escaping (AFDataResponse<RegisterUserResult>) -> Void) {
+        let requestModel = ChangeUserData(baseUrl: baseUrl, userId: Int, login: String, password: String, email: String, gender: String, creditCard: String, bio: String)
+        self.request(request: requestModel, completionHandler: completionHandler)
+    }
 }
 
 extension Auth {
@@ -41,6 +56,65 @@ extension Auth {
             return [
                 "username": login,
                 "password": password
+            ]
+        }
+    }
+    
+    struct LogoutUser: RequestRouter {
+        let baseUrl: URL
+        let method: HTTPMethod = .get
+        let path: String = "logout.json"
+        let userId: Int
+        var parameters: Parameters? {
+            return [
+                "userId": login
+            ]
+    }
+    
+    struct RegisterUser: RequestRouter {
+        let baseUrl: URL
+        let method: HTTPMethod = .get
+        let path: String = "register.json"
+        let userId: Int
+        let login: String
+        let password: String
+        let email: String
+        let gender: String
+        let creditCard: String
+        let bio: String
+        var parameters: Parameters? {
+            return [
+                "userId": userId
+                "username": login,
+                "password": password,
+                "email": email,
+                "gender": gender,
+                "creditCard": creditCard,
+                "bio": bio
+            ]
+        }
+    }
+    
+    struct ChangeUserData: RequestRouter {
+        let baseUrl: URL
+        let method: HTTPMethod = .get
+        let path: String = "register.json"
+        let userId: Int
+        let login: String
+        let password: String
+        let email: String
+        let gender: String
+        let creditCard: String
+        let bio: String
+        var parameters: Parameters? {
+            return [
+                "userId": userId
+                "username": login,
+                "password": password,
+                "email": email,
+                "gender": gender,
+                "creditCard": creditCard,
+                "bio": bio
             ]
         }
     }
