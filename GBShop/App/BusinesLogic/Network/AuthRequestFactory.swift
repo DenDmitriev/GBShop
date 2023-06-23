@@ -13,5 +13,6 @@ protocol AuthRequestFactory {
                password: String,
                completionHandler: @escaping (AFDataResponse<LoginResult>) -> Void)
     
-//    func logout
+    func logout(userName: String,
+                completionHandler: @escaping (AFDataResponse<LogoutResult>) -> Void)
 }
