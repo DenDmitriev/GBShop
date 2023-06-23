@@ -24,6 +24,10 @@
 		9583AF3D2A45762F008BAB2E /* RequestRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF3C2A45762F008BAB2E /* RequestRouter.swift */; };
 		9583AF412A4578D8008BAB2E /* LoginResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF402A4578D8008BAB2E /* LoginResult.swift */; };
 		9583AF432A4578E2008BAB2E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF422A4578E2008BAB2E /* User.swift */; };
+		9583AF462A45797B008BAB2E /* AuthRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF452A45797B008BAB2E /* AuthRequestFactory.swift */; };
+		9583AF482A4579C8008BAB2E /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF472A4579C8008BAB2E /* Auth.swift */; };
+		9583AF4A2A457A83008BAB2E /* RequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF492A457A83008BAB2E /* RequestFactory.swift */; };
+		9583AF4C2A457BBC008BAB2E /* ContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF4B2A457BBC008BAB2E /* ContainerViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +67,10 @@
 		9583AF3C2A45762F008BAB2E /* RequestRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestRouter.swift; sourceTree = "<group>"; };
 		9583AF402A4578D8008BAB2E /* LoginResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResult.swift; sourceTree = "<group>"; };
 		9583AF422A4578E2008BAB2E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		9583AF452A45797B008BAB2E /* AuthRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequestFactory.swift; sourceTree = "<group>"; };
+		9583AF472A4579C8008BAB2E /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
+		9583AF492A457A83008BAB2E /* RequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFactory.swift; sourceTree = "<group>"; };
+		9583AF4B2A457BBC008BAB2E /* ContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +168,16 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		9583AF442A457974008BAB2E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				9583AF452A45797B008BAB2E /* AuthRequestFactory.swift */,
+				9583AF472A4579C8008BAB2E /* Auth.swift */,
+				9583AF492A457A83008BAB2E /* RequestFactory.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		95A4DE112A4429FF00F9D078 /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +217,7 @@
 		95A4DE152A442A8600F9D078 /* BusinesLogic */ = {
 			isa = PBXGroup;
 			children = (
+				9583AF442A457974008BAB2E /* Network */,
 			);
 			path = BusinesLogic;
 			sourceTree = "<group>";
@@ -207,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				950378722A44226900DDC848 /* ContentView.swift */,
+				9583AF4B2A457BBC008BAB2E /* ContainerViewModel.swift */,
 				950378792A44226A00DDC848 /* Persistence.swift */,
 			);
 			path = Flow;
@@ -372,14 +392,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9583AF482A4579C8008BAB2E /* Auth.swift in Sources */,
 				9503787A2A44226A00DDC848 /* Persistence.swift in Sources */,
 				9583AF372A45760C008BAB2E /* ErrorParser.swift in Sources */,
+				9583AF462A45797B008BAB2E /* AuthRequestFactory.swift in Sources */,
 				9583AF412A4578D8008BAB2E /* LoginResult.swift in Sources */,
 				950378732A44226900DDC848 /* ContentView.swift in Sources */,
 				9583AF392A457619008BAB2E /* ResponseCodable.swift in Sources */,
 				9583AF3B2A457627008BAB2E /* AbstractRequestFactory.swift in Sources */,
+				9583AF4C2A457BBC008BAB2E /* ContainerViewModel.swift in Sources */,
 				9583AF352A457605008BAB2E /* AbstractErrorParser.swift in Sources */,
 				9503787D2A44226A00DDC848 /* GBShop.xcdatamodeld in Sources */,
+				9583AF4A2A457A83008BAB2E /* RequestFactory.swift in Sources */,
 				950378712A44226900DDC848 /* GBShopApp.swift in Sources */,
 				9583AF3D2A45762F008BAB2E /* RequestRouter.swift in Sources */,
 				9583AF432A4578E2008BAB2E /* User.swift in Sources */,
