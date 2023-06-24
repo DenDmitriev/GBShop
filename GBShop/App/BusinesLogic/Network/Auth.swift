@@ -75,7 +75,7 @@ extension Auth {
     struct ChangeUserData: RequestRouter {
         let baseUrl: URL
         let method: HTTPMethod = .get
-        let path: String = "register.json"
+        let path: String = "changeUserData.json"
         let userId: Int
         let login: String
         let password: String
@@ -85,12 +85,12 @@ extension Auth {
         let bio: String
         var parameters: Parameters? {
             return [
-                "userId": userId,
+                "id_user": userId,
                 "username": login,
                 "password": password,
                 "email": email,
                 "gender": gender,
-                "creditCard": creditCard,
+                "credit_card": creditCard,
                 "bio": bio
             ]
         }
@@ -99,7 +99,7 @@ extension Auth {
     struct RegisterUser: RequestRouter {
         let baseUrl: URL
         let method: HTTPMethod = .get
-        let path: String = "register.json"
+        let path: String = "registerUser.json"
         let userId: Int
         let login: String
         let password: String
@@ -109,12 +109,12 @@ extension Auth {
         let bio: String
         var parameters: Parameters? {
             return [
-                "userId": userId,
+                "id_user": userId,
                 "username": login,
                 "password": password,
                 "email": email,
                 "gender": gender,
-                "creditCard": creditCard,
+                "credit_card": creditCard,
                 "bio": bio
             ]
         }
