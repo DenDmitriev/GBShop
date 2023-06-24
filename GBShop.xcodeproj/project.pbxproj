@@ -28,6 +28,9 @@
 		9583AF482A4579C8008BAB2E /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF472A4579C8008BAB2E /* Auth.swift */; };
 		9583AF4A2A457A83008BAB2E /* RequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF492A457A83008BAB2E /* RequestFactory.swift */; };
 		9583AF4C2A457BBC008BAB2E /* ContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF4B2A457BBC008BAB2E /* ContainerViewModel.swift */; };
+		9583AF4E2A4635AD008BAB2E /* LogoutResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF4D2A4635AD008BAB2E /* LogoutResult.swift */; };
+		9583AF502A46360D008BAB2E /* RegisterUserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF4F2A46360D008BAB2E /* RegisterUserResult.swift */; };
+		9583AF522A463624008BAB2E /* ChangeUserDataResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF512A463624008BAB2E /* ChangeUserDataResult.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +74,9 @@
 		9583AF472A4579C8008BAB2E /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		9583AF492A457A83008BAB2E /* RequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFactory.swift; sourceTree = "<group>"; };
 		9583AF4B2A457BBC008BAB2E /* ContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewModel.swift; sourceTree = "<group>"; };
+		9583AF4D2A4635AD008BAB2E /* LogoutResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutResult.swift; sourceTree = "<group>"; };
+		9583AF4F2A46360D008BAB2E /* RegisterUserResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserResult.swift; sourceTree = "<group>"; };
+		9583AF512A463624008BAB2E /* ChangeUserDataResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserDataResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -244,6 +250,9 @@
 			isa = PBXGroup;
 			children = (
 				9583AF402A4578D8008BAB2E /* LoginResult.swift */,
+				9583AF4D2A4635AD008BAB2E /* LogoutResult.swift */,
+				9583AF4F2A46360D008BAB2E /* RegisterUserResult.swift */,
+				9583AF512A463624008BAB2E /* ChangeUserDataResult.swift */,
 				9583AF422A4578E2008BAB2E /* User.swift */,
 			);
 			path = Entity;
@@ -398,10 +407,13 @@
 				9583AF462A45797B008BAB2E /* AuthRequestFactory.swift in Sources */,
 				9583AF412A4578D8008BAB2E /* LoginResult.swift in Sources */,
 				950378732A44226900DDC848 /* ContentView.swift in Sources */,
+				9583AF4E2A4635AD008BAB2E /* LogoutResult.swift in Sources */,
 				9583AF392A457619008BAB2E /* ResponseCodable.swift in Sources */,
 				9583AF3B2A457627008BAB2E /* AbstractRequestFactory.swift in Sources */,
 				9583AF4C2A457BBC008BAB2E /* ContainerViewModel.swift in Sources */,
 				9583AF352A457605008BAB2E /* AbstractErrorParser.swift in Sources */,
+				9583AF522A463624008BAB2E /* ChangeUserDataResult.swift in Sources */,
+				9583AF502A46360D008BAB2E /* RegisterUserResult.swift in Sources */,
 				9503787D2A44226A00DDC848 /* GBShop.xcdatamodeld in Sources */,
 				9583AF4A2A457A83008BAB2E /* RequestFactory.swift in Sources */,
 				950378712A44226900DDC848 /* GBShopApp.swift in Sources */,
