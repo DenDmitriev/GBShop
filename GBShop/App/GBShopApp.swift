@@ -13,7 +13,7 @@ struct GBShopApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(viewModel: ContainerViewModel())
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
