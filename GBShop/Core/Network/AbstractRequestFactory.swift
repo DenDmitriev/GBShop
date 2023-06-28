@@ -25,6 +25,7 @@ extension AbstractRequestFactory {
     public func request<T: Decodable>(
         request: URLRequestConvertible,
         completionHandler: @escaping (AFDataResponse<T>) -> Void) -> DataRequest {
+            print(request.urlRequest)
             return sessionManager
                 .request(request)
                 .responseCodable(errorParser: errorParser,
