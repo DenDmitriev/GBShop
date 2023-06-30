@@ -12,7 +12,40 @@ class ContainerViewModel: ObservableObject {
     let requestFactory = RequestFactory()
     
     init() {
-        authRequest()
+//        authRequest()
+        productRequest()
+    }
+    
+    func productRequest() {
+        let productRequest = requestFactory.makeProductRequestFatory()
+        
+        productRequest.categories { response in
+            switch response.result {
+            case .success(let categories):
+                print(categories)
+                categories.forEach { category in
+                    productRequest.products(by: category.id, page: .zero) { response in
+                        switch response.result {
+                        case .success(let products):
+                            print(products)
+                        case .failure(let error):
+                            print(error.localizedDescription)
+                        }
+                    }
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
+        productRequest.product(id: UUID(uuidString: "2DE48542-FBD2-44D4-9A16-1A10D99887C4")!) { response in
+            switch response.result {
+            case .success(let productResult):
+                print(productResult.product)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     func authRequest() {

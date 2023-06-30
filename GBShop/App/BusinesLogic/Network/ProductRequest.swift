@@ -12,8 +12,8 @@ class ProductRequest: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
     let sessionManager: Session
     let queue: DispatchQueue
-    //    let baseUrl = URL(string: "http://127.0.0.1:8080")!
-    let baseUrl = URL(string: "https://gbshopbackend-denisdmitriev.amvera.io/")!
+        let baseUrl = URL(string: "http://127.0.0.1:8080")!
+//    let baseUrl = URL(string: "https://gbshopbackend-denisdmitriev.amvera.io")!
     
     init(errorParser: AbstractErrorParser,
          sessionManager: Session,
@@ -32,6 +32,7 @@ extension ProductRequest: ProductRequestFactory {
     
     func products(by categoryID: UUID, page: Int, completionHandler: @escaping (AFDataResponse<ProductsByCategoryResult>) -> Void) {
         let requestModel = ProductsByCategory(baseUrl: baseUrl, page: page, categoryID: categoryID)
+        print(requestModel.urlRequest)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
@@ -60,7 +61,7 @@ extension ProductRequest {
         var parameters: Parameters? {
             return [
                 "page": page,
-                "categoryID": categoryID
+                "category": categoryID
             ]
         }
     }
