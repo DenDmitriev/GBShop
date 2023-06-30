@@ -31,7 +31,11 @@
 		9583AF4E2A4635AD008BAB2E /* LogoutResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF4D2A4635AD008BAB2E /* LogoutResult.swift */; };
 		9583AF502A46360D008BAB2E /* RegisterUserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF4F2A46360D008BAB2E /* RegisterUserResult.swift */; };
 		9583AF522A463624008BAB2E /* ChangeUserDataResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF512A463624008BAB2E /* ChangeUserDataResult.swift */; };
-		9583AF542A49BC6F008BAB2E /* AuthTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF532A49BC6F008BAB2E /* AuthTest.swift */; };
+		9583AF542A49BC6F008BAB2E /* ResponseCodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF532A49BC6F008BAB2E /* ResponseCodableTests.swift */; };
+		9583AF5D2A4C5490008BAB2E /* PostStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF5C2A4C5490008BAB2E /* PostStub.swift */; };
+		9583AF5F2A4C54B8008BAB2E /* ErrorParserStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF5E2A4C54B8008BAB2E /* ErrorParserStub.swift */; };
+		9583AF612A4C54D0008BAB2E /* ApiErrorStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF602A4C54D0008BAB2E /* ApiErrorStub.swift */; };
+		9583AF632A4D5311008BAB2E /* AuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF622A4D5311008BAB2E /* AuthTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,10 +82,14 @@
 		9583AF4D2A4635AD008BAB2E /* LogoutResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutResult.swift; sourceTree = "<group>"; };
 		9583AF4F2A46360D008BAB2E /* RegisterUserResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserResult.swift; sourceTree = "<group>"; };
 		9583AF512A463624008BAB2E /* ChangeUserDataResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserDataResult.swift; sourceTree = "<group>"; };
-		9583AF532A49BC6F008BAB2E /* AuthTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTest.swift; sourceTree = "<group>"; };
+		9583AF532A49BC6F008BAB2E /* ResponseCodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseCodableTests.swift; sourceTree = "<group>"; };
 		9583AF592A49C6A3008BAB2E /* UITestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UITestPlan.xctestplan; sourceTree = "<group>"; };
 		9583AF5A2A49C6E0008BAB2E /* UnitTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UnitTestPlan.xctestplan; sourceTree = "<group>"; };
 		9583AF5B2A49C777008BAB2E /* FullTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = FullTestPlan.xctestplan; sourceTree = "<group>"; };
+		9583AF5C2A4C5490008BAB2E /* PostStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStub.swift; sourceTree = "<group>"; };
+		9583AF5E2A4C54B8008BAB2E /* ErrorParserStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorParserStub.swift; sourceTree = "<group>"; };
+		9583AF602A4C54D0008BAB2E /* ApiErrorStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiErrorStub.swift; sourceTree = "<group>"; };
+		9583AF622A4D5311008BAB2E /* AuthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,7 +163,11 @@
 			children = (
 				9583AF5B2A49C777008BAB2E /* FullTestPlan.xctestplan */,
 				950378862A44226A00DDC848 /* GBShopTests.swift */,
-				9583AF532A49BC6F008BAB2E /* AuthTest.swift */,
+				9583AF532A49BC6F008BAB2E /* ResponseCodableTests.swift */,
+				9583AF622A4D5311008BAB2E /* AuthTests.swift */,
+				9583AF602A4C54D0008BAB2E /* ApiErrorStub.swift */,
+				9583AF5C2A4C5490008BAB2E /* PostStub.swift */,
+				9583AF5E2A4C54B8008BAB2E /* ErrorParserStub.swift */,
 				9583AF5A2A49C6E0008BAB2E /* UnitTestPlan.xctestplan */,
 			);
 			path = GBShopTests;
@@ -436,7 +448,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				950378872A44226A00DDC848 /* GBShopTests.swift in Sources */,
-				9583AF542A49BC6F008BAB2E /* AuthTest.swift in Sources */,
+				9583AF632A4D5311008BAB2E /* AuthTests.swift in Sources */,
+				9583AF612A4C54D0008BAB2E /* ApiErrorStub.swift in Sources */,
+				9583AF5F2A4C54B8008BAB2E /* ErrorParserStub.swift in Sources */,
+				9583AF542A49BC6F008BAB2E /* ResponseCodableTests.swift in Sources */,
+				9583AF5D2A4C5490008BAB2E /* PostStub.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

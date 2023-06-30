@@ -12,9 +12,8 @@ class Auth: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
     let sessionManager: Session
     let queue: DispatchQueue
-//    let baseUrl = URL(string: "https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/")!
-    let baseUrl = URL(string: "http://127.0.0.1:8080")!
-//    let baseUrl = URL(string: "https://gbshopbackend-denisdmitriev.amvera.io/")!
+//    let baseUrl = URL(string: "http://127.0.0.1:8080")!
+    let baseUrl = URL(string: "https://gbshopbackend-denisdmitriev.amvera.io/")!
     
     init(errorParser: AbstractErrorParser,
          sessionManager: Session,
