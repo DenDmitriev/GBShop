@@ -38,14 +38,14 @@ class ContainerViewModel: ObservableObject {
             }
         }
         
-        productRequest.product(id: UUID(uuidString: "2DE48542-FBD2-44D4-9A16-1A10D99887C4")!) { response in
-            switch response.result {
-            case .success(let productResult):
-                print(productResult.product)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+//        productRequest.product(id: UUID(uuidString: "2DE48542-FBD2-44D4-9A16-1A10D99887C4")!) { response in
+//            switch response.result {
+//            case .success(let productResult):
+//                print(productResult.product)
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        }
     }
     
     func authRequest() {

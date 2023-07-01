@@ -23,7 +23,7 @@ import XCTest
  }
  */
 
-final class AuthTests: XCTestCase {
+final class AuthRequestTests: XCTestCase {
     
     var requestFactory: RequestFactory!
     var request: AuthRequestFactory!
