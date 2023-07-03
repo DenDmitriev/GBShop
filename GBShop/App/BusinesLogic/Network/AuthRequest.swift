@@ -25,8 +25,8 @@ class AuthRequest: AbstractRequestFactory {
 }
 
 extension AuthRequest: AuthRequestFactory {
-    func login(login: String, password: String, completionHandler: @escaping (AFDataResponse<LoginResult>) -> Void) {
-        let requestModel = Login(baseUrl: baseUrl, login: login, password: password)
+    func login(email: String, password: String, completionHandler: @escaping (AFDataResponse<LoginResult>) -> Void) {
+        let requestModel = Login(baseUrl: baseUrl, email: email, password: password, encoding: .auth(username: email, password: password))
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
@@ -35,13 +35,13 @@ extension AuthRequest: AuthRequestFactory {
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
-    func registerUser(user: User, completionHandler: @escaping (AFDataResponse<RegisterUserResult>) -> Void) {
-        let requestModel = RegisterUser(baseUrl: baseUrl, user: user)
+    func registerUser(create: User.Create, completionHandler: @escaping (AFDataResponse<RegisterUserResult>) -> Void) {
+        let requestModel = RegisterUser(baseUrl: baseUrl, create: create)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
-    func changeUserData(user: User, completionHandler: @escaping (AFDataResponse<ChangeUserDataResult>) -> Void) {
-        let requestModel = ChangeUserData(baseUrl: baseUrl, user: user)
+    func changeUserData(update: User.Update, completionHandler: @escaping (AFDataResponse<ChangeUserDataResult>) -> Void) {
+        let requestModel = ChangeUserData(baseUrl: baseUrl, update: update)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 }
@@ -50,21 +50,17 @@ extension AuthRequest {
     struct Login: RequestRouter {
         let baseUrl: URL
         let method: HTTPMethod = .post
-        let path: String = "/users/authorization"
-        let login: String
+        let path: String = "/login"
+        let email: String
         let password: String
-        var parameters: Parameters? {
-            return [
-                "login": login,
-                "password": password
-            ]
-        }
+        var encoding: RequestRouterEncoding
+        var parameters: Parameters?
     }
     
     struct LogoutUser: RequestRouter {
         let baseUrl: URL
         let method: HTTPMethod = .post
-        let path: String = "/users/logout"
+        let path: String = "/logout"
         let userId: UUID
         var parameters: Parameters? {
             return [
@@ -77,18 +73,13 @@ extension AuthRequest {
         let baseUrl: URL
         let method: HTTPMethod = .post
         let path: String = "/users/update"
-        let user: User
+        let update: User.Update
         var parameters: Parameters? {
             return [
-                "id": user.id,
-                "login": user.login,
-                "name": user.name,
-                "lastname": user.lastname,
-                "password": user.password,
-                "email": user.email,
-                "gender": user.gender,
-                "creditCard": user.creditCard,
-                "bio": user.bio
+                "id": update.id,
+                "name": update.name,
+                "email": update.email,
+                "creditCard": update.creditCard,
             ]
         }
     }
@@ -97,18 +88,14 @@ extension AuthRequest {
         let baseUrl: URL
         let method: HTTPMethod = .post
         let path: String = "/users/register"
-        let user: User
+        let create: User.Create
         var parameters: Parameters? {
             return [
-                "id": user.id,
-                "login": user.login,
-                "name": user.name,
-                "lastname": user.lastname,
-                "password": user.password,
-                "email": user.email,
-                "gender": user.gender,
-                "creditCard": user.creditCard,
-                "bio": user.bio
+                "name": create.name,
+                "password": create.password,
+                "confirmPassword": create.confirmPassword,
+                "email": create.email,
+                "creditCard": create.creditCard
             ]
         }
     }

@@ -15,7 +15,7 @@ struct ContentView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Item>
-    @ObservedObject var viewModel: ContainerViewModel
+    @ObservedObject var viewModel: ContentViewModel
 
     var body: some View {
         NavigationView {
@@ -84,6 +84,6 @@ private let itemFormatter: DateFormatter = {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(viewModel: ContainerViewModel()).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        ContentView(viewModel: ContentViewModel()).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
