@@ -18,15 +18,14 @@ class AuthViewModel: ObservableObject {
         
         auth.login(email: login, password: password) { response in
             switch response.result {
-            case .success(let login):
+            case .success(let loginResult):
                 DispatchQueue.main.async {
-                    if login.result == .zero {
-                        self.errorMessage = login.errorMessage
-                    } else if let name = login.user?.name {
-                        self.userMessage = "Welcome, \(name)!"
+                    if loginResult.result == .zero {
+                        self.errorMessage = loginResult.errorMessage
+                    } else if let login = loginResult.user {
+                        self.userMessage = "Welcome, \(login.name)!"
                         self.errorMessage = nil
-                        
-                        self.createSession(for: login.user)
+                        self.createSession(by: login)
                     }
                 }
             case .failure(let error):
@@ -38,7 +37,7 @@ class AuthViewModel: ObservableObject {
     }
     
     
-    func createSession(for user: User?) {
-        UserSession.shared.create(user: user)
+    func createSession(by login: User.Login?) {
+        try? UserSession.shared.create(login: login)
     }
 }

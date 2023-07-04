@@ -9,7 +9,10 @@ import SwiftUI
 
 struct RegistrationView: View {
     
-    @ObservedObject private var viewModel: RegistrationViewModel
+    @ObservedObject private var viewModel = RegistrationViewModel()
+    
+    @Binding var isShowing: Bool
+    
     @State private var name: String = ""
     @State private var email: String = ""
     @State private var password: String = ""
@@ -26,10 +29,6 @@ struct RegistrationView: View {
     @FocusState var isCreditCardFocused: Bool
     
     @State private var isRegisterAllow: Bool = false
-    
-    init() {
-        self.viewModel =  RegistrationViewModel()
-    }
     
     var body: some View {
         VStack {
@@ -80,20 +79,24 @@ struct RegistrationView: View {
                                              password: password,
                                              confirmPassword: password,
                                              creditCard: creditCard)
-                    viewModel.registration(create: create)
+                    viewModel.registration(create: create, isShowing: $isShowing)
                 }
                 .buttonStyle(.borderedProminent)
                 .font(.headline)
             }
             
-            Text(errorMessage)
-                .foregroundColor(.red)
-                .frame(maxHeight: .infinity, alignment: .topLeading)
-                .onReceive(viewModel.$message) { message in
-                    if let message = message {
-                        self.errorMessage = message
-                    }
+            HStack {
+                Text(errorMessage)
+                    .foregroundColor(.red)
+                    .frame(maxHeight: .infinity, alignment: .topLeading)
+                    .onReceive(viewModel.$message) { message in
+                        if let message = message {
+                            self.errorMessage = message
+                        }
                 }
+                
+                Spacer()
+            }
         }
         .padding(.horizontal, 32.0)
     }
@@ -101,6 +104,6 @@ struct RegistrationView: View {
 
 struct Registration_Previews: PreviewProvider {
     static var previews: some View {
-        RegistrationView()
+        RegistrationView(isShowing: Binding<Bool>.constant(true))
     }
 }

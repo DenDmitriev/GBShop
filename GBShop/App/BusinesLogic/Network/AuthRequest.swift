@@ -25,8 +25,13 @@ class AuthRequest: AbstractRequestFactory {
 }
 
 extension AuthRequest: AuthRequestFactory {
+    func me(token: String, completionHandler: @escaping (AFDataResponse<MeResult>) -> Void) {
+        let requestModel = Me(baseUrl: baseUrl, encoding: .bearer(token: token))
+        self.request(request: requestModel, completionHandler: completionHandler)
+    }
+    
     func login(email: String, password: String, completionHandler: @escaping (AFDataResponse<LoginResult>) -> Void) {
-        let requestModel = Login(baseUrl: baseUrl, email: email, password: password, encoding: .auth(username: email, password: password))
+        let requestModel = Login(baseUrl: baseUrl, email: email, password: password, encoding: .basicAuth(username: email, password: password))
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
@@ -47,6 +52,14 @@ extension AuthRequest: AuthRequestFactory {
 }
 
 extension AuthRequest {
+    struct Me: RequestRouter {
+        var baseUrl: URL
+        var method: HTTPMethod = .get
+        var path: String = "/me"
+        var parameters: Parameters?
+        var encoding: RequestRouterEncoding
+    }
+    
     struct Login: RequestRouter {
         let baseUrl: URL
         let method: HTTPMethod = .post

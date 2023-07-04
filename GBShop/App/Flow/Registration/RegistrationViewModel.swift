@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import SwiftUI
 
 class RegistrationViewModel: ObservableObject {
     
     let requestFactory = RequestFactory()
     @Published var message: String?
     
-    func registration(create: User.Create) {
+    func registration(create: User.Create, isShowing: Binding<Bool>) {
         let auth = requestFactory.makeAuthRequestFatory()
         auth.registerUser(create: create) { response in
             switch response.result {
@@ -22,6 +23,7 @@ class RegistrationViewModel: ObservableObject {
                         self.message = result.errorMessage
                     } else {
                         self.message = result.userMessage
+                        isShowing.wrappedValue.toggle()
                     }
                 }
                 

@@ -10,20 +10,40 @@ import Foundation
 struct User: Codable {
     let id: UUID
     var name: String
-    var password: String?
     var email: String
     var creditCard: String
     
-    enum CodingKeys: String, CodingKey {
-        case id = "id"
-        case name = "name"
-        case password = "password"
-        case email = "email"
-        case creditCard = "creditCard"
+    init(from login: User.Login) {
+        self.id = login.id
+        self.name = login.name
+        self.email = login.email
+        self.creditCard = login.creditCard
+    }
+    
+    init(from me: User.Public) {
+        self.id = me.id
+        self.name = me.name
+        self.email = me.email
+        self.creditCard = me.creditCard
     }
 }
 
 extension User {
+    struct Public: Codable {
+        let id: UUID
+        var name: String
+        var email: String
+        var creditCard: String
+    }
+    
+    struct Login: Codable {
+        let id: UUID
+        var name: String
+        var email: String
+        var creditCard: String
+        let token: String
+    }
+    
     struct Create: Codable {
         let name: String
         let email: String
