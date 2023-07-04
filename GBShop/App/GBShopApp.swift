@@ -10,23 +10,13 @@ import SwiftUI
 @main
 struct GBShopApp: App {
     
-    let persistenceController = PersistenceController.shared
+//    let persistenceController = PersistenceController.shared
     
-    @ObservedObject var userSession = UserSession.shared
-
     var body: some Scene {
         WindowGroup {
-            /*
             ContentView(viewModel: ContentViewModel())
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-             */
+            // .environment(\.managedObjectContext, persistenceController.container.viewContext)
             
-            switch userSession.isAuth {
-            case true:
-                MainTabView()
-            case false:
-                AuthView()
-            }
         }
     }
 }

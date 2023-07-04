@@ -62,7 +62,7 @@ class UserViewModel: ObservableObject {
     }
     
     private func endSession() {
-        UserSession.shared.close()
+        try? UserSession.shared.close()
     }
     
     private func updateUserDataSession(user: User) {

@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 enum RequestRouterEncoding {
-    case url, json, auth(username: String, password: String)
+    case url, json, basicAuth(username: String, password: String), bearer(token: String)
 }
 
 protocol RequestRouter: URLRequestConvertible {
@@ -34,11 +34,14 @@ extension RequestRouter {
         var urlRequest = URLRequest(url: fullUrl)
         urlRequest.httpMethod = method.rawValue
         switch self.encoding {
+        case .bearer(token: let token):
+            urlRequest.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            return try URLEncoding.default.encode(urlRequest, with: parameters)
         case .url:
             return try URLEncoding.default.encode(urlRequest, with: parameters)
         case .json:
             return try JSONEncoding.default.encode(urlRequest, with: parameters)
-        case .auth(username: let username, password: let password):
+        case .basicAuth(username: let username, password: let password):
             let authData = (username + ":" + password).data(using: .utf8)!.base64EncodedString()
             urlRequest.addValue("Basic \(authData)", forHTTPHeaderField: "Authorization")
             return try URLEncoding.default.encode(urlRequest, with: parameters)

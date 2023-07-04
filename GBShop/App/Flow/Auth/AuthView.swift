@@ -18,6 +18,8 @@ struct AuthView: View {
     @FocusState var isEmailFocused: Bool
     @FocusState var isPasswordFocused: Bool
     
+    @State var isRegistration: Bool = false
+    
     init() {
         self.viewModel = AuthViewModel()
     }
@@ -46,8 +48,7 @@ struct AuthView: View {
                             isPasswordFocused.toggle()
                         }
                     
-                    SecureField("Password", text: $p
-                                assword)
+                    SecureField("Password", text: $password)
                         .textContentType(.password)
                         .font(.title3)
                         .focused($isPasswordFocused)
@@ -62,8 +63,8 @@ struct AuthView: View {
                         .buttonStyle(.borderedProminent)
                         .font(.headline)
                         
-                        NavigationLink("Registration") {
-                            RegistrationView()
+                        NavigationLink("Registration", isActive: $isRegistration) {
+                            RegistrationView(isShowing: $isRegistration)
                                 .navigationTitle("Registration")
                                 .navigationBarTitleDisplayMode(.large)
                         }
