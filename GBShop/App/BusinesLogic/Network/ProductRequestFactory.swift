@@ -13,6 +13,7 @@ protocol ProductRequestFactory {
 
     func products(by categoryID: UUID,
                   page: Int,
+                  per: Int,
                   completionHandler: @escaping (AFDataResponse<ProductsByCategoryResult>) -> Void)
 
     func product(id: UUID,

@@ -46,6 +46,7 @@
 		951794C02A5411160094C886 /* UserDefaultsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951794BF2A5411160094C886 /* UserDefaultsStore.swift */; };
 		951794C22A5419CD0094C886 /* MeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951794C12A5419CD0094C886 /* MeResult.swift */; };
 		952FBC8F2A553EF400874A49 /* GBShopAppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952FBC8E2A553EF400874A49 /* GBShopAppViewModel.swift */; };
+		955DDEDB2A55C1B3008F9F65 /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955DDEDA2A55C1B3008F9F65 /* Metadata.swift */; };
 		9583AF332A4575D8008BAB2E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 9583AF322A4575D8008BAB2E /* Alamofire */; };
 		9583AF352A457605008BAB2E /* AbstractErrorParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF342A457605008BAB2E /* AbstractErrorParser.swift */; };
 		9583AF372A45760C008BAB2E /* ErrorParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583AF362A45760C008BAB2E /* ErrorParser.swift */; };
@@ -128,6 +129,7 @@
 		951794BF2A5411160094C886 /* UserDefaultsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStore.swift; sourceTree = "<group>"; };
 		951794C12A5419CD0094C886 /* MeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeResult.swift; sourceTree = "<group>"; };
 		952FBC8E2A553EF400874A49 /* GBShopAppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GBShopAppViewModel.swift; sourceTree = "<group>"; };
+		955DDEDA2A55C1B3008F9F65 /* Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metadata.swift; sourceTree = "<group>"; };
 		9583AF342A457605008BAB2E /* AbstractErrorParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractErrorParser.swift; sourceTree = "<group>"; };
 		9583AF362A45760C008BAB2E /* ErrorParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorParser.swift; sourceTree = "<group>"; };
 		9583AF382A457619008BAB2E /* ResponseCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseCodable.swift; sourceTree = "<group>"; };
@@ -467,6 +469,7 @@
 			isa = PBXGroup;
 			children = (
 				9583AF422A4578E2008BAB2E /* User.swift */,
+				955DDEDA2A55C1B3008F9F65 /* Metadata.swift */,
 				951794772A4F17390094C886 /* Product */,
 				951794762A4F172E0094C886 /* Auth */,
 			);
@@ -669,6 +672,7 @@
 				951794B72A53F2AA0094C886 /* SecureStore.swift in Sources */,
 				9517947F2A4F1A170094C886 /* ProductResult.swift in Sources */,
 				9583AF522A463624008BAB2E /* ChangeUserDataResult.swift in Sources */,
+				955DDEDB2A55C1B3008F9F65 /* Metadata.swift in Sources */,
 				9517948C2A52890B0094C886 /* RegistrationViewModel.swift in Sources */,
 				951794962A52A9A50094C886 /* UserSession.swift in Sources */,
 				951794832A5203FF0094C886 /* AuthView.swift in Sources */,

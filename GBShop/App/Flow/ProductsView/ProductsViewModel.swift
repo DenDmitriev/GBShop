@@ -27,7 +27,7 @@ class ProductsViewModel: ObservableObject {
 
     func getProducts() {
         let productRequest = requestFactory.makeProductRequestFactory()
-        productRequest.products(by: category.id, page: .zero) { response in
+        productRequest.products(by: category.id, page: .zero, per: .zero) { response in
             switch response.result {
             case .success(let productsResult):
                 if let products = productsResult.products {

@@ -12,4 +12,5 @@ struct ProductsByCategoryResult: Codable {
     let page: Int?
     let products: [Product]?
     let errorMessage: String?
+    let metadata: Metadata
 }

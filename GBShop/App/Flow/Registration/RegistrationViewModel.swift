@@ -9,18 +9,18 @@ import Foundation
 import SwiftUI
 
 class RegistrationViewModel: ObservableObject {
-    
+
     // MARK: - Properties
-    
+
     @Published var errorMessage: String = ""
     @Published var userMessage: String = ""
-    
+
     private let requestFactory = RequestFactory()
-    
+
     // MARK: - Initialization
-    
+
     // MARK: - Functions
-    
+
     func registration(create: User.Create, isPresentation: Binding<PresentationMode>) {
         let authRequests = requestFactory.makeAuthRequestFactory()
         authRequests.registerUser(create: create) { response in
@@ -36,7 +36,7 @@ class RegistrationViewModel: ObservableObject {
                         }
                     }
                 }
-                
+
             case .failure(let error):
                 DispatchQueue.main.async {
                     self.errorMessage = error.localizedDescription
@@ -44,7 +44,7 @@ class RegistrationViewModel: ObservableObject {
             }
         }
     }
-    
+
     // MARK: - Private functions
-    
+
 }

@@ -32,8 +32,9 @@ extension ProductRequest: ProductRequestFactory {
 
     func products(by categoryID: UUID,
                   page: Int,
+                  per: Int,
                   completionHandler: @escaping (AFDataResponse<ProductsByCategoryResult>) -> Void) {
-        let requestModel = ProductsByCategory(baseUrl: baseUrl, page: page, categoryID: categoryID)
+        let requestModel = ProductsByCategory(baseUrl: baseUrl, page: page, per: per, categoryID: categoryID)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 
@@ -58,10 +59,12 @@ extension ProductRequest {
         var method: HTTPMethod = .get
         var path: String = "/products/category"
         let page: Int
+        let per: Int
         let categoryID: UUID
         var parameters: Parameters? {
             return [
                 "page": page,
+                "per": per,
                 "category": categoryID
             ]
         }
