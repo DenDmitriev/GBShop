@@ -9,15 +9,21 @@ import Foundation
 
 class CatalogViewModel: ObservableObject {
     
+    // MARK: - Properties
+    
     @Published var category: [ProductCategory] = []
     
-    let requestFactory = RequestFactory()
+    private let requestFactory = RequestFactory()
+    
+    // MARK: - Initialization
     
     init() {
-        fetchCatalog()
+        getCatalog()
     }
     
-    func fetchCatalog() {
+    // MARK: - Functions
+    
+    func getCatalog() {
         let productRequest = requestFactory.makeProductRequestFatory()
         productRequest.categories { response in
             switch response.result {
@@ -30,4 +36,6 @@ class CatalogViewModel: ObservableObject {
             }
         }
     }
+    
+    // MARK: - Private functions
 }

@@ -9,14 +9,21 @@ import Foundation
 
 class AuthViewModel: ObservableObject {
     
-    let requestFactory = RequestFactory()
+    // MARK: - Properties
+    
     @Published var userMessage: String?
     @Published var errorMessage: String?
     
+    private let requestFactory = RequestFactory()
+    
+    // MARK: - Initialization
+    
+    // MARK: - Functions
+    
     func login(login: String, password: String) {
-        let auth = requestFactory.makeAuthRequestFatory()
+        let authRequests = requestFactory.makeAuthRequestFatory()
         
-        auth.login(email: login, password: password) { response in
+        authRequests.login(email: login, password: password) { response in
             switch response.result {
             case .success(let loginResult):
                 DispatchQueue.main.async {
@@ -40,4 +47,7 @@ class AuthViewModel: ObservableObject {
     func createSession(by login: User.Login?) {
         try? UserSession.shared.create(login: login)
     }
+    
+    // MARK: - Private functions
+    
 }

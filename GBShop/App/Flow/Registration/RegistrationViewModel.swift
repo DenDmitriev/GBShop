@@ -10,28 +10,39 @@ import SwiftUI
 
 class RegistrationViewModel: ObservableObject {
     
-    let requestFactory = RequestFactory()
-    @Published var message: String?
+    // MARK: - Properties
+    
+    @Published var errorMessage: String = ""
+    @Published var userMessage: String = ""
+    
+    private let requestFactory = RequestFactory()
+    
+    // MARK: - Initialization
+    
+    // MARK: - Functions
     
     func registration(create: User.Create, isShowing: Binding<Bool>) {
-        let auth = requestFactory.makeAuthRequestFatory()
-        auth.registerUser(create: create) { response in
+        let authRequests = requestFactory.makeAuthRequestFatory()
+        authRequests.registerUser(create: create) { response in
             switch response.result {
             case .success(let result):
                 DispatchQueue.main.async {
                     if result.result == .zero {
-                        self.message = result.errorMessage
+                        self.errorMessage = result.errorMessage ?? ""
                     } else {
-                        self.message = result.userMessage
+                        self.userMessage = result.userMessage ?? ""
                         isShowing.wrappedValue.toggle()
                     }
                 }
                 
             case .failure(let error):
                 DispatchQueue.main.async {
-                    self.message = error.localizedDescription
+                    self.errorMessage = error.localizedDescription
                 }
             }
         }
     }
+    
+    // MARK: - Private functions
+    
 }

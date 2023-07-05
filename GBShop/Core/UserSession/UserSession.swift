@@ -12,7 +12,7 @@ class UserSession: ObservableObject {
     static let shared = UserSession()
     
     @Published var isAuth = false
-    let wrapper = KeychainWrapper()
+    let secureStore = SecureStore()
     
     var token: String = ""
     var user: User?
@@ -55,12 +55,12 @@ class UserSession: ObservableObject {
     }
     
     private func saveToken(token: String, for userName: String) throws {
-        try wrapper.setValue(token, for: userName)
+        try secureStore.setValue(token, for: userName)
     }
     
     private func deleteToken() throws {
         if let name = user?.name {
-            try wrapper.removeValue(for: name)
+            try secureStore.removeValue(for: name)
         }
     }
 }

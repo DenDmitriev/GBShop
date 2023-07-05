@@ -20,13 +20,14 @@ struct RegistrationView: View {
     @State private var creditCard: String = ""
     
     @State private var userMessage: String = "Fill fields ✍️"
+    @State private var colorErrorMessage: Color = .red
     @State private var errorMessage: String = ""
     
-    @FocusState var isNameFocused: Bool
-    @FocusState var isEmailFocused: Bool
-    @FocusState var isPasswordFocused: Bool
-    @FocusState var isConfirmPasswordFocused: Bool
-    @FocusState var isCreditCardFocused: Bool
+    @FocusState private var isNameFocused: Bool
+    @FocusState private var isEmailFocused: Bool
+    @FocusState private var isPasswordFocused: Bool
+    @FocusState private var isConfirmPasswordFocused: Bool
+    @FocusState private var isCreditCardFocused: Bool
     
     @State private var isRegisterAllow: Bool = false
     
@@ -87,13 +88,16 @@ struct RegistrationView: View {
             
             HStack {
                 Text(errorMessage)
-                    .foregroundColor(.red)
+                    .foregroundColor(colorErrorMessage)
                     .frame(maxHeight: .infinity, alignment: .topLeading)
-                    .onReceive(viewModel.$message) { message in
-                        if let message = message {
-                            self.errorMessage = message
-                        }
+                    .onReceive(viewModel.$errorMessage) { message in
+                        self.errorMessage = message
+                        self.colorErrorMessage = .red
                 }
+                    .onReceive(viewModel.$userMessage) { message in
+                        self.errorMessage = message
+                        self.colorErrorMessage = .green
+                    }
                 
                 Spacer()
             }

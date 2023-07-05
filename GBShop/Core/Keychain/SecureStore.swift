@@ -1,5 +1,5 @@
 //
-//  KeychainWrapper.swift
+//  SecureStore.swift
 //  GBShop
 //
 //  Created by Denis Dmitriev on 04.07.2023.
@@ -7,14 +7,20 @@
 
 import Foundation
 
-class KeychainWrapper {
+class SecureStore {
     
-    let secureStoreQueryable: SecureStoreQueryable
+    // MARK: - Properties
+    
+    private let secureStoreQueryable: SecureStoreQueryable
+    
+    // MARK: - Initialization
     
     public init() {
         let genericPwdQueryable = GenericPasswordQueryable(service: "MyService")
         self.secureStoreQueryable = genericPwdQueryable
     }
+    
+    // MARK: - Public functions
     
     public func setValue(_ value: String, for userAccount: String) throws {
         guard let encodedPassword = value.data(using: .utf8) else {
@@ -97,6 +103,8 @@ class KeychainWrapper {
         throw error(from: status)
       }
     }
+    
+    // MARK: - Private functions
     
     private func error(from status: OSStatus) -> SecureStoreError {
         let message = SecCopyErrorMessageString(status, nil) as String? ?? NSLocalizedString("Unhandled Error", comment: "")

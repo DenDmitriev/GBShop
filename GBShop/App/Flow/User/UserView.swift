@@ -45,7 +45,7 @@ struct UserView: View {
             
             VStack(alignment: .leading) {
                 Button("Save") {
-                    viewModel.update(name: name,
+                    viewModel.updateUserData(name: name,
                                      email: email,
                                      creditCard: creditCard)
                     isFocused = false

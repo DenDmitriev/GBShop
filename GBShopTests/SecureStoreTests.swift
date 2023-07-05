@@ -9,21 +9,21 @@ import XCTest
 @testable import GBShop
 
 class SecureStoreTests: XCTestCase {
-  var keychainWrapper: KeychainWrapper!
+  var secureStore: SecureStore!
   
   override func setUp() {
     super.setUp()
-      keychainWrapper = KeychainWrapper()
+      secureStore = SecureStore()
   }
 
   override func tearDown() {
-    try? keychainWrapper.removeAllValues()
+    try? secureStore.removeAllValues()
     super.tearDown()
   }
   
   func testSaveGenericPassword() {
     do {
-      try keychainWrapper.setValue("pwd_1234", for: "genericPassword")
+      try secureStore.setValue("pwd_1234", for: "genericPassword")
     } catch (let e) {
       XCTFail("Saving generic password failed with \(e.localizedDescription).")
     }
@@ -31,8 +31,8 @@ class SecureStoreTests: XCTestCase {
   
   func testReadGenericPassword() {
     do {
-      try keychainWrapper.setValue("pwd_1234", for: "genericPassword")
-      let password = try keychainWrapper.getValue(for: "genericPassword")
+      try secureStore.setValue("pwd_1234", for: "genericPassword")
+      let password = try secureStore.getValue(for: "genericPassword")
       XCTAssertEqual("pwd_1234", password)
     } catch (let e) {
       XCTFail("Reading generic password failed with \(e.localizedDescription).")
@@ -41,9 +41,9 @@ class SecureStoreTests: XCTestCase {
   
   func testUpdateGenericPassword() {
     do {
-      try keychainWrapper.setValue("pwd_1234", for: "genericPassword")
-      try keychainWrapper.setValue("pwd_1235", for: "genericPassword")
-      let password = try keychainWrapper.getValue(for: "genericPassword")
+      try secureStore.setValue("pwd_1234", for: "genericPassword")
+      try secureStore.setValue("pwd_1235", for: "genericPassword")
+      let password = try secureStore.getValue(for: "genericPassword")
       XCTAssertEqual("pwd_1235", password)
     } catch (let e) {
       XCTFail("Updating generic password failed with \(e.localizedDescription).")
@@ -52,9 +52,9 @@ class SecureStoreTests: XCTestCase {
   
   func testRemoveGenericPassword() {
     do {
-      try keychainWrapper.setValue("pwd_1234", for: "genericPassword")
-      try keychainWrapper.removeValue(for: "genericPassword")
-      XCTAssertNil(try keychainWrapper.getValue(for: "genericPassword"))
+      try secureStore.setValue("pwd_1234", for: "genericPassword")
+      try secureStore.removeValue(for: "genericPassword")
+      XCTAssertNil(try secureStore.getValue(for: "genericPassword"))
     } catch (let e) {
       XCTFail("Saving generic password failed with \(e.localizedDescription).")
     }
@@ -62,11 +62,11 @@ class SecureStoreTests: XCTestCase {
   
   func testRemoveAllGenericPasswords() {
     do {
-      try keychainWrapper.setValue("pwd_1234", for: "genericPassword")
-      try keychainWrapper.setValue("pwd_1235", for: "genericPassword2")
-      try keychainWrapper.removeAllValues()
-      XCTAssertNil(try keychainWrapper.getValue(for: "genericPassword"))
-      XCTAssertNil(try keychainWrapper.getValue(for: "genericPassword2"))
+      try secureStore.setValue("pwd_1234", for: "genericPassword")
+      try secureStore.setValue("pwd_1235", for: "genericPassword2")
+      try secureStore.removeAllValues()
+      XCTAssertNil(try secureStore.getValue(for: "genericPassword"))
+      XCTAssertNil(try secureStore.getValue(for: "genericPassword2"))
     } catch (let e) {
       XCTFail("Removing generic passwords failed with \(e.localizedDescription).")
     }
