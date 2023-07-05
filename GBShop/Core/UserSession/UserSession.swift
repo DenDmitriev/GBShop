@@ -8,15 +8,26 @@
 import SwiftUI
 
 class UserSession: ObservableObject {
-    
+
+    // MARK: - Public properties
+
     static let shared = UserSession()
-    
-    @Published var isAuth = false
-    let secureStore = SecureStore()
-    
+
     var token: String = ""
     var user: User?
-    
+
+    @Published var isAuth = false
+
+    // MARK: - Private properties
+
+    private let secureStore = SecureStore()
+
+    // MARK: - Init
+
+    private init() {}
+
+    // MARK: - Public functions
+
     func create(login: User.Login?) throws {
         if let login = login {
             DispatchQueue.main.async {
@@ -28,7 +39,7 @@ class UserSession: ObservableObject {
             try saveToken(token: login.token, for: login.name)
         }
     }
-    
+
     func create(user: User, token: String) throws {
         DispatchQueue.main.async {
             self.user = user
@@ -38,7 +49,7 @@ class UserSession: ObservableObject {
         saveUserName(name: user.name)
         try saveToken(token: token, for: user.name)
     }
-    
+
     func close() throws {
         DispatchQueue.main.async {
             self.isAuth = false
@@ -47,17 +58,17 @@ class UserSession: ObservableObject {
         }
         try deleteToken()
     }
-    
-    // MARK: - Private
-    
+
+    // MARK: - Private functions
+
     private func saveUserName(name: String) {
-        UserDefaultsHelper.userName = name
+        UserDefaultsStore.userName = name
     }
-    
+
     private func saveToken(token: String, for userName: String) throws {
         try secureStore.setValue(token, for: userName)
     }
-    
+
     private func deleteToken() throws {
         if let name = user?.name {
             try secureStore.removeValue(for: name)

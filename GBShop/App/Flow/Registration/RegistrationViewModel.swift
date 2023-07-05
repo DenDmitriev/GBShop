@@ -21,8 +21,8 @@ class RegistrationViewModel: ObservableObject {
     
     // MARK: - Functions
     
-    func registration(create: User.Create, isShowing: Binding<Bool>) {
-        let authRequests = requestFactory.makeAuthRequestFatory()
+    func registration(create: User.Create, isPresentation: Binding<PresentationMode>) {
+        let authRequests = requestFactory.makeAuthRequestFactory()
         authRequests.registerUser(create: create) { response in
             switch response.result {
             case .success(let result):
@@ -31,7 +31,9 @@ class RegistrationViewModel: ObservableObject {
                         self.errorMessage = result.errorMessage ?? ""
                     } else {
                         self.userMessage = result.userMessage ?? ""
-                        isShowing.wrappedValue.toggle()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            isPresentation.wrappedValue.dismiss()
+                        }
                     }
                 }
                 

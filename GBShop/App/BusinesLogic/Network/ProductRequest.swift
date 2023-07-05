@@ -12,9 +12,9 @@ class ProductRequest: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
     let sessionManager: Session
     let queue: DispatchQueue
-//    let baseUrl = URL(string: "http://127.0.0.1:8080")!
-    let baseUrl = URL(string: "https://gbshopbackend-denisdmitriev.amvera.io")!
-    
+    let baseUrl = URL(string: "http://127.0.0.1:8080")!
+//    let baseUrl = URL(string: "https://gbshopbackend-denisdmitriev.amvera.io")!
+
     init(errorParser: AbstractErrorParser,
          sessionManager: Session,
          queue: DispatchQueue = DispatchQueue.global(qos: .utility)) {
@@ -29,12 +29,14 @@ extension ProductRequest: ProductRequestFactory {
         let requestModel = All(baseUrl: baseUrl)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
-    
-    func products(by categoryID: UUID, page: Int, completionHandler: @escaping (AFDataResponse<ProductsByCategoryResult>) -> Void) {
+
+    func products(by categoryID: UUID,
+                  page: Int,
+                  completionHandler: @escaping (AFDataResponse<ProductsByCategoryResult>) -> Void) {
         let requestModel = ProductsByCategory(baseUrl: baseUrl, page: page, categoryID: categoryID)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
-    
+
     func product(id: UUID, completionHandler: @escaping (AFDataResponse<ProductResult>) -> Void) {
         let requestModel = Product(baseUrl: baseUrl, id: id)
         self.request(request: requestModel, completionHandler: completionHandler)
@@ -50,7 +52,7 @@ extension ProductRequest {
             [:]
         }
     }
-    
+
     struct ProductsByCategory: RequestRouter {
         var baseUrl: URL
         var method: HTTPMethod = .get
@@ -64,7 +66,7 @@ extension ProductRequest {
             ]
         }
     }
-    
+
     struct Product: RequestRouter {
         var baseUrl: URL
         var method: HTTPMethod = .get
@@ -73,7 +75,7 @@ extension ProductRequest {
         var parameters: Parameters? {
             [:]
         }
-        
+
         init(baseUrl: URL, id: UUID) {
             self.baseUrl = baseUrl
             self.id = id

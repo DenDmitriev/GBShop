@@ -8,25 +8,25 @@
 import Foundation
 
 class ProductsViewModel: ObservableObject {
-    
+
     // MARK: - Properties
-    
+
     @Published var products: [Product] = []
-    
+
     private let category: ProductCategory
     private let requestFactory = RequestFactory()
-    
+
     // MARK: - Initialization
-    
+
     init(category: ProductCategory) {
         self.category = category
         getProducts()
     }
-    
+
     // MARK: - Functions
-    
+
     func getProducts() {
-        let productRequest = requestFactory.makeProductRequestFatory()
+        let productRequest = requestFactory.makeProductRequestFactory()
         productRequest.products(by: category.id, page: .zero) { response in
             switch response.result {
             case .success(let productsResult):
@@ -40,7 +40,7 @@ class ProductsViewModel: ObservableObject {
             }
         }
     }
-    
+
     // MARK: - Private functions
-    
+
 }

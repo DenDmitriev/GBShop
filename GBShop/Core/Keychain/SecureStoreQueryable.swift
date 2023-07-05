@@ -14,7 +14,7 @@ public protocol SecureStoreQueryable {
 public struct GenericPasswordQueryable {
   let service: String
   let accessGroup: String?
-  
+
   init(service: String, accessGroup: String? = nil) {
     self.service = service
     self.accessGroup = accessGroup

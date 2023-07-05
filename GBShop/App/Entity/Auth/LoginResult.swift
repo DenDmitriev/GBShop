@@ -12,4 +12,3 @@ struct LoginResult: Codable {
     let user: User.Login?
     let errorMessage: String?
 }
-

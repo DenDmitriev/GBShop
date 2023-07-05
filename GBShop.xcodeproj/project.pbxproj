@@ -43,7 +43,7 @@
 		951794B92A5405600094C886 /* SecureStoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951794B82A5405600094C886 /* SecureStoreError.swift */; };
 		951794BB2A540C400094C886 /* SecureStoreQueryable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951794BA2A540C400094C886 /* SecureStoreQueryable.swift */; };
 		951794BD2A540E130094C886 /* SecureStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951794BC2A540E130094C886 /* SecureStoreTests.swift */; };
-		951794C02A5411160094C886 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951794BF2A5411160094C886 /* UserDefaultsHelper.swift */; };
+		951794C02A5411160094C886 /* UserDefaultsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951794BF2A5411160094C886 /* UserDefaultsStore.swift */; };
 		951794C22A5419CD0094C886 /* MeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951794C12A5419CD0094C886 /* MeResult.swift */; };
 		952FBC8F2A553EF400874A49 /* GBShopAppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952FBC8E2A553EF400874A49 /* GBShopAppViewModel.swift */; };
 		9583AF332A4575D8008BAB2E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 9583AF322A4575D8008BAB2E /* Alamofire */; };
@@ -125,7 +125,7 @@
 		951794B82A5405600094C886 /* SecureStoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStoreError.swift; sourceTree = "<group>"; };
 		951794BA2A540C400094C886 /* SecureStoreQueryable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStoreQueryable.swift; sourceTree = "<group>"; };
 		951794BC2A540E130094C886 /* SecureStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStoreTests.swift; sourceTree = "<group>"; };
-		951794BF2A5411160094C886 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
+		951794BF2A5411160094C886 /* UserDefaultsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStore.swift; sourceTree = "<group>"; };
 		951794C12A5419CD0094C886 /* MeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeResult.swift; sourceTree = "<group>"; };
 		952FBC8E2A553EF400874A49 /* GBShopAppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GBShopAppViewModel.swift; sourceTree = "<group>"; };
 		9583AF342A457605008BAB2E /* AbstractErrorParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractErrorParser.swift; sourceTree = "<group>"; };
@@ -361,7 +361,7 @@
 		951794BE2A5410B20094C886 /* UserDefaults */ = {
 			isa = PBXGroup;
 			children = (
-				951794BF2A5411160094C886 /* UserDefaultsHelper.swift */,
+				951794BF2A5411160094C886 /* UserDefaultsStore.swift */,
 			);
 			path = UserDefaults;
 			sourceTree = "<group>";
@@ -490,6 +490,7 @@
 				950378692A44226900DDC848 /* Sources */,
 				9503786A2A44226900DDC848 /* Frameworks */,
 				9503786B2A44226900DDC848 /* Resources */,
+				955DDED82A5585BF008F9F65 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -611,12 +612,32 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		955DDED82A5585BF008F9F65 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		950378692A44226900DDC848 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				951794C02A5411160094C886 /* UserDefaultsHelper.swift in Sources */,
+				951794C02A5411160094C886 /* UserDefaultsStore.swift in Sources */,
 				951794AE2A52F31D0094C886 /* ProductView.swift in Sources */,
 				951794732A4F15DD0094C886 /* ProductRequest.swift in Sources */,
 				951794B02A52F3240094C886 /* ProductViewModel.swift in Sources */,

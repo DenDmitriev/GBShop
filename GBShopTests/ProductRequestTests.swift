@@ -10,15 +10,15 @@ import XCTest
 @testable import GBShop
 
 final class ProductRequestTests: XCTestCase {
-    
+
     var requestFactory: RequestFactory!
     var request: ProductRequestFactory!
     let expectation = XCTestExpectation(description: "userRequests")
-    
+
     override func setUpWithError() throws {
         super.setUp()
         requestFactory = RequestFactory()
-        request = requestFactory.makeProductRequestFatory()
+        request = requestFactory.makeProductRequestFactory()
     }
 
     override func tearDownWithError() throws {
@@ -26,7 +26,7 @@ final class ProductRequestTests: XCTestCase {
         request = nil
         requestFactory = nil
     }
-    
+
     func testProduct() {
         request.product(id: UUID(uuidString: "2DE48542-FBD2-44D4-9A16-1A10D99887C4")!) { response in
             switch response.result {
@@ -39,7 +39,7 @@ final class ProductRequestTests: XCTestCase {
         }
         wait(for: [expectation], timeout: 5.0)
     }
-    
+
     func testCatalog() {
         request.categories { response in
             switch response.result {
@@ -50,9 +50,9 @@ final class ProductRequestTests: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation],timeout: 5.0)
+        wait(for: [expectation], timeout: 5.0)
     }
-    
+
     func testProducts() {
         let categoryID = UUID(uuidString: "E8E0EB59-0CBF-42D0-A82F-00D62BCBDAE6")!
         request.products(by: categoryID, page: .zero) { response in
@@ -64,6 +64,6 @@ final class ProductRequestTests: XCTestCase {
             }
             self.expectation.fulfill()
         }
-        wait(for: [expectation], timeout:  5.0)
+        wait(for: [expectation], timeout: 5.0)
     }
 }

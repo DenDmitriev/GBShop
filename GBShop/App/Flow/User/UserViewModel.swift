@@ -8,22 +8,22 @@
 import Foundation
 
 class UserViewModel: ObservableObject {
-    
+
     // MARK: - Properties
-    
+
     private let requestFactory = RequestFactory()
     @Published var isUpdate: Bool
-    
+
     // MARK: - Initialization
-    
+
     init() {
         self.isUpdate = false
     }
-    
+
     // MARK: - Functions
-    
+
     func logout() {
-        let authRequests = requestFactory.makeAuthRequestFatory()
+        let authRequests = requestFactory.makeAuthRequestFactory()
         guard let id = UserSession.shared.user?.id else {
             return
         }
@@ -40,9 +40,9 @@ class UserViewModel: ObservableObject {
             }
         }
     }
-    
+
     func updateUserData(name: String, email: String, creditCard: String) {
-        let authRequests = requestFactory.makeAuthRequestFatory()
+        let authRequests = requestFactory.makeAuthRequestFactory()
         if let user = UserSession.shared.user {
             let update: User.Update = .init(id: user.id, name: name, email: email, creditCard: creditCard)
             authRequests.changeUserData(update: update) { response in
@@ -64,15 +64,15 @@ class UserViewModel: ObservableObject {
                 }
             }
         }
-        
+
     }
-    
+
     // MARK: - Private functions
-    
+
     private func closeSession() {
         try? UserSession.shared.close()
     }
-    
+
     private func updateUserDataInSession(user: User) {
         UserSession.shared.user = user
     }

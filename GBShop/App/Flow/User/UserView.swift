@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct UserView: View {
-    
+
     @ObservedObject private var viewModel: UserViewModel
     @State private var name: String
     @State private var email: String
     @State private var creditCard: String
     @FocusState private var isFocused: Bool
-    
+
     init() {
         self.viewModel = UserViewModel()
         let user = UserSession.shared.user
@@ -22,27 +22,27 @@ struct UserView: View {
         self.email = user?.email ?? ""
         self.creditCard = user?.creditCard ?? ""
     }
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             TextField("Your name", text: $name)
-                .onChange(of: name) { newValue in
+                .onChange(of: name) { _ in
                     viewModel.isUpdate = name != UserSession.shared.user?.name
                 }
                 .focused($isFocused)
             TextField("Email", text: $email)
                 .textContentType(.emailAddress)
-                .onChange(of: email) { newValue in
+                .onChange(of: email) { _ in
                     viewModel.isUpdate = name != UserSession.shared.user?.email
                 }
                 .focused($isFocused)
             TextField("Credit card number", text: $creditCard)
                 .textContentType(.emailAddress)
-                .onChange(of: creditCard) { newValue in
+                .onChange(of: creditCard) { _ in
                     viewModel.isUpdate = name != UserSession.shared.user?.creditCard
                 }
                 .focused($isFocused)
-            
+
             VStack(alignment: .leading) {
                 Button("Save") {
                     viewModel.updateUserData(name: name,
@@ -53,20 +53,20 @@ struct UserView: View {
                 .disabled(!viewModel.isUpdate)
                 .buttonStyle(.borderedProminent)
                 .font(.headline)
-                
+
                 Button("Logout") {
                     viewModel.logout()
                 }
                 .buttonStyle(.bordered)
                 .font(.headline)
-                
+
                 Button("Secure") {
                     // viewModel.changePassword()
                 }
                 .buttonStyle(.bordered)
                 .font(.headline)
             }
-            
+
         }
         .padding(.horizontal, 32.0)
     }

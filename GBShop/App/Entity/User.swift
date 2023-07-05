@@ -12,19 +12,19 @@ struct User: Codable {
     var name: String
     var email: String
     var creditCard: String
-    
+
     init(from login: User.Login) {
         self.id = login.id
         self.name = login.name
         self.email = login.email
         self.creditCard = login.creditCard
     }
-    
-    init(from me: User.Public) {
-        self.id = me.id
-        self.name = me.name
-        self.email = me.email
-        self.creditCard = me.creditCard
+
+    init(from publicUser: User.Public) {
+        self.id = publicUser.id
+        self.name = publicUser.name
+        self.email = publicUser.email
+        self.creditCard = publicUser.creditCard
     }
 }
 
@@ -35,7 +35,7 @@ extension User {
         var email: String
         var creditCard: String
     }
-    
+
     struct Login: Codable {
         let id: UUID
         var name: String
@@ -43,7 +43,7 @@ extension User {
         var creditCard: String
         let token: String
     }
-    
+
     struct Create: Codable {
         let name: String
         let email: String

@@ -8,28 +8,28 @@
 import SwiftUI
 
 struct AuthView: View {
-    
+
     @ObservedObject var viewModel: AuthViewModel
     @State private var login: String = "test@vapor.codes"
     @State private var password: String = "secret42"
     @State private var userMessage: String = "Hello, there!👋"
     @State private var errorMessage: String = ""
-    
+
     @FocusState var isEmailFocused: Bool
     @FocusState var isPasswordFocused: Bool
-    
+
     @State var isRegistration: Bool = false
-    
+
     init() {
         self.viewModel = AuthViewModel()
     }
-    
+
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
                 Spacer()
                     .frame(maxHeight: .infinity)
-                
+
                 Text(userMessage)
                     .font(.largeTitle)
                     .onReceive(viewModel.$userMessage) { message in
@@ -37,7 +37,7 @@ struct AuthView: View {
                             self.userMessage = message
                         }
                     }
-                
+
                 VStack(spacing: 16) {
                     TextField("Login", text: $login)
                         .textContentType(.emailAddress)
@@ -47,7 +47,7 @@ struct AuthView: View {
                             isEmailFocused.toggle()
                             isPasswordFocused.toggle()
                         }
-                    
+
                     SecureField("Password", text: $password)
                         .textContentType(.password)
                         .font(.title3)
@@ -55,26 +55,26 @@ struct AuthView: View {
                         .onSubmit {
                             isPasswordFocused.toggle()
                         }
-                    
+
                     HStack {
                         Button("Login") {
                             viewModel.login(login: login, password: password)
                         }
                         .buttonStyle(.borderedProminent)
                         .font(.headline)
-                        
-                        NavigationLink("Registration", isActive: $isRegistration) {
-                            RegistrationView(isShowing: $isRegistration)
+
+                        NavigationLink("Registration") {
+                            RegistrationView()
                                 .navigationTitle("Registration")
                                 .navigationBarTitleDisplayMode(.large)
                         }
                         .buttonStyle(.bordered)
                         .font(.headline)
-                        
+
                         Spacer()
                     }
                 }
-                
+
                 Text(errorMessage)
                     .foregroundColor(.red)
                     .frame(maxHeight: .infinity, alignment: .topTrailing)

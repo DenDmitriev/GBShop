@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct ProductViewCell: View {
-    
+
     @State var product: Product
-    
+
     var body: some View {
         NavigationLink {
             ProductView(product: product)
@@ -28,10 +28,10 @@ struct ProductViewCell: View {
                             .font(.largeTitle)
                         Spacer()
                     }
-                    
+
                 }
                 Text(product.description)
-                
+
             }
             .frame(maxHeight: 150)
         }
@@ -43,8 +43,11 @@ struct ProductViewCell_Previews: PreviewProvider {
         ProductViewCell(product: Product(
             name: "Телевизор Витязь 24LH0201",
             price: 19990,
-            description: "Лаконичный дизайн и современные технологии, обеспечивающие высокое качество изображения и звука, – вот основные особенности телевизора «Витязь» 43LF1204 Smart.")
+            description: """
+            Лаконичный дизайн и современные технологии, \
+            обеспечивающие высокое качество изображения и звука.
+            """)
         )
-            .previewLayout(.fixed(width: 300, height: 150))
+        .previewLayout(.fixed(width: 300, height: 150))
     }
 }

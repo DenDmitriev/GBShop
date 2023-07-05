@@ -9,11 +9,11 @@ import SwiftUI
 
 struct CatalogView: View {
     @ObservedObject private var viewModel: CatalogViewModel
-    
+
     init() {
         self.viewModel = CatalogViewModel()
     }
-    
+
     var body: some View {
         List(viewModel.category) { category in
             NavigationLink {
@@ -22,10 +22,10 @@ struct CatalogView: View {
             } label: {
                 Text(category.name ?? "N/A")
             }
-            
+
         }
         .listStyle(.inset)
-        
+
     }
 }
 

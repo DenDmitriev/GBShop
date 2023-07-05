@@ -8,13 +8,13 @@
 import Foundation
 
 class ContentViewModel: ObservableObject {
-    
+
     // MARK: - Properties
-    
+
     // MARK: - Initialization
-    
+
     // MARK: - Functions
-    
+
     // MARK: - Private functions
 
 }
