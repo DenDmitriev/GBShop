@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct MainTabView: View {
-    
+
     @ObservedObject private var viewModel: MainViewModel
-    
+
     init() {
         self.viewModel = MainViewModel()
     }
-    
+
     var body: some View {
         TabView {
             NavigationStack {
@@ -24,7 +24,7 @@ struct MainTabView: View {
             .tabItem {
                 Label("Catalog", systemImage: "house")
             }
-            
+
             NavigationStack {
                 BasketView()
                     .navigationBarTitle("Basket 🛍️")
@@ -32,7 +32,7 @@ struct MainTabView: View {
             .tabItem {
                 Label("Basket", systemImage: "basket")
             }
-            
+
             NavigationStack {
                 UserView()
                     .navigationBarTitle("Me 👤")

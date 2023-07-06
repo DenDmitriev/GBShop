@@ -8,20 +8,26 @@
 import Foundation
 
 class ProductsViewModel: ObservableObject {
-    
+
+    // MARK: - Properties
+
     @Published var products: [Product] = []
-    
-    let category: ProductCategory
-    let requestFactory = RequestFactory()
-    
+
+    private let category: ProductCategory
+    private let requestFactory = RequestFactory()
+
+    // MARK: - Initialization
+
     init(category: ProductCategory) {
         self.category = category
-        fetchProducts()
+        getProducts()
     }
-    
-    func fetchProducts() {
-        let productRequest = requestFactory.makeProductRequestFatory()
-        productRequest.products(by: category.id, page: .zero) { response in
+
+    // MARK: - Functions
+
+    func getProducts() {
+        let productRequest = requestFactory.makeProductRequestFactory()
+        productRequest.products(by: category.id, page: .zero, per: .zero) { response in
             switch response.result {
             case .success(let productsResult):
                 if let products = productsResult.products {
@@ -34,4 +40,7 @@ class ProductsViewModel: ObservableObject {
             }
         }
     }
+
+    // MARK: - Private functions
+
 }

@@ -8,17 +8,23 @@
 import Foundation
 
 class CatalogViewModel: ObservableObject {
-    
+
+    // MARK: - Properties
+
     @Published var category: [ProductCategory] = []
-    
-    let requestFactory = RequestFactory()
-    
+
+    private let requestFactory = RequestFactory()
+
+    // MARK: - Initialization
+
     init() {
-        fetchCatalog()
+        getCatalog()
     }
-    
-    func fetchCatalog() {
-        let productRequest = requestFactory.makeProductRequestFatory()
+
+    // MARK: - Functions
+
+    func getCatalog() {
+        let productRequest = requestFactory.makeProductRequestFactory()
         productRequest.categories { response in
             switch response.result {
             case .success(let catalog):
@@ -30,4 +36,6 @@ class CatalogViewModel: ObservableObject {
             }
         }
     }
+
+    // MARK: - Private functions
 }

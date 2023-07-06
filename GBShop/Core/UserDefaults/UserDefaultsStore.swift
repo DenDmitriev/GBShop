@@ -8,14 +8,14 @@
 import Foundation
 
 private enum UserDefaultsKeys: String {
-    case userName = "userName"
-    
+    case userName
+
     var asString: String {
         return self.rawValue
     }
 }
 
-struct UserDefaultsHelper {
+struct UserDefaultsStore {
     static var userName: String {
         get {
             UserDefaults.standard

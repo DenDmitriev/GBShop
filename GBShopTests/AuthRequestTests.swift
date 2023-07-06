@@ -24,11 +24,11 @@ import XCTest
  */
 
 final class AuthRequestTests: XCTestCase {
-    
+
     var requestFactory: RequestFactory!
     var request: AuthRequestFactory!
     let expectation = XCTestExpectation(description: "userRequests")
-    
+
     var create = User.Create(
         name: "Name",
         email: "some@some.ru",
@@ -39,7 +39,7 @@ final class AuthRequestTests: XCTestCase {
     override func setUpWithError() throws {
         super.setUp()
         requestFactory = RequestFactory()
-        request = requestFactory.makeAuthRequestFatory()
+        request = requestFactory.makeAuthRequestFactory()
     }
 
     override func tearDownWithError() throws {
@@ -47,7 +47,7 @@ final class AuthRequestTests: XCTestCase {
         request = nil
         requestFactory = nil
     }
-    
+
     func testRegister() {
         request.registerUser(create: create) { response in
             switch response.result {
@@ -60,7 +60,7 @@ final class AuthRequestTests: XCTestCase {
         }
         wait(for: [expectation], timeout: 5.0)
     }
-    
+
 //    func testChangeUserData() {
 //        create.email = "newMail@mail.ru"
 //        request.changeUserData(create: create) { response in
@@ -74,7 +74,7 @@ final class AuthRequestTests: XCTestCase {
 //        }
 //        wait(for: [expectation], timeout: 5.0)
 //    }
-    
+
     func testLogin() {
         request.login(email: create.email, password: create.password) { response in
             switch response.result {
@@ -87,7 +87,7 @@ final class AuthRequestTests: XCTestCase {
         }
         wait(for: [expectation], timeout: 5.0)
     }
-    
+
 //    func testLogout() {
 //        request.logout(userId: user.id) { response in
 //            switch response.result {
@@ -100,5 +100,5 @@ final class AuthRequestTests: XCTestCase {
 //        }
 //        wait(for: [expectation], timeout: 5.0)
 //    }
-    
+
 }

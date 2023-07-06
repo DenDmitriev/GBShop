@@ -8,24 +8,30 @@
 import Foundation
 
 class UserViewModel: ObservableObject {
-    
-    let requestFactory = RequestFactory()
+
+    // MARK: - Properties
+
+    private let requestFactory = RequestFactory()
     @Published var isUpdate: Bool
-    
+
+    // MARK: - Initialization
+
     init() {
         self.isUpdate = false
     }
-    
+
+    // MARK: - Functions
+
     func logout() {
-        let auth = requestFactory.makeAuthRequestFatory()
+        let authRequests = requestFactory.makeAuthRequestFactory()
         guard let id = UserSession.shared.user?.id else {
             return
         }
-        auth.logout(userId: id) { response in
+        authRequests.logout(userId: id) { response in
             switch response.result {
             case .success(let logout):
                 if logout.result != .zero {
-                    self.endSession()
+                    self.closeSession()
                 } else {
                     print(logout.errorMessage ?? "")
                 }
@@ -34,19 +40,19 @@ class UserViewModel: ObservableObject {
             }
         }
     }
-    
-    func update(name: String, email: String, creditCard: String) {
-        let auth = requestFactory.makeAuthRequestFatory()
+
+    func updateUserData(name: String, email: String, creditCard: String) {
+        let authRequests = requestFactory.makeAuthRequestFactory()
         if let user = UserSession.shared.user {
             let update: User.Update = .init(id: user.id, name: name, email: email, creditCard: creditCard)
-            auth.changeUserData(update: update) { response in
+            authRequests.changeUserData(update: update) { response in
                 switch response.result {
                 case .success(let updateResult):
                     if
                         updateResult.result != .zero,
                         let user = updateResult.user
                     {
-                        self.updateUserDataSession(user: user)
+                        self.updateUserDataInSession(user: user)
                         DispatchQueue.main.async {
                             self.isUpdate = false
                         }
@@ -58,14 +64,16 @@ class UserViewModel: ObservableObject {
                 }
             }
         }
-        
+
     }
-    
-    private func endSession() {
+
+    // MARK: - Private functions
+
+    private func closeSession() {
         try? UserSession.shared.close()
     }
-    
-    private func updateUserDataSession(user: User) {
+
+    private func updateUserDataInSession(user: User) {
         UserSession.shared.user = user
     }
 }

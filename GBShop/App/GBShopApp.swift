@@ -9,14 +9,16 @@ import SwiftUI
 
 @main
 struct GBShopApp: App {
-    
-//    let persistenceController = PersistenceController.shared
-    
+
+    @ObservedObject var viewModel: GBShopAppViewModel
+
+    init() {
+        self.viewModel = GBShopAppViewModel()
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView(viewModel: ContentViewModel())
-            // .environment(\.managedObjectContext, persistenceController.container.viewContext)
-            
         }
     }
 }

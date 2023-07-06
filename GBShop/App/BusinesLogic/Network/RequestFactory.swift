@@ -16,19 +16,19 @@ class RequestFactory {
         let manager = Session(configuration: configuration)
         return manager
     }()
-    
+
     let sessionQueue = DispatchQueue.global(qos: .utility)
-    
-    func makeAuthRequestFatory() -> AuthRequestFactory {
+
+    func makeAuthRequestFactory() -> AuthRequestFactory {
         let errorParser = makeErrorParser()
         return AuthRequest(errorParser: errorParser, sessionManager: commonSession, queue: sessionQueue)
     }
-    
-    func makeProductRequestFatory() -> ProductRequestFactory {
+
+    func makeProductRequestFactory() -> ProductRequestFactory {
         let errorParser = makeErrorParser()
         return ProductRequest(errorParser: errorParser, sessionManager: commonSession, queue: sessionQueue)
     }
-    
+
     func makeErrorParser() -> AbstractErrorParser {
         return ErrorParser()
     }

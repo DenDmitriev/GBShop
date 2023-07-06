@@ -12,17 +12,17 @@ struct Product: Codable, Identifiable {
     var name: String
     var price: Float
     var description: String
-    var category: ProductCategory?
-    
+    var categoryID: UUID?
+
     init(id: UUID? = nil,
          name: String,
          price: Float,
          description: String,
-         category: ProductCategory? = nil) {
+         categoryID: UUID? = nil) {
         self.id = id
         self.name = name
         self.price = price
         self.description = description
-        self.category = category
+        self.categoryID = categoryID
     }
 }

@@ -12,9 +12,9 @@ class AuthRequest: AbstractRequestFactory {
     let errorParser: AbstractErrorParser
     let sessionManager: Session
     let queue: DispatchQueue
-//    let baseUrl = URL(string: "http://127.0.0.1:8080")!
-    let baseUrl = URL(string: "https://gbshopbackend-denisdmitriev.amvera.io")!
-    
+    let baseUrl = URL(string: "http://127.0.0.1:8080")!
+//    let baseUrl = URL(string: "https://gbshopbackend-denisdmitriev.amvera.io")!
+
     init(errorParser: AbstractErrorParser,
          sessionManager: Session,
          queue: DispatchQueue = DispatchQueue.global(qos: .utility)) {
@@ -26,41 +26,45 @@ class AuthRequest: AbstractRequestFactory {
 
 extension AuthRequest: AuthRequestFactory {
     func me(token: String, completionHandler: @escaping (AFDataResponse<MeResult>) -> Void) {
-        let requestModel = Me(baseUrl: baseUrl, encoding: .bearer(token: token))
+        let requestModel = LoginUserWithToken(baseUrl: baseUrl, encoding: .bearer(token: token))
         self.request(request: requestModel, completionHandler: completionHandler)
     }
-    
+
     func login(email: String, password: String, completionHandler: @escaping (AFDataResponse<LoginResult>) -> Void) {
-        let requestModel = Login(baseUrl: baseUrl, email: email, password: password, encoding: .basicAuth(username: email, password: password))
+        let requestModel = LoginUser(baseUrl: baseUrl,
+                                 email: email,
+                                 password: password,
+                                 encoding: .basicAuth(username: email, password: password))
         self.request(request: requestModel, completionHandler: completionHandler)
     }
-    
+
     func logout(userId: UUID, completionHandler: @escaping (AFDataResponse<LogoutResult>) -> Void) {
         let requestModel = LogoutUser(baseUrl: baseUrl, userId: userId)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
-    
+
     func registerUser(create: User.Create, completionHandler: @escaping (AFDataResponse<RegisterUserResult>) -> Void) {
         let requestModel = RegisterUser(baseUrl: baseUrl, create: create)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
-    
-    func changeUserData(update: User.Update, completionHandler: @escaping (AFDataResponse<ChangeUserDataResult>) -> Void) {
+
+    func changeUserData(update: User.Update,
+                        completionHandler: @escaping (AFDataResponse<ChangeUserDataResult>) -> Void) {
         let requestModel = ChangeUserData(baseUrl: baseUrl, update: update)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 }
 
 extension AuthRequest {
-    struct Me: RequestRouter {
+    struct LoginUserWithToken: RequestRouter {
         var baseUrl: URL
         var method: HTTPMethod = .get
         var path: String = "/me"
         var parameters: Parameters?
         var encoding: RequestRouterEncoding
     }
-    
-    struct Login: RequestRouter {
+
+    struct LoginUser: RequestRouter {
         let baseUrl: URL
         let method: HTTPMethod = .post
         let path: String = "/login"
@@ -69,7 +73,7 @@ extension AuthRequest {
         var encoding: RequestRouterEncoding
         var parameters: Parameters?
     }
-    
+
     struct LogoutUser: RequestRouter {
         let baseUrl: URL
         let method: HTTPMethod = .post
@@ -81,7 +85,7 @@ extension AuthRequest {
             ]
         }
     }
-    
+
     struct ChangeUserData: RequestRouter {
         let baseUrl: URL
         let method: HTTPMethod = .post
@@ -92,11 +96,11 @@ extension AuthRequest {
                 "id": update.id,
                 "name": update.name,
                 "email": update.email,
-                "creditCard": update.creditCard,
+                "creditCard": update.creditCard
             ]
         }
     }
-    
+
     struct RegisterUser: RequestRouter {
         let baseUrl: URL
         let method: HTTPMethod = .post

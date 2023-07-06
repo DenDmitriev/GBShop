@@ -9,11 +9,11 @@ import SwiftUI
 
 struct ProductsView: View {
     @ObservedObject private var viewModel: ProductsViewModel
-    
+
     init(category: ProductCategory) {
         self.viewModel = ProductsViewModel(category: category)
     }
-    
+
     var body: some View {
         NavigationView {
             List(viewModel.products) { product in

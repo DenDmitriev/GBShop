@@ -8,37 +8,38 @@
 import SwiftUI
 
 struct RegistrationView: View {
-    
+
     @ObservedObject private var viewModel = RegistrationViewModel()
-    
-    @Binding var isShowing: Bool
-    
+
+    @Environment(\.presentationMode) var isPresentation
+
     @State private var name: String = ""
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
     @State private var creditCard: String = ""
-    
+
     @State private var userMessage: String = "Fill fields ✍️"
+    @State private var colorErrorMessage: Color = .red
     @State private var errorMessage: String = ""
-    
-    @FocusState var isNameFocused: Bool
-    @FocusState var isEmailFocused: Bool
-    @FocusState var isPasswordFocused: Bool
-    @FocusState var isConfirmPasswordFocused: Bool
-    @FocusState var isCreditCardFocused: Bool
-    
+
+    @FocusState private var isNameFocused: Bool
+    @FocusState private var isEmailFocused: Bool
+    @FocusState private var isPasswordFocused: Bool
+    @FocusState private var isConfirmPasswordFocused: Bool
+    @FocusState private var isCreditCardFocused: Bool
+
     @State private var isRegisterAllow: Bool = false
-    
+
     var body: some View {
         VStack {
             Spacer()
                 .frame(maxHeight: .infinity)
-            
+
             VStack(alignment: .leading, spacing: 16) {
                 Text(userMessage)
                     .font(.largeTitle)
-                
+
                 TextField("Your name", text: $name)
                     .focused($isNameFocused)
                     .onSubmit {
@@ -72,29 +73,32 @@ struct RegistrationView: View {
                         isCreditCardFocused.toggle()
                     }
                     .textContentType(.emailAddress)
-                
+
                 Button("Register") {
                     let create = User.Create(name: name,
                                              email: email.lowercased(),
                                              password: password,
                                              confirmPassword: password,
                                              creditCard: creditCard)
-                    viewModel.registration(create: create, isShowing: $isShowing)
+                    viewModel.registration(create: create, isPresentation: isPresentation)
                 }
                 .buttonStyle(.borderedProminent)
                 .font(.headline)
             }
-            
+
             HStack {
                 Text(errorMessage)
-                    .foregroundColor(.red)
+                    .foregroundColor(colorErrorMessage)
                     .frame(maxHeight: .infinity, alignment: .topLeading)
-                    .onReceive(viewModel.$message) { message in
-                        if let message = message {
-                            self.errorMessage = message
-                        }
+                    .onReceive(viewModel.$errorMessage) { message in
+                        self.errorMessage = message
+                        self.colorErrorMessage = .red
                 }
-                
+                    .onReceive(viewModel.$userMessage) { message in
+                        self.errorMessage = message
+                        self.colorErrorMessage = .green
+                    }
+
                 Spacer()
             }
         }
@@ -104,6 +108,6 @@ struct RegistrationView: View {
 
 struct Registration_Previews: PreviewProvider {
     static var previews: some View {
-        RegistrationView(isShowing: Binding<Bool>.constant(true))
+        RegistrationView()
     }
 }
