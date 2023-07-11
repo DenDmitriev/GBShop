@@ -7,11 +7,11 @@
 
 import Foundation
 
-public protocol SecureStoreQueryable {
+protocol SecureStoreQueryable {
   var query: [String: Any] { get }
 }
 
-public struct GenericPasswordQueryable {
+struct GenericPasswordQueryable {
   let service: String
   let accessGroup: String?
 
@@ -36,7 +36,7 @@ extension GenericPasswordQueryable: SecureStoreQueryable {
   }
 }
 
-public struct InternetPasswordQueryable {
+struct InternetPasswordQueryable {
   let server: String
   let port: Int
   let path: String

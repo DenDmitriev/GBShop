@@ -8,8 +8,57 @@
 import SwiftUI
 
 struct BasketView: View {
+    
+    @ObservedObject private var viewModel: BasketViewModel
+    @StateObject var orderService = UserSession.shared.orderService
+    
+    init() {
+        self.viewModel = BasketViewModel()
+    }
+    
     var body: some View {
-        Text("Basket view!")
+        ScrollView(.vertical) {
+            VStack {
+                LazyVGrid(columns: [GridItem(.flexible())]) {
+                    ForEach(orderService.order
+                        .filter { $0.value != .zero }
+                        .sorted(by: >),
+                            id: \.key) { (product, _) in
+                        BasketItemView(product: product)
+                    }
+                }
+                
+                if let card = viewModel.secureCard() {
+                    HStack {
+                        Text("Оплата картой")
+                        Spacer()
+                        Text(card)
+                    }
+                    .padding()
+                } else {
+                    Text("Добавьте карту оплаты")
+                        .padding()
+                }
+                
+                Text("Итого")
+                    .foregroundColor(.secondary)
+                    .fontWeight(.medium)
+                
+                Text(CurrencyFormatter.shared.formatter(by: orderService.total))
+                    .font(.largeTitle)
+                
+                Button {
+                    print("процесс оплаты")
+                } label: {
+                    Text("Оплатить")
+                        .font(.headline)
+                        .padding()
+                }
+                .buttonStyle(.borderedProminent)
+                
+            }
+        }
+        .environmentObject(orderService)
     }
 }
 

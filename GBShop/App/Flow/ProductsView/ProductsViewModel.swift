@@ -21,13 +21,14 @@ class ProductsViewModel: ObservableObject {
     init(category: ProductCategory) {
         self.category = category
         getProducts()
+//        mockProducts()
     }
 
     // MARK: - Functions
 
     func getProducts() {
         let productRequest = requestFactory.makeProductRequestFactory()
-        productRequest.products(by: category.id, page: .zero, per: .zero) { response in
+        productRequest.products(by: category.id, page: .zero, per: 10) { response in
             switch response.result {
             case .success(let productsResult):
                 if let products = productsResult.products {
@@ -42,5 +43,15 @@ class ProductsViewModel: ObservableObject {
     }
 
     // MARK: - Private functions
+    
+    private func mockProducts() {
+        let mockeProducts = [
+            Product(name: "Чипсы картофельные Lay's Maxx",
+                    price: Price(price: 129, discount: .zero),
+                    description: "Куриные крылышки барбекю рифлёные",
+                    image: "https://cm.samokat.ru/processed/l/original/158334_425819778.jpg")
+        ]
+        self.products = mockeProducts
+    }
 
 }

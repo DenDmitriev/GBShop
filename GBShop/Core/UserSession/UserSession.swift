@@ -15,8 +15,10 @@ class UserSession: ObservableObject {
 
     var token: String = ""
     var user: User?
+    let orderService = OrderService()
 
     @Published var isAuth = false
+    @Published var basket: Basket = .init(products: [])
 
     // MARK: - Private properties
 

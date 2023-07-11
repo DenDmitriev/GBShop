@@ -12,6 +12,7 @@ class CatalogViewModel: ObservableObject {
     // MARK: - Properties
 
     @Published var category: [ProductCategory] = []
+    @Published var scrollingCategory: Int = .zero
 
     private let requestFactory = RequestFactory()
 

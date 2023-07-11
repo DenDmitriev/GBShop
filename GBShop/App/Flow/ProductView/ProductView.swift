@@ -10,60 +10,58 @@ import SwiftUI
 struct ProductView: View {
 
     @ObservedObject private var viewModel: ProductViewModel
+    @Binding var count: Int
+    
     var product: Product
 
-    init(product: Product) {
+    init(count: Binding<Int>, product: Product) {
         self.viewModel = ProductViewModel()
         self.product = product
+        self._count = count
     }
 
     var body: some View {
         VStack(spacing: 8) {
+            ZStack(alignment: .bottomLeading) {
+                if let url = URL(string: product.image) {
+                    AsyncImage(url: url)
+                        .aspectRatio(contentMode: .fit)
+                }
+                
+                if product.price.discount != .zero {
+                    StickersView(stickers: [.discount(percent: product.price.discount)])
+                        .padding([.leading, .bottom])
+                }
+            }
+            
             HStack {
                 Text(product.name)
                     .font(.title2)
                 Spacer()
             }
-            HStack {
-                Text(product.price.formatted(.number))
-                    .font(.largeTitle)
-                Spacer()
-            }
-
-            HStack {
-                Button {
-                    viewModel.order(id: product.id)
-                } label: {
-                    Text("Order")
-                }
-                .buttonStyle(.borderedProminent)
-                .font(.headline)
-
-                Spacer()
-            }
-
-            Divider()
+            
+            PriceView(price: product.price)
 
             HStack {
                 Text(product.description)
                 Spacer()
             }
+            
+            OrderButton(count: $count)
+            
             Spacer()
-
         }
-        .padding(.horizontal, 16)
+        .padding(.all, 16)
     }
 }
 
 struct ProductView_Previews: PreviewProvider {
     static var previews: some View {
-        ProductView(product: Product(
-            name: "Телевизор Витязь 24LH0201",
-            price: 19990,
-            description: """
-            Лаконичный дизайн и современные технологии, \
-            обеспечивающие высокое качество изображения и звука.
-            """)
-        )
+        ProductView(count: Binding<Int>.constant(.zero),
+                    product: Product(
+                        name: "Молоко Самокат",
+                        price: Price(price: 80, discount: 9),
+                        description: "Пастеризованное, 3,2% 950 мл",
+                        image: "https://cm.samokat.ru/processed/l/original/158334_425819778.jpg"))
     }
 }
