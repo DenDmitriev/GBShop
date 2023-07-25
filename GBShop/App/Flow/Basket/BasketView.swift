@@ -55,6 +55,7 @@ struct BasketView: View {
                         .padding()
                 }
                 .buttonStyle(.borderedProminent)
+                .disabled(viewModel.basketIsEmpty(orderService: orderService))
                 
             }
         }

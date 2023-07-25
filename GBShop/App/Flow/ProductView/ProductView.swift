@@ -14,54 +14,65 @@ struct ProductView: View {
     
     var product: Product
 
-    init(count: Binding<Int>, product: Product) {
-        self.viewModel = ProductViewModel()
+    init(count: Binding<Int>, product: Product, viewModel: ProductViewModel) {
+        self.viewModel = viewModel
         self.product = product
         self._count = count
     }
 
     var body: some View {
-        VStack(spacing: 8) {
-            ZStack(alignment: .bottomLeading) {
-                if let url = URL(string: product.image) {
-                    AsyncImage(url: url)
-                        .aspectRatio(contentMode: .fit)
+        ScrollView {
+            VStack(spacing: 8) {
+                ZStack(alignment: .bottomLeading) {
+                    if let url = URL(string: product.image) {
+                        AsyncImage(url: url)
+                            .aspectRatio(contentMode: .fit)
+                    }
+                    
+                    if product.price.discount != .zero {
+                        StickersView(stickers: [.discount(percent: product.price.discount)])
+                            .padding([.leading, .bottom])
+                    }
                 }
                 
-                if product.price.discount != .zero {
-                    StickersView(stickers: [.discount(percent: product.price.discount)])
-                        .padding([.leading, .bottom])
-                }
-            }
-            
-            HStack {
                 Text(product.name)
                     .font(.title2)
-                Spacer()
-            }
-            
-            PriceView(price: product.price)
+                    .fontWeight(.medium)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                PriceView(price: product.price)
 
-            HStack {
                 Text(product.description)
-                Spacer()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                OrderButton(count: $count)
+                
+                LazyVGrid(columns: [GridItem(.flexible())]) {
+                    Text("Отзывы")
+                        .font(.title2)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.top)
+                    
+                    Divider()
+                    
+                    ForEach(viewModel.reviews, id: \.id) { review in
+                        ReviewView(review: review)
+                            .padding(.bottom)
+                    }
+                }
             }
-            
-            OrderButton(count: $count)
-            
-            Spacer()
+            .padding(.all, 16)
         }
-        .padding(.all, 16)
     }
 }
 
 struct ProductView_Previews: PreviewProvider {
     static var previews: some View {
         ProductView(count: Binding<Int>.constant(.zero),
-                    product: Product(
-                        name: "Молоко Самокат",
-                        price: Price(price: 80, discount: 9),
-                        description: "Пастеризованное, 3,2% 950 мл",
-                        image: "https://cm.samokat.ru/processed/l/original/158334_425819778.jpg"))
+                    product: DummyData.product,
+                    viewModel: ProductViewModel(product: DummyData.product,
+                                                reviews: [DummyData.review1,
+                                                          DummyData.review2,
+                                                          DummyData.review3]))
     }
 }

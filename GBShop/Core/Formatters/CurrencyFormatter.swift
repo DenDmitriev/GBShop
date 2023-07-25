@@ -27,5 +27,3 @@ class CurrencyFormatter {
         return string ?? ""
     }
 }
-
-

@@ -7,8 +7,15 @@
 
 import SwiftUI
 
+enum MainTab {
+    case catalog
+    case basket
+    case account
+}
+
 struct MainTabView: View {
 
+    @State var tab: MainTab = .catalog
     @ObservedObject private var viewModel: MainViewModel
 
     init() {
@@ -16,11 +23,12 @@ struct MainTabView: View {
     }
 
     var body: some View {
-        TabView {
+        TabView(selection: $tab) {
             NavigationStack {
                 CatalogView()
                     .navigationBarTitle("Catalog 🛒")
             }
+            .tag(MainTab.catalog)
             .tabItem {
                 Label("Catalog", systemImage: "house")
             }
@@ -29,6 +37,7 @@ struct MainTabView: View {
                 BasketView()
                     .navigationBarTitle("Basket 🛍️")
             }
+            .tag(MainTab.basket)
             .tabItem {
                 Label("Basket", systemImage: "basket")
             }
@@ -37,6 +46,7 @@ struct MainTabView: View {
                 UserView()
                     .navigationBarTitle("Me 👤")
             }
+            .tag(MainTab.account)
             .tabItem {
                 Label("User", systemImage: "person")
             }

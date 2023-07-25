@@ -25,7 +25,11 @@ final class OrderService: ObservableObject {
         }
     }
     
-    func syncRequest() {
+    private func addProductRequest() {
+        
+    }
+    
+    private func removeProductRequest() {
         
     }
 }

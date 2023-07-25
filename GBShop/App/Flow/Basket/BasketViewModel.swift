@@ -19,5 +19,12 @@ class BasketViewModel: ObservableObject {
         var secureNumber = String(repeating: "•", count: secureRange)
         return secureNumber + cardNumber[range].lowercased()
     }
+    
+    func basketIsEmpty(orderService: OrderService) -> Bool {
+        let orderCount = orderService.order.filter { element in
+            return element.value > 0
+        }.count
+        return orderCount > .zero ? false : true
+    }
 
 }

@@ -68,7 +68,7 @@ struct ProductViewItem: View {
                     },
                     set: {
                         orderService.order[product] = $0
-                    }), product: product)
+                    }), product: product, viewModel: ProductViewModel(product: product))
             }
             
             Spacer()
@@ -87,12 +87,7 @@ struct ProductViewItem: View {
 
 struct ProductViewCell_Previews: PreviewProvider {
     static var previews: some View {
-        ProductViewItem(product: Product(
-            id: UUID(),
-            name: "Молоко Самокат",
-            price: Price(price: 80, discount: 9),
-            description: "Пастеризованное, 3,2% 950 мл",
-            image: "https://cm.samokat.ru/processed/l/original/158334_425819778.jpg"),
+        ProductViewItem(product: DummyData.product,
                         count: .zero)
         .previewLayout(.fixed(width: 150, height: 400))
     }

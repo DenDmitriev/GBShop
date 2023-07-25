@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct UserView: View {
-
+    
     @ObservedObject private var viewModel: UserViewModel
+    @State private var isEditing: Bool = false
     @State private var name: String
     @State private var email: String
     @State private var creditCard: String
     @FocusState private var isFocused: Bool
-
+    
     init() {
         self.viewModel = UserViewModel()
         let user = UserSession.shared.user
@@ -22,53 +23,66 @@ struct UserView: View {
         self.email = user?.email ?? ""
         self.creditCard = user?.creditCard ?? ""
     }
-
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            TextField("Your name", text: $name)
-                .onChange(of: name) { _ in
-                    viewModel.isUpdate = name != UserSession.shared.user?.name
+        NavigationStack {
+            List {
+                Section {
+                    TextField("Your name", text: $name)
+                        .onChange(of: name) { _ in
+                            viewModel.isUpdate = name != UserSession.shared.user?.name
+                        }
+                        .disabled(!isEditing)
+                        .focused($isFocused)
+                    TextField("Email", text: $email)
+                        .textContentType(.emailAddress)
+                        .onChange(of: email) { _ in
+                            viewModel.isUpdate = name != UserSession.shared.user?.email
+                        }
+                        .disabled(!isEditing)
+                        .focused($isFocused)
+                    TextField("Credit card number", text: $creditCard)
+                        .textContentType(.emailAddress)
+                        .onChange(of: creditCard) { _ in
+                            viewModel.isUpdate = name != UserSession.shared.user?.creditCard
+                        }
+                        .disabled(!isEditing)
+                        .focused($isFocused)
                 }
-                .focused($isFocused)
-            TextField("Email", text: $email)
-                .textContentType(.emailAddress)
-                .onChange(of: email) { _ in
-                    viewModel.isUpdate = name != UserSession.shared.user?.email
+                
+                Section {
+                    NavigationLink {
+                        SecureView(viewModel: SecureViewModel())
+                    } label: {
+                        Text("Secure")
+                    }
                 }
-                .focused($isFocused)
-            TextField("Credit card number", text: $creditCard)
-                .textContentType(.emailAddress)
-                .onChange(of: creditCard) { _ in
-                    viewModel.isUpdate = name != UserSession.shared.user?.creditCard
+                
+                Section {
+                    Button {
+                        viewModel.logout()
+                    } label: {
+                        Text("Logout")
+                            .foregroundColor(.red)
+                    }
                 }
-                .focused($isFocused)
-
-            VStack(alignment: .leading) {
-                Button("Save") {
-                    viewModel.updateUserData(name: name,
-                                     email: email,
-                                     creditCard: creditCard)
-                    isFocused = false
-                }
-                .disabled(!viewModel.isUpdate)
-                .buttonStyle(.borderedProminent)
-                .font(.headline)
-
-                Button("Logout") {
-                    viewModel.logout()
-                }
-                .buttonStyle(.bordered)
-                .font(.headline)
-
-                Button("Secure") {
-                    // viewModel.changePassword()
-                }
-                .buttonStyle(.bordered)
-                .font(.headline)
             }
-
+            .toolbar {
+                ToolbarItem {
+                    Button {
+                        if isEditing {
+                            viewModel.updateUserData(name: name,
+                                                     email: email,
+                                                     creditCard: creditCard)
+                        }
+                        isEditing.toggle()
+                    } label: {
+                        Text(isEditing ? "Save" : "Edit")
+                    }
+                    .disabled(!viewModel.isUpdate && isEditing)
+                }
+            }
         }
-        .padding(.horizontal, 32.0)
     }
 }
 
