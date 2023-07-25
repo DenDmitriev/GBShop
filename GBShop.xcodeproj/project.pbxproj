@@ -45,6 +45,8 @@
 		951794BD2A540E130094C886 /* SecureStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951794BC2A540E130094C886 /* SecureStoreTests.swift */; };
 		951794C02A5411160094C886 /* UserDefaultsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951794BF2A5411160094C886 /* UserDefaultsStore.swift */; };
 		951794C22A5419CD0094C886 /* MeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951794C12A5419CD0094C886 /* MeResult.swift */; };
+		951B934C2A702BBC0078E943 /* BasketRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951B934B2A702BBC0078E943 /* BasketRequestFactory.swift */; };
+		951B934E2A702DED0078E943 /* BasketRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951B934D2A702DED0078E943 /* BasketRequest.swift */; };
 		952F6AAC2A61CBF800F8124A /* SecureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F6AAB2A61CBF800F8124A /* SecureViewModel.swift */; };
 		952F6AAE2A61CC1700F8124A /* SecureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F6AAD2A61CC1700F8124A /* SecureView.swift */; };
 		952F6AB12A684B4400F8124A /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952F6AB02A684B4400F8124A /* DummyData.swift */; };
@@ -152,6 +154,8 @@
 		951794BC2A540E130094C886 /* SecureStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStoreTests.swift; sourceTree = "<group>"; };
 		951794BF2A5411160094C886 /* UserDefaultsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStore.swift; sourceTree = "<group>"; };
 		951794C12A5419CD0094C886 /* MeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeResult.swift; sourceTree = "<group>"; };
+		951B934B2A702BBC0078E943 /* BasketRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketRequestFactory.swift; sourceTree = "<group>"; };
+		951B934D2A702DED0078E943 /* BasketRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketRequest.swift; sourceTree = "<group>"; };
 		952F6AAB2A61CBF800F8124A /* SecureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureViewModel.swift; sourceTree = "<group>"; };
 		952F6AAD2A61CC1700F8124A /* SecureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureView.swift; sourceTree = "<group>"; };
 		952F6AB02A684B4400F8124A /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
@@ -505,10 +509,12 @@
 				9583AF452A45797B008BAB2E /* AuthRequestFactory.swift */,
 				951794742A4F164A0094C886 /* ProductRequestFactory.swift */,
 				955DDEDC2A55C3DA008F9F65 /* ReviewRequestFactory.swift */,
+				951B934B2A702BBC0078E943 /* BasketRequestFactory.swift */,
 				955DDEDE2A55C445008F9F65 /* ReviewRequest.swift */,
 				9583AF472A4579C8008BAB2E /* AuthRequest.swift */,
 				951794722A4F15DD0094C886 /* ProductRequest.swift */,
 				9583AF492A457A83008BAB2E /* RequestFactory.swift */,
+				951B934D2A702DED0078E943 /* BasketRequest.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -800,6 +806,7 @@
 				951794B02A52F3240094C886 /* ProductViewModel.swift in Sources */,
 				9583AF482A4579C8008BAB2E /* AuthRequest.swift in Sources */,
 				955DDEEA2A589CDA008F9F65 /* OrderButton.swift in Sources */,
+				951B934C2A702BBC0078E943 /* BasketRequestFactory.swift in Sources */,
 				951794AB2A52EE330094C886 /* ProductsViewModel.swift in Sources */,
 				952F6AAC2A61CBF800F8124A /* SecureViewModel.swift in Sources */,
 				955DDF2A2A59245A008F9F65 /* Price.swift in Sources */,
@@ -838,6 +845,7 @@
 				951794C22A5419CD0094C886 /* MeResult.swift in Sources */,
 				951794A92A52EE290094C886 /* ProductsView.swift in Sources */,
 				955DDF272A592257008F9F65 /* PriceView.swift in Sources */,
+				951B934E2A702DED0078E943 /* BasketRequest.swift in Sources */,
 				9583AF352A457605008BAB2E /* AbstractErrorParser.swift in Sources */,
 				951794B72A53F2AA0094C886 /* SecureStore.swift in Sources */,
 				9517947F2A4F1A170094C886 /* ProductResult.swift in Sources */,
