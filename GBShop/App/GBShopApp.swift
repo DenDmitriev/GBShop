@@ -18,7 +18,7 @@ struct GBShopApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView(viewModel: ContentViewModel())
+            ContentView()
         }
     }
 }

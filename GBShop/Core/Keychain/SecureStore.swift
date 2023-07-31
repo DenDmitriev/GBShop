@@ -15,14 +15,14 @@ class SecureStore {
 
     // MARK: - Initialization
 
-    public init() {
+    init() {
         let genericPwdQueryable = GenericPasswordQueryable(service: "MyService")
         self.secureStoreQueryable = genericPwdQueryable
     }
 
     // MARK: - Public functions
 
-    public func setValue(_ value: String, for userAccount: String) throws {
+    func setValue(_ value: String, for userAccount: String) throws {
         guard let encodedPassword = value.data(using: .utf8) else {
             throw SecureStoreError.string2DataConversionError
         }
@@ -55,7 +55,7 @@ class SecureStore {
         }
     }
 
-    public func getValue(for userAccount: String) throws -> String? {
+    func getValue(for userAccount: String) throws -> String? {
         var query = secureStoreQueryable.query
         query[String(kSecMatchLimit)] = kSecMatchLimitOne
         query[String(kSecReturnAttributes)] = kCFBooleanTrue
@@ -85,7 +85,7 @@ class SecureStore {
         }
     }
 
-    public func removeValue(for userAccount: String) throws {
+    func removeValue(for userAccount: String) throws {
         var query = secureStoreQueryable.query
         query[String(kSecAttrAccount)] = userAccount
 
@@ -95,7 +95,7 @@ class SecureStore {
         }
     }
 
-    public func removeAllValues() throws {
+    func removeAllValues() throws {
         let query = secureStoreQueryable.query
 
         let status = SecItemDelete(query as CFDictionary)
