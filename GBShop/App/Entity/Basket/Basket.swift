@@ -28,3 +28,12 @@ extension Basket {
         let errorMessage: String?
     }
 }
+
+extension Basket {
+    struct PaymentResult: Codable {
+        let result: Int
+        let receipt: [ReceiptItem]?
+        let total: Double?
+        let errorMessage: String?
+    }
+}

@@ -26,4 +26,8 @@ struct DummyData {
 Молоко "Простоквашино" в последнее время нам нравится в пакетах, вот таких. Но до этого мы его уже неоднократно брали,
 и не только его, а и другие молочные продукты. Какое замечательное название для фирмы, изготавливающей молочную...
 """, rating: 0, productID: UUID(), createdAt: Date.now - 10000000)
+    
+    static let receiptItems: [ReceiptItem] = [ReceiptItem(name: "Молоко", count: 1, price: 49),
+                                              ReceiptItem(name: "Хлеб", count: 2, price: 35),
+                                              ReceiptItem(name: "Соус", count: 1, price: 199)]
 }

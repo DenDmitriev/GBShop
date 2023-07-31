@@ -10,13 +10,12 @@ import CoreData
 
 struct ContentView: View {
 
-    @ObservedObject var viewModel: ContentViewModel
     @ObservedObject private var userSession = UserSession.shared
 
     var body: some View {
         switch userSession.isAuth {
         case true:
-            MainTabView()
+            MainCoordinatorView()
         case false:
             AuthView()
         }
@@ -25,6 +24,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(viewModel: ContentViewModel())
+        ContentView()
     }
 }

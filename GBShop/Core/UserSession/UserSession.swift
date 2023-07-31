@@ -15,10 +15,9 @@ class UserSession: ObservableObject {
 
     var token: String = ""
     var user: User?
-    let orderService = OrderService()
+    var orderService: OrderService?
 
     @Published var isAuth = false
-    @Published var basket: Basket = .init(products: [])
 
     // MARK: - Private properties
 
@@ -30,7 +29,7 @@ class UserSession: ObservableObject {
 
     // MARK: - Public functions
 
-    func create(login: User.Login?) throws {
+    func auth(login: User.Login?) throws {
         if let login = login {
             DispatchQueue.main.async {
                 self.user = User(from: login)
@@ -50,6 +49,9 @@ class UserSession: ObservableObject {
         }
         saveUserName(name: user.name)
         try saveToken(token: token, for: user.name)
+        
+        orderService = OrderService(userID: user.id)
+        getBasket()
     }
 
     func close() throws {
@@ -75,5 +77,9 @@ class UserSession: ObservableObject {
         if let name = user?.name {
             try secureStore.removeValue(for: name)
         }
+    }
+    
+    private func getBasket() {
+        orderService?.getBasketRequest()
     }
 }
