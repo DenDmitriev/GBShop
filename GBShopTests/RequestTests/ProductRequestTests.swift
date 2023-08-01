@@ -34,6 +34,7 @@ final class ProductRequestTests: XCTestCase {
                 print(productResult)
             case .failure(let error):
                 print(error.localizedDescription)
+                XCTFail("failure response")
             }
             self.expectation.fulfill()
         }
@@ -47,6 +48,7 @@ final class ProductRequestTests: XCTestCase {
                 print(categories)
             case .failure(let error):
                 print(error.localizedDescription)
+                XCTFail("failure response")
             }
             self.expectation.fulfill()
         }
@@ -54,13 +56,14 @@ final class ProductRequestTests: XCTestCase {
     }
 
     func testProducts() {
-        let categoryID = UUID(uuidString: "E8E0EB59-0CBF-42D0-A82F-00D62BCBDAE6")!
+        let categoryID = UUID(uuidString: "A46A350F-0CBE-4359-92CB-99CC46D4A04C")!
         request.products(by: categoryID, page: .zero, per: .zero) { response in
             switch response.result {
             case .success(let products):
                 print(products)
             case .failure(let error):
                 print(error.localizedDescription)
+                XCTFail("failure response")
             }
             self.expectation.fulfill()
         }

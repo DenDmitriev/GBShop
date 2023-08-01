@@ -9,8 +9,8 @@ import Foundation
 
 struct GetReviewsResult: Codable {
     let result: Int
-    let page: Int
-    let reviews: [Review]
+    let page: Int?
+    let reviews: [Review]?
     let errorMessage: String?
-    let metadata: Metadata
+    let metadata: Metadata?
 }

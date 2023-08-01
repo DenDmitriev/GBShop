@@ -56,8 +56,22 @@ extension User {
 extension User {
     struct Update: Codable {
         let id: UUID
-        let name: String
-        let email: String
-        let creditCard: String
+        var name: String
+        var email: String
+        var creditCard: String
+        
+        init(id: UUID, name: String, email: String, creditCard: String) {
+            self.id = id
+            self.name = name
+            self.email = email
+            self.creditCard = creditCard
+        }
+        
+        init(from user: User.Public) {
+            self.id = user.id
+            self.name = user.name
+            self.email = user.email
+            self.creditCard = user.creditCard
+        }
     }
 }

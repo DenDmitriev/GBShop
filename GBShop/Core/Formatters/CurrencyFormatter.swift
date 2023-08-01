@@ -13,7 +13,7 @@ class CurrencyFormatter {
     
     private init() {}
     
-    static let formatter: NumberFormatter = {
+    private static let formatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.locale = Locale.init(components: .init(identifier: "ru_RU"))
         formatter.numberStyle = .currency
@@ -23,7 +23,12 @@ class CurrencyFormatter {
     }()
     
     func formatter(by price: Double) -> String {
-        let string = CurrencyFormatter.formatter.string(for: price)
+        let string: String?
+        if price >= .zero {
+            string = CurrencyFormatter.formatter.string(for: price)
+        } else {
+            string = CurrencyFormatter.formatter.string(for: 0.0)
+        }
         return string ?? ""
     }
 }

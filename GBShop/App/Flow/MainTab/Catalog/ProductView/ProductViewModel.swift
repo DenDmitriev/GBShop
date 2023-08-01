@@ -31,7 +31,9 @@ class ProductViewModel: ObservableObject {
             switch response.result {
             case .success(let data):
                 DispatchQueue.main.async {
-                    self.reviews = data.reviews.sorted(by: { $0.createdAt > $1.createdAt })
+                    if let reviews = data.reviews {
+                        self.reviews = reviews.sorted(by: { $0.createdAt > $1.createdAt })
+                    }
                 }
             case .failure(let error):
                 print(error.localizedDescription)
