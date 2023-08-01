@@ -30,8 +30,10 @@ class CatalogViewModel: ObservableObject {
         productRequest.categories { response in
             switch response.result {
             case .success(let catalog):
-                self.category = catalog
-                self.categoryViewModels = catalog.map({ CategoryViewModel(category: $0) })
+                DispatchQueue.main.async {
+                    self.category = catalog
+                    self.categoryViewModels = catalog.map({ CategoryViewModel(category: $0) })
+                }
             case .failure(let error):
                 print(error.localizedDescription)
             }

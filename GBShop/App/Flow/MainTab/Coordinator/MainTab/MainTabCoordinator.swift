@@ -8,7 +8,8 @@
 import Foundation
 import SwiftUI
 
-class MainTabCoordinator: ObservableObject {
+class MainTabCoordinator: ObservableObject, TabCoordinatorProtocol {
+    typealias Tab = MainTab
     
     @Published var tab: MainTab = .catalog
     
@@ -20,7 +21,7 @@ class MainTabCoordinator: ObservableObject {
     func build(tab: MainTab) -> some View {
         switch tab {
         case .catalog:
-            CatalogCoordinatorView()
+            CatalogCoordinatorView(coordinator: CatalogCoordinator(parent: self))
                 .tag(tab)
                 .tabItem {
                     Label("Catalog", systemImage: "house")

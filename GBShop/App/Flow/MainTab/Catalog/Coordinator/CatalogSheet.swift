@@ -8,12 +8,8 @@
 import Foundation
 import SwiftUI
 
-enum CatalogSheet: Identifiable {
+enum CatalogSheet: Identifiable, Hashable {
     typealias RawValue = String
-    
-    init?(rawValue: String) {
-        return nil
-    }
     
     case product(product: Product)
     case catalogLinks(names: [String], selected: Binding<Int>)
@@ -29,5 +25,17 @@ enum CatalogSheet: Identifiable {
     
     var id: String {
         self.rawValue
+    }
+    
+    init?(rawValue: String) {
+        return nil
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    static func == (lhs: CatalogSheet, rhs: CatalogSheet) -> Bool {
+        lhs.id == rhs.id
     }
 }

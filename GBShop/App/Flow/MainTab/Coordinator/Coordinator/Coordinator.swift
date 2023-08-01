@@ -7,35 +7,12 @@
 
 import SwiftUI
 
-protocol CoordinatorProtocol {
-    associatedtype Body : View
-    associatedtype Page
-    associatedtype Sheet
-    associatedtype FullScreenCover
+class Coordinator: CoordinatorProtocol, ObservableObject {
     
-    var path: NavigationPath { get set }
-    var sheet: Self.Sheet? { get set }
-    var page: Self.Page? { get set }
-    var fullScreenCover: Self.FullScreenCover? { get set }
-    
-    func push(_ page: Page)
-    func pop()
-    func popToRoo()
-
-    func present(sheet: Sheet)
-    func dismissSheet()
-
-    func present(fullScreenCover: FullScreenCover)
-    func dismissCover()
-    
-    @ViewBuilder @MainActor func build(page: Self.Page) -> Self.Body
-    @ViewBuilder @MainActor func build(sheet: Self.Sheet) -> Self.Body
-    @ViewBuilder @MainActor func build(cover: Self.FullScreenCover) -> Self.Body
-}
-
-class Coordinator: ObservableObject {
+    var parent: TabCoordinatorProtocol?
     
     @Published var path = NavigationPath()
+    @Published var page: Page?
     @Published var sheet: Sheet?
     @Published var fullScreenCover: FullScreenCover?
     

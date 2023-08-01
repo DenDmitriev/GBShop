@@ -8,10 +8,12 @@
 import SwiftUI
 
 class CatalogCoordinator: ObservableObject {
-    
+//    typealias MainTabCoordinatorProtocol.Tab = MainTab
     typealias Page = CatalogPage
     typealias Sheet = CatalogSheet
     typealias FullScreenCover = CatalogCover
+    
+    @Published var parent: TabCoordinatorProtocol?
     
     @Published var path = NavigationPath()
     
@@ -24,6 +26,10 @@ class CatalogCoordinator: ObservableObject {
     @Published var orderService = {
         UserSession.shared.orderService ?? OrderService()
     }()
+    
+    init(parent: TabCoordinatorProtocol? = nil) {
+        self.parent = parent
+    }
     
     func push(_ page: CatalogPage) {
         path.append(page)

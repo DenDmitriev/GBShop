@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CatalogCoordinatorView: View {
     
-    @StateObject private var coordinator = CatalogCoordinator()
+    @StateObject var coordinator: CatalogCoordinator
     
     var body: some View {
         NavigationStack(path: $coordinator.path) {
@@ -28,6 +28,6 @@ struct CatalogCoordinatorView: View {
 
 struct CatalogCoordinatorView_Previews: PreviewProvider {
     static var previews: some View {
-        CatalogCoordinatorView()
+        CatalogCoordinatorView(coordinator: CatalogCoordinator())
     }
 }
