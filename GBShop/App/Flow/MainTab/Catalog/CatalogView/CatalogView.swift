@@ -54,11 +54,31 @@ struct CatalogView: View {
                 }
             }
         }
+        .overlay {
+            ZStack {
+                Color.clear
+                
+                if !orderService.order.isEmpty {
+                    Button {
+                        coordinator.parent?.change(.basket)
+                    } label: {
+                        Text("В корзину")
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .frame(maxWidth: .infinity)
+                }
+                
+            }
+            .frame(height: 70)
+            .frame(maxHeight: .infinity, alignment: .bottom)
+            
+        }
     }
 }
 
 struct CatalogView_Previews: PreviewProvider {
     static var previews: some View {
         CatalogView(viewModel: CatalogViewModel())
+            .environmentObject(OrderService())
     }
 }

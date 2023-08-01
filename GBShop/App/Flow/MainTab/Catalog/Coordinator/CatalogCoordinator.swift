@@ -13,6 +13,8 @@ class CatalogCoordinator: ObservableObject {
     typealias Sheet = CatalogSheet
     typealias FullScreenCover = CatalogCover
     
+    @Published var parent: MainTabCoordinator?
+    
     @Published var path = NavigationPath()
     
     @Published var sheet: CatalogSheet?
@@ -24,6 +26,10 @@ class CatalogCoordinator: ObservableObject {
     @Published var orderService = {
         UserSession.shared.orderService ?? OrderService()
     }()
+    
+    init(parent: MainTabCoordinator? = nil) {
+        self.parent = parent
+    }
     
     func push(_ page: CatalogPage) {
         path.append(page)

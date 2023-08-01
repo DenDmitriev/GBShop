@@ -20,7 +20,7 @@ class MainTabCoordinator: ObservableObject {
     func build(tab: MainTab) -> some View {
         switch tab {
         case .catalog:
-            CatalogCoordinatorView()
+            CatalogCoordinatorView(coordinator: CatalogCoordinator(parent: self))
                 .tag(tab)
                 .tabItem {
                     Label("Catalog", systemImage: "house")
