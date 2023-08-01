@@ -8,7 +8,8 @@
 import Foundation
 import SwiftUI
 
-class MainTabCoordinator: ObservableObject {
+class MainTabCoordinator: ObservableObject, TabCoordinatorProtocol {
+    typealias Tab = MainTab
     
     @Published var tab: MainTab = .catalog
     

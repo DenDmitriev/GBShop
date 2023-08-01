@@ -16,7 +16,7 @@ enum BasketSheet: Identifiable {
     
     var rawValue: String {
         switch self {
-        case .receipt(_):
+        case .receipt:
             return "receipt"
         }
     }

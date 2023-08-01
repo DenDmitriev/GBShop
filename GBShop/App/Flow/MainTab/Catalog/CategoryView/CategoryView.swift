@@ -37,8 +37,14 @@ struct CategoryView: View {
 
 struct CategoryView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryView(viewModel: CategoryViewModel(category: ProductCategory(id: UUID(uuidString: "96123E21-8912-435A-A200-A3BB413296E4"),
-                                               name: "Category",
-                                               description: "Description")))
+        CategoryView(
+            viewModel: CategoryViewModel(
+                category: ProductCategory(
+                    id: UUID(uuidString: "96123E21-8912-435A-A200-A3BB413296E4"),
+                    name: "Category",
+                    description: "Description"
+                )
+            )
+        )
     }
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CatalogLinksView: View {
     
-    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var coordinator: CatalogCoordinator
     @Binding var scrollingCategory: Int
     
     let categories: [String]
@@ -20,7 +20,7 @@ struct CatalogLinksView: View {
                 HStack {
                     Button {
                         scrollingCategory = index
-                        dismiss()
+                        coordinator.dismissSheet()
                     } label: {
                         Text(category)
                             .font(.title2)
