@@ -28,7 +28,9 @@ struct CatalogView: View {
                 LazyVGrid(columns: columns,
                           spacing: .zero,
                           pinnedViews: [.sectionHeaders]) {
-                    ForEach(Array(zip(viewModel.category.indices, viewModel.categoryViewModels)), id: \.0) { index, categoryViewModel in
+                    ForEach(Array(zip(viewModel.category.indices,
+                                      viewModel.categoryViewModels)),
+                            id: \.0) { index, categoryViewModel in
                         Section {
                             CategoryView(viewModel: categoryViewModel)
                                 .padding(.bottom, 16)
@@ -55,23 +57,12 @@ struct CatalogView: View {
             }
         }
         .overlay {
-            ZStack {
-                Color.clear
-                
-                if !orderService.order.isEmpty {
-                    Button {
-                        coordinator.parent?.change(.basket)
-                    } label: {
-                        Text("В корзину")
-                    }
-                    .buttonStyle(.borderedProminent)
+            if !orderService.order.isEmpty {
+                ToBasketButton()
+                    .padding()
                     .frame(maxWidth: .infinity)
-                }
-                
+                    .frame(maxHeight: .infinity, alignment: .bottom)
             }
-            .frame(height: 70)
-            .frame(maxHeight: .infinity, alignment: .bottom)
-            
         }
     }
 }
