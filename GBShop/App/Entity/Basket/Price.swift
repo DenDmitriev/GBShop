@@ -12,10 +12,11 @@ struct Price: Codable {
     let discount: Int
     
     var discountPrice: Double {
-        let part = Decimal(discount) / 100
-        let discountPrice = (1 - part) * Decimal(price)
-        return NSDecimalNumber(decimal: discountPrice)
-            .doubleValue
+//        let part = Decimal(discount) / 100
+//        let discountPrice = (1 - part) * Decimal(price)
+//        return NSDecimalNumber(decimal: discountPrice)
+//            .doubleValue
+        return price.discount(discount)
     }
     
     enum CodingKeys: String, CodingKey {

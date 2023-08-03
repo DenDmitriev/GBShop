@@ -14,7 +14,9 @@ final class OrderService: ObservableObject {
     @Published var isSynchronized: Bool = false
     @Published var receipt: Receipt?
     
-    private var userID: UUID?
+    var userID: UUID? = {
+        UserSession.shared.user?.id ?? nil
+    }()
     private let requestFactory = RequestFactory()
     private let maxCount: Int = 20
     

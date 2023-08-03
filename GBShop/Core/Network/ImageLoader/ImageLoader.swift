@@ -14,10 +14,11 @@ class ImageLoader: ObservableObject {
     
     @Published var image: UIImage?
     
+    private(set) var isLoading = false
     private var cache: ImageCache?
     private let url: URL
     private var cancellable = Set<AnyCancellable>()
-    private(set) var isLoading = false
+    
     private static let imageProcessingQueue = DispatchQueue(label: "app.image-processing")
     
     init(url: URL, cache: ImageCache? = nil) {
@@ -38,13 +39,13 @@ class ImageLoader: ObservableObject {
         }
         
         URLSession.shared.dataTaskPublisher(for: url)
-            .subscribe(on: Self.imageProcessingQueue)
             .map { UIImage(data: $0.data) }
             .replaceError(with: nil)
             .handleEvents(receiveSubscription: { [weak self] _ in self?.onStart() },
                           receiveOutput: { [weak self] image in self?.cache(image) },
                           receiveCompletion: { [weak self] _ in self?.onFinish() },
                           receiveCancel: {[weak self] in self?.onFinish() })
+            .subscribe(on: Self.imageProcessingQueue)
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] image in
                 self?.image = image
