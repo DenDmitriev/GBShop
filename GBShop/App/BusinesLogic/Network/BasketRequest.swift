@@ -48,8 +48,9 @@ extension BasketRequest: BasketRequestFactory {
     }
     
     func payment(of userID: UserID,
+                 total: Double,
                  completionHandler: @escaping (AFDataResponse<Basket.PaymentResult>) -> Void) {
-        let requestModel = Payment(baseUrl: baseUrl, userID: userID)
+        let requestModel = Payment(baseUrl: baseUrl, userID: userID, total: total)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 }
@@ -104,9 +105,11 @@ extension BasketRequest {
         var method: HTTPMethod = .post
         var path: String = "/baskets/payment"
         let userID: UUID
+        let total: Double
         var parameters: Parameters? {
             return [
-                "userID": userID
+                "userID": userID,
+                "total": total
             ]
         }
     }

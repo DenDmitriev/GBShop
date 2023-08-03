@@ -75,7 +75,7 @@ final class BasketRequestTests: XCTestCase {
     
     func testPayment() {
         let mockUserID = UUID()
-        request.payment(of: mockUserID) { response in
+        request.payment(of: mockUserID, total: .zero) { response in
             switch response.result {
             case .success(let result):
                 XCTAssertEqual(result.result, .zero)
