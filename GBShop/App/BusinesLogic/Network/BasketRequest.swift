@@ -12,9 +12,8 @@ class BasketRequest: AbstractRequestFactory {
     var errorParser: AbstractErrorParser
     var sessionManager: Session
     var queue: DispatchQueue
-    
-    let baseUrl = URL(string: "http://127.0.0.1:8080")!
-    //    let baseUrl = URL(string: "https://gbshopbackend-denisdmitriev.amvera.io")!
+//    let baseUrl = URL(string: "http://127.0.0.1:8080")!
+    let baseUrl = URL(string: "https://gbshopbe-denisdmitriev.amvera.io")!
     
     init(errorParser: AbstractErrorParser,
          sessionManager: Session,

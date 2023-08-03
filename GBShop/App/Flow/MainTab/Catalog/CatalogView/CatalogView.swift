@@ -41,6 +41,7 @@ struct CatalogView: View {
                                               categories: viewModel.category,
                                               name: categoryViewModel.category.name)
                                 .id(index)
+                                .padding(.top, 8)
                                 
                                 Spacer()
                                 

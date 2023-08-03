@@ -32,7 +32,7 @@ struct CatalogHeader: View {
             }
         }
         .padding(8.0)
-        .background(.background)
+        .background(.ultraThinMaterial)
         .cornerRadius(8)
     }
 }

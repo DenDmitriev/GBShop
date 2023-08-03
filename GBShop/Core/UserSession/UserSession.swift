@@ -38,6 +38,9 @@ class UserSession: ObservableObject {
             }
             saveUserName(name: login.name)
             try saveToken(token: login.token, for: login.name)
+            
+            orderService = OrderService(userID: login.id)
+            getBasket()
         }
     }
 
