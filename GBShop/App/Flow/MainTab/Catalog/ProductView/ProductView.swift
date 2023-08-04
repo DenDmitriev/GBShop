@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProductView: View {
     
+    @EnvironmentObject var coordinator: CatalogCoordinator
     @EnvironmentObject var orderService: OrderService
     @ObservedObject private var viewModel: ProductViewModel
     
@@ -47,19 +48,21 @@ struct ProductView: View {
                 
                 OrderButton(count: orderService.count(for: viewModel.product))
                 
-                LazyVGrid(columns: [GridItem(.flexible())]) {
+                HStack {
                     Text("Отзывы")
-                        .font(.title2)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.top)
+                        .font(.title)
                     
-                    Divider()
-                    
-                    ForEach(viewModel.reviews, id: \.id) { review in
-                        ReviewView(review: review)
-                            .padding(.bottom)
+                    Button {
+                        coordinator.present(sheet: .reviewCreator(product: viewModel.product))
+                    } label: {
+                        Image(systemName: "plus.circle")
+                            .font(.title2)
                     }
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.top)
+                
+                ReviewListView(reviews: $viewModel.reviews)
             }
             .padding(.all, 16)
         }
@@ -73,5 +76,6 @@ struct ProductView_Previews: PreviewProvider {
                                                           DummyData.review2,
                                                           DummyData.review3]))
         .environmentObject(OrderService())
+        .environmentObject(CatalogCoordinator())
     }
 }

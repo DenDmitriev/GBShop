@@ -45,7 +45,7 @@ struct BasketView: View {
                     .foregroundColor(.secondary)
                     .fontWeight(.medium)
                 
-                Text(CurrencyFormatter.shared.formatter(by: orderService.total))
+                Text(Formatter.shared.currency(by: orderService.total))
                     .font(.largeTitle)
                 
                 Button {

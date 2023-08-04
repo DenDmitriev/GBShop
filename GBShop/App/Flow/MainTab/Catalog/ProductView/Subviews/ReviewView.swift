@@ -24,7 +24,7 @@ struct ReviewView: View {
                 }
                 .foregroundColor(.yellow)
                 
-                Text(review.createdAt.formatted(.dateTime.day().month()))
+                Text(Formatter.shared.date(by: review.createdAt))
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             

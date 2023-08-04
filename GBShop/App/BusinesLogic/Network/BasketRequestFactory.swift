@@ -26,5 +26,6 @@ protocol BasketRequestFactory {
                           completionHandler: @escaping (AFDataResponse<Basket.Update>) -> Void)
     
     func payment(of userID: UserID,
+                 total: Double,
                  completionHandler: @escaping (AFDataResponse<Basket.PaymentResult>) -> Void)
 }

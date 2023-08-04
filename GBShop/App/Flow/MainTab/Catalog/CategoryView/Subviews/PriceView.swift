@@ -25,16 +25,16 @@ struct PriceView: View {
             
             HStack {
                 if price.discount != .zero {
-                    Text(CurrencyFormatter.shared.formatter(by: price.discountPrice))
+                    Text(Formatter.shared.currency(by: price.discountPrice))
                         .foregroundColor(.red)
                 }
                 
                 if price.discount != .zero {
-                    Text(CurrencyFormatter.shared.formatter(by: price.price))
+                    Text(Formatter.shared.currency(by: price.price))
                         .foregroundColor(.gray)
                         .strikethrough()
                 } else {
-                    Text(CurrencyFormatter.shared.formatter(by: price.price))
+                    Text(Formatter.shared.currency(by: price.price))
                         .foregroundColor(.primary)
                 }
                 

@@ -95,7 +95,7 @@ final class OrderService: ObservableObject {
         guard let userID = userID else { return }
         isSynchronized(false)
         let basketRequest = requestFactory.makeBasketRequestFactory()
-        basketRequest.payment(of: userID) { response in
+        basketRequest.payment(of: userID, total: total) { response in
             switch response.result {
             case .success(let paymentResult):
                 if paymentResult.result == .zero {
