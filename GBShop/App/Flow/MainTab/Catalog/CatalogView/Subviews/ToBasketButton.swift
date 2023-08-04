@@ -21,7 +21,7 @@ struct ToBasketButton: View {
                 Text("•")
                 Text(orderService.order.count.formatted(.number))
                 Spacer()
-                Text(CurrencyFormatter.shared.formatter(by: orderService.total))
+                Text(Formatter.shared.currency(by: orderService.total))
                     .fontWeight(.bold)
             }
             .padding(.vertical, 8)

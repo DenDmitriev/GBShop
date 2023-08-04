@@ -74,6 +74,9 @@ class CatalogCoordinator: ObservableObject {
             CatalogLinksView(scrollingCategory: selected, categories: names)
                 .presentationDetents([.medium])
                 .presentationDragIndicator(.visible)
+        case .reviewCreator(let product):
+            ReviewCreatorView(viewModel: ReviewCreatorViewModel(product: product))
+                .presentationDetents([.medium, .large])
         }
     }
     

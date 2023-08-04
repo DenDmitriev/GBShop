@@ -13,6 +13,7 @@ enum CatalogSheet: Identifiable, Hashable {
     
     case product(product: Product)
     case catalogLinks(names: [String], selected: Binding<Int>)
+    case reviewCreator(product: Product)
     
     var rawValue: RawValue {
         switch self {
@@ -20,6 +21,8 @@ enum CatalogSheet: Identifiable, Hashable {
             return "product" + product.id.uuidString
         case .catalogLinks:
             return "catalogLinks"
+        case .reviewCreator(let product):
+            return "reviewCreator" + product.id.uuidString
         }
     }
     

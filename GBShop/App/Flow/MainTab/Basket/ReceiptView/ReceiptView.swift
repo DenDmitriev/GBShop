@@ -34,7 +34,7 @@ struct ReceiptView: View {
                                 .foregroundColor(.gray)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .frame(height: 1)
-                            Text(CurrencyFormatter.shared.formatter(by: receipt.price))
+                            Text(Formatter.shared.currency(by: receipt.price))
                         }
                         .padding(.horizontal)
                     }
@@ -44,7 +44,7 @@ struct ReceiptView: View {
                 
                 HStack {
                     Text("Итого")
-                    Text(CurrencyFormatter.shared.formatter(by: receipt.total))
+                    Text(Formatter.shared.currency(by: receipt.total))
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 }
                 .font(.title2)

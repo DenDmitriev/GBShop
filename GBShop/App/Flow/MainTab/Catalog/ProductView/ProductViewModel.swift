@@ -21,17 +21,18 @@ class ProductViewModel: ObservableObject {
     init(product: Product, reviews: [Review]? = nil) {
         self.reviews = reviews ?? []
         self.product = product
+        getReviews()
     }
 
     // MARK: - Functions
     
     func getReviews() {
         let reviewRequest = requestFactory.makeReviewRequestFactory()
-        reviewRequest.reviews(for: product.id, page: .zero, per: 5) { response in
+        reviewRequest.reviews(for: product.id, page: 1, per: 5) { response in
             switch response.result {
-            case .success(let data):
+            case .success(let getReviewResult):
                 DispatchQueue.main.async {
-                    if let reviews = data.reviews {
+                    if let reviews = getReviewResult.reviews {
                         self.reviews = reviews.sorted(by: { $0.createdAt > $1.createdAt })
                     }
                 }
