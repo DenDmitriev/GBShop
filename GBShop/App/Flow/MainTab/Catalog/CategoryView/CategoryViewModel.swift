@@ -12,46 +12,39 @@ class CategoryViewModel: ObservableObject {
     // MARK: - Properties
 
     @Published var products: [Product] = []
+    @Published var hasError: Bool = false
+    @Published var error: APIError?
     let userSession = UserSession.shared
     let category: ProductCategory
-    private let requestFactory = RequestFactory()
 
     // MARK: - Initialization
 
     init(category: ProductCategory) {
         self.category = category
-        getProducts()
-//        mockProducts()
     }
 
     // MARK: - Functions
 
-    func getProducts() {
-        let productRequest = requestFactory.makeProductRequestFactory()
-        productRequest.products(by: category.id, page: .zero, per: 10) { response in
-            switch response.result {
-            case .success(let productsResult):
-                if let products = productsResult.products {
-                    DispatchQueue.main.async {
-                        self.products = products
-                    }
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
+    func getProducts() async {
+        let token = userSession.token
+        let requestModel = ProductRequest.ProductsByCategory(
+            baseUrl: URL(string: "baseURL")!,
+            headers: [.authorization(bearerToken: token)], page: .zero,
+            per: 10,
+            categoryID: category.id
+        )
+        let response = await ProductAPI.products(router: requestModel)
+        
+        switch response {
+        case .success(let success):
+            await MainActor.run {
+                self.products = success
+            }
+        case .failure(let failure):
+            await MainActor.run {
+                self.error = APIError.error(message: failure.localizedDescription)
+                self.hasError = true
             }
         }
     }
-
-    // MARK: - Private functions
-    
-    private func mockProducts() {
-        let mockeProducts = [
-            Product(name: "Чипсы картофельные Lay's Maxx",
-                    price: Price(price: 129, discount: .zero),
-                    description: "Куриные крылышки барбекю рифлёные",
-                    image: "https://cm.samokat.ru/processed/l/original/158334_425819778.jpg")
-        ]
-        self.products = mockeProducts
-    }
-
 }

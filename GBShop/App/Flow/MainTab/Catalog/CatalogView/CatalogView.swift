@@ -57,6 +57,11 @@ struct CatalogView: View {
                 }
             }
         }
+        .onAppear {
+            Task {
+                await viewModel.getCatalog()
+            }
+        }
         .overlay {
             if !orderService.order.isEmpty {
                 ToBasketButton()

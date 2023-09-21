@@ -75,7 +75,7 @@ final class OrderService: ObservableObject {
         guard let userID = userID else { return }
         isSynchronized(false)
         let basketRequest = requestFactory.makeBasketRequestFactory()
-        basketRequest.getBasket(of: userID) { response in
+        basketRequest.getBasket(user: userID) { response in
             switch response.result {
             case .success(let basketResult):
                 if basketResult.result == .zero {
@@ -95,7 +95,7 @@ final class OrderService: ObservableObject {
         guard let userID = userID else { return }
         isSynchronized(false)
         let basketRequest = requestFactory.makeBasketRequestFactory()
-        basketRequest.payment(of: userID, total: total) { response in
+        basketRequest.payment(user: userID, total: total) { response in
             switch response.result {
             case .success(let paymentResult):
                 if paymentResult.result == .zero {
@@ -142,7 +142,7 @@ final class OrderService: ObservableObject {
         guard let userID = userID else { return }
         isSynchronized(false)
         let basketRequest = requestFactory.makeBasketRequestFactory()
-        basketRequest.deleteFromBasket(of: userID, for: productID, on: count) { response in
+        basketRequest.deleteFromBasket(user: userID, for: productID, on: count) { response in
             switch response.result {
             case .success(let basketUpdate):
                 if basketUpdate.result == .zero {

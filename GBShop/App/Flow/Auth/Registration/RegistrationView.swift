@@ -73,19 +73,21 @@ struct RegistrationView: View {
                         isCreditCardFocused.toggle()
                     }
                     .textContentType(.emailAddress)
-
+                
                 Button("Register") {
                     let create = User.Create(name: name,
                                              email: email.lowercased(),
                                              password: password,
                                              confirmPassword: password,
                                              creditCard: creditCard)
-                    viewModel.registration(create: create, isPresentation: isPresentation)
+                    Task {
+                        await viewModel.registration(create: create, isPresentation: isPresentation)
+                    }
                 }
                 .buttonStyle(.borderedProminent)
                 .font(.headline)
             }
-
+            
             HStack {
                 Text(errorMessage)
                     .foregroundColor(colorErrorMessage)

@@ -8,35 +8,38 @@
 import Foundation
 
 class GBShopAppViewModel: ObservableObject {
-
+    
     // MARK: - Properties
-
+    
+    @Published var hasError: Bool = false
+    @Published var error: APIError?
     private let requestFactory = RequestFactory()
-
+    
     // MARK: - Initialization
-
-    init() {
-        checkAuthByToken()
-    }
-
+    
     // MARK: - Functions
-
-    func checkAuthByToken() {
+    
+    func authWithToken() async {
         guard let token = getToken() else { return }
-        let authRequests = requestFactory.makeAuthRequestFactory()
-        authRequests.me(token: token) { response in
-            switch response.result {
-            case .success(let result):
-                guard let userPublic = result.user else { return }
-                self.createSession(by: userPublic, with: token)
-            case .failure(let error):
-                print(error.localizedDescription)
+        let requestModel = AuthRequest.LoginUserWithToken(
+            baseUrl: URL(string: "baseUrl")!,
+            headers: [.authorization(bearerToken: token)]
+        )
+        let result = await AuthAPI.me(router: requestModel)
+        
+        switch result {
+        case .success(let success):
+            self.createSession(by: success, with: token)
+        case .failure(let failure):
+            await MainActor.run {
+                self.error = APIError.error(message: failure.localizedDescription)
+                self.hasError = true
             }
         }
     }
-
+    
     // MARK: - Private functions
-
+    
     private func getToken() -> String? {
         let secureStore = SecureStore()
         let userName = UserDefaultsStore.userName
@@ -48,7 +51,7 @@ class GBShopAppViewModel: ObservableObject {
             return nil
         }
     }
-
+    
     private func createSession(by publicUser: User.Public, with token: String) {
         do {
             try UserSession.shared.create(user: User(from: publicUser), token: token)

@@ -26,31 +26,33 @@ class AuthRequest: AbstractRequestFactory {
 
 extension AuthRequest: AuthRequestFactory {
     func me(token: String, completionHandler: @escaping (AFDataResponse<MeResult>) -> Void) {
-        let requestModel = LoginUserWithToken(baseUrl: baseUrl, encoding: .bearer(token: token))
+        let requestModel = LoginUserWithToken(baseUrl: baseUrl, headers: [.authorization(bearerToken: token)])
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 
     func login(email: String, password: String, completionHandler: @escaping (AFDataResponse<LoginResult>) -> Void) {
-        let requestModel = LoginUser(baseUrl: baseUrl,
+        let requestModel = LoginUser(baseUrl: baseUrl, headers: [.authorization(username: email, password: password)],
                                  email: email,
-                                 password: password,
-                                 encoding: .basicAuth(username: email, password: password))
+                                 password: password)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 
     func logout(userId: UUID, completionHandler: @escaping (AFDataResponse<LogoutResult>) -> Void) {
-        let requestModel = LogoutUser(baseUrl: baseUrl, userId: userId)
+        let token = UserSession.shared.token
+        let requestModel = LogoutUser(baseUrl: baseUrl, headers: [.authorization(bearerToken: token)], userId: userId)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 
     func registerUser(create: User.Create, completionHandler: @escaping (AFDataResponse<RegisterUserResult>) -> Void) {
+        let token = UserSession.shared.token
         let requestModel = RegisterUser(baseUrl: baseUrl, create: create)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 
     func changeUserData(update: User.Update,
                         completionHandler: @escaping (AFDataResponse<ChangeUserDataResult>) -> Void) {
-        let requestModel = ChangeUserData(baseUrl: baseUrl, update: update)
+        let token = UserSession.shared.token
+        let requestModel = ChangeUserData(baseUrl: baseUrl, headers: [.authorization(bearerToken: token)], update: update)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 }
@@ -58,24 +60,25 @@ extension AuthRequest: AuthRequestFactory {
 extension AuthRequest {
     struct LoginUserWithToken: RequestRouter {
         var baseUrl: URL
+        var headers: HTTPHeaders?
         var method: HTTPMethod = .get
         var path: String = "/me"
         var parameters: Parameters?
-        var encoding: RequestRouterEncoding
     }
 
     struct LoginUser: RequestRouter {
         let baseUrl: URL
+        var headers: HTTPHeaders?
         let method: HTTPMethod = .post
         let path: String = "/login"
         let email: String
         let password: String
-        var encoding: RequestRouterEncoding
         var parameters: Parameters?
     }
 
     struct LogoutUser: RequestRouter {
         let baseUrl: URL
+        var headers: HTTPHeaders?
         let method: HTTPMethod = .post
         let path: String = "/logout"
         let userId: UUID
@@ -88,6 +91,7 @@ extension AuthRequest {
 
     struct ChangeUserData: RequestRouter {
         let baseUrl: URL
+        var headers: HTTPHeaders?
         let method: HTTPMethod = .post
         let path: String = "/users/update"
         let update: User.Update
@@ -103,6 +107,7 @@ extension AuthRequest {
 
     struct RegisterUser: RequestRouter {
         let baseUrl: URL
+        var headers: HTTPHeaders? = []
         let method: HTTPMethod = .post
         let path: String = "/users/register"
         let create: User.Create

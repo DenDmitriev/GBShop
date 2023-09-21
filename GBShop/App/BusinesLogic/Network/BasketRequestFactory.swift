@@ -12,7 +12,7 @@ protocol BasketRequestFactory {
     typealias UserID = UUID
     typealias ProductID = UUID
     
-    func getBasket(of userID: UserID,
+    func getBasket(user userID: UserID,
                    completionHandler: @escaping (AFDataResponse<Basket.Result>) -> Void)
     
     func addToBasket(of userID: UserID,
@@ -20,12 +20,12 @@ protocol BasketRequestFactory {
                      on count: Int,
                      completionHandler: @escaping (AFDataResponse<Basket.Update>) -> Void)
     
-    func deleteFromBasket(of userID: UserID,
+    func deleteFromBasket(user userID: UserID,
                           for productID: ProductID,
                           on count: Int,
                           completionHandler: @escaping (AFDataResponse<Basket.Update>) -> Void)
     
-    func payment(of userID: UserID,
+    func payment(user userID: UserID,
                  total: Double,
                  completionHandler: @escaping (AFDataResponse<Basket.PaymentResult>) -> Void)
 }

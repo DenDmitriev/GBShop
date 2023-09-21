@@ -32,6 +32,11 @@ struct CategoryView: View {
             }
             .padding(8)
         }
+        .onAppear {
+            Task {
+                await viewModel.getProducts()
+            }
+        }
     }
 }
 

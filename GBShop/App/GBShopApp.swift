@@ -19,6 +19,12 @@ struct GBShopApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .onAppear {
+                    Task {
+                        await viewModel.authWithToken()
+                    }
+                }
+                .alert(isPresented: $viewModel.hasError, error: viewModel.error, actions: {})
         }
     }
 }

@@ -14,30 +14,35 @@ class CatalogViewModel: ObservableObject {
     @Published var category: [ProductCategory] = []
     @Published var scrollingCategory: Int = .zero
     @Published var categoryViewModels = [CategoryViewModel]()
+    @Published var error: APIError?
+    @Published var hasError: Bool = false
     
     private let requestFactory = RequestFactory()
     
     // MARK: - Initialization
     
-    init() {
-        getCatalog()
-    }
-    
     // MARK: - Functions
     
-    func getCatalog() {
-        let productRequest = requestFactory.makeProductRequestFactory()
-        productRequest.categories { response in
-            switch response.result {
-            case .success(let catalog):
-                DispatchQueue.main.async {
-                    self.category = catalog
-                    self.categoryViewModels = catalog.map({ CategoryViewModel(category: $0) })
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
+    func getCatalog() async {
+        let token = UserSession.shared.token
+        let requestModel = ProductRequest.All(
+            baseUrl: URL(string: "baseUrl")!,
+            headers: [.authorization(bearerToken: token)]
+        )
+        let response = await ProductAPI.categories(router: requestModel)
+        switch response {
+        case .success(let success):
+            await MainActor.run {
+                self.category = success
+                self.categoryViewModels = success.map({ CategoryViewModel(category: $0) })
+            }
+        case .failure(let failure):
+            await MainActor.run {
+                self.error = APIError.error(message: failure.localizedDescription)
+                self.hasError = true
             }
         }
+        
     }
     
     // MARK: - Private functions

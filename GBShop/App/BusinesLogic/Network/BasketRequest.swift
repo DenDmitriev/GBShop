@@ -26,8 +26,9 @@ class BasketRequest: AbstractRequestFactory {
 
 extension BasketRequest: BasketRequestFactory {
     
-    func getBasket(of userID: UserID, completionHandler: @escaping (AFDataResponse<Basket.Result>) -> Void) {
-        let requestModel = Get(baseUrl: baseUrl, userID: userID)
+    func getBasket(user userID: UserID, completionHandler: @escaping (AFDataResponse<Basket.Result>) -> Void) {
+        let token = UserSession.shared.token
+        let requestModel = Get(baseUrl: baseUrl, headers: [.authorization(bearerToken: token)], userID: userID)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
@@ -35,22 +36,25 @@ extension BasketRequest: BasketRequestFactory {
                      for productID: ProductID,
                      on count: Int,
                      completionHandler: @escaping (AFDataResponse<Basket.Update>) -> Void) {
-        let requestModel = Add(baseUrl: baseUrl, userID: userID, productID: productID, count: count)
+        let token = UserSession.shared.token
+        let requestModel = Add(baseUrl: baseUrl, headers: [.authorization(bearerToken: token)], userID: userID, productID: productID, count: count)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
-    func deleteFromBasket(of userID: UserID,
+    func deleteFromBasket(user userID: UserID,
                           for productID: ProductID,
                           on count: Int,
                           completionHandler: @escaping (AFDataResponse<Basket.Update>) -> Void) {
-        let requestModel = Delete(baseUrl: baseUrl, userID: userID, productID: productID, count: count)
+        let token = UserSession.shared.token
+        let requestModel = Delete(baseUrl: baseUrl, headers: [.authorization(bearerToken: token)], userID: userID, productID: productID, count: count)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
-    func payment(of userID: UserID,
+    func payment(user userID: UserID,
                  total: Double,
                  completionHandler: @escaping (AFDataResponse<Basket.PaymentResult>) -> Void) {
-        let requestModel = Payment(baseUrl: baseUrl, userID: userID, total: total)
+        let token = UserSession.shared.token
+        let requestModel = Payment(baseUrl: baseUrl, headers: [.authorization(bearerToken: token)], userID: userID, total: total)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 }
@@ -58,6 +62,7 @@ extension BasketRequest: BasketRequestFactory {
 extension BasketRequest {
     struct Get: RequestRouter {
         var baseUrl: URL
+        var headers: HTTPHeaders?
         var method: HTTPMethod = .get
         var path: String = "/baskets/get"
         let userID: UUID
@@ -70,6 +75,7 @@ extension BasketRequest {
     
     struct Add: RequestRouter {
         var baseUrl: URL
+        var headers: HTTPHeaders?
         var method: HTTPMethod = .post
         var path: String = "/baskets/add"
         let userID: UUID
@@ -86,6 +92,7 @@ extension BasketRequest {
     
     struct Delete: RequestRouter {
         var baseUrl: URL
+        var headers: HTTPHeaders?
         var method: HTTPMethod = .post
         var path: String = "/baskets/delete"
         let userID: UUID
@@ -102,6 +109,7 @@ extension BasketRequest {
     
     struct Payment: RequestRouter {
         var baseUrl: URL
+        var headers: HTTPHeaders?
         var method: HTTPMethod = .post
         var path: String = "/baskets/payment"
         let userID: UUID
