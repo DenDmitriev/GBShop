@@ -71,13 +71,10 @@ struct ReviewCreatorView: View {
                 }
             
             Button("Создать отзыв") {
-                viewModel.addReview(text: fullText, rating: rating) { isAdded in
-                    DispatchQueue.main.async {
-                        if isAdded {
-                            coordinator.dismissSheet()
-                        } else {
-                            showAlert = true
-                        }
+                Task {
+                    await viewModel.addReview(text: fullText, rating: rating)
+                    if !viewModel.isPublished {
+                        coordinator.dismissSheet()
                     }
                 }
             }
@@ -86,14 +83,17 @@ struct ReviewCreatorView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding()
-        .alert(isPresented: $showAlert) {
-            Alert(title: Text("Ошибка"), message: Text("Отзыв не был добавлен"), primaryButton: .cancel(
-                Text("Ок"),
-                action: { coordinator.dismissSheet() }
-            ), secondaryButton: .default(
-                Text("Повторить"),
-                action: {}
-            ))
+        .alert(isPresented: $viewModel.hasError) {
+            Alert(
+                title: Text("Ошибка"),
+                message: Text("Отзыв не был добавлен. " + (viewModel.error?.localizedDescription ?? "")),
+                primaryButton: .cancel(
+                    Text("Ок"),
+                    action: { coordinator.dismissSheet() }
+                ), secondaryButton: .default(
+                    Text("Повторить"),
+                    action: {}
+                ))
         }
     }
 }

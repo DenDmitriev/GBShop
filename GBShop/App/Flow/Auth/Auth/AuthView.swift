@@ -14,6 +14,7 @@ struct AuthView: View {
     @State private var password: String = "secret42"
     @State private var userMessage: String = "Hello, there!👋"
     @State private var errorMessage: String = ""
+    @State private var isLoading: Bool = false
 
     @FocusState var isEmailFocused: Bool
     @FocusState var isPasswordFocused: Bool
@@ -57,9 +58,23 @@ struct AuthView: View {
                         }
 
                     HStack {
-                        Button("Login") {
-                            viewModel.login(login: login, password: password)
+                        Button {
+                            Task {
+                                isLoading = true
+                                await viewModel.loginNew(login: login, password: password)
+                                isLoading = false
+                            }
+                        } label: {
+                            HStack {
+                                if isLoading {
+                                    ProgressView()
+                                }
+                                
+                                Text("Login")
+                            }
+                            
                         }
+                        .disabled(isLoading)
                         .buttonStyle(.borderedProminent)
                         .font(.headline)
 
@@ -68,6 +83,7 @@ struct AuthView: View {
                                 .navigationTitle("Registration")
                                 .navigationBarTitleDisplayMode(.large)
                         }
+                        .disabled(isLoading)
                         .buttonStyle(.bordered)
                         .font(.headline)
 

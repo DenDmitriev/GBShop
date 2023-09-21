@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Review: Codable {
+struct Review: Codable, Identifiable, Hashable {
     let id: UUID
     let reviewer: String
     let review: String

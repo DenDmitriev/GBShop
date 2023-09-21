@@ -20,27 +20,22 @@ class RegistrationViewModel: ObservableObject {
     // MARK: - Initialization
 
     // MARK: - Functions
-
-    func registration(create: User.Create, isPresentation: Binding<PresentationMode>) {
-        let authRequests = requestFactory.makeAuthRequestFactory()
-        authRequests.registerUser(create: create) { response in
-            switch response.result {
-            case .success(let result):
-                DispatchQueue.main.async {
-                    if result.result == .zero {
-                        self.errorMessage = result.errorMessage ?? ""
-                    } else {
-                        self.userMessage = result.userMessage ?? ""
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                            isPresentation.wrappedValue.dismiss()
-                        }
-                    }
+    
+    func registration(create: User.Create, isPresentation: Binding<PresentationMode>) async {
+        let requestModel = AuthRequest.RegisterUser(baseUrl: URL(string: "baseURL")!, create: create)
+        let response = await AuthAPI.registerUser(router: requestModel)
+        
+        switch response {
+        case .success(let success):
+            await MainActor.run {
+                self.userMessage = success.userMessage ?? ""
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    isPresentation.wrappedValue.dismiss()
                 }
-
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.errorMessage = error.localizedDescription
-                }
+            }
+        case .failure(let failure):
+            await MainActor.run {
+                self.errorMessage = failure.localizedDescription
             }
         }
     }

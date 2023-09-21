@@ -52,11 +52,23 @@ final class AuthRequestTests: XCTestCase {
     }
     
     func testLogin() {
-        request.login(email: userCreate.email, password: userCreate.password) { response in
+        request.registerUser(create: self.userCreate) { response in
             switch response.result {
-            case .success(let result):
-                print(#function, result)
-                XCTAssertTrue(result.result == 1 || result.result == 0)
+            case .success(let register):
+                print(#function, register)
+                
+                self.request.login(email: self.userCreate.email, password: self.userCreate.password) { response in
+                    switch response.result {
+                    case .success(let result):
+                        print(#function, result)
+                        XCTAssertTrue(result.result == 1 || result.result == 0)
+                    case .failure(let error):
+                        print(#function, error.localizedDescription)
+                        XCTFail("failure response")
+                    }
+                    self.expectation.fulfill()
+                }
+                
             case .failure(let error):
                 print(#function, error.localizedDescription)
                 XCTFail("failure response")
@@ -85,16 +97,27 @@ final class AuthRequestTests: XCTestCase {
     }
     
     func testChangeUserData() {
-        
-        var userUpdate = User.Update(id: UUID(),
-                                     name: "name",
-                                     email: "email@email.ru",
-                                     creditCard: "1234123412341234")
-        request.changeUserData(update: userUpdate) { response in
+        request.registerUser(create: self.userCreate) { response in
             switch response.result {
-            case .success(let changeUserData):
-                print(#function, changeUserData)
-                XCTAssertEqual(changeUserData.result, .zero)
+            case .success(let register):
+                print(#function, register)
+                
+                let userUpdate = User.Update(id: UUID(),
+                                             name: "name",
+                                             email: "email@email.ru",
+                                             creditCard: "1234123412341234")
+                self.request.changeUserData(update: userUpdate) { response in
+                    switch response.result {
+                    case .success(let changeUserData):
+                        print(#function, changeUserData)
+                        XCTAssertEqual(changeUserData.result, .zero)
+                    case .failure(let error):
+                        print(#function, error.localizedDescription)
+                        XCTFail("failure response")
+                    }
+                    self.expectation.fulfill()
+                }
+                
             case .failure(let error):
                 print(#function, error.localizedDescription)
                 XCTFail("failure response")

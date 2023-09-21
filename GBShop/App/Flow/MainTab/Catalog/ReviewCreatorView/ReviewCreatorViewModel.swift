@@ -11,6 +11,9 @@ class ReviewCreatorViewModel: ObservableObject {
     
     // MARK: - Properties
     
+    @Published var hasError = false
+    @Published var error: APIError?
+    @Published var isPublished = true
     let product: Product
     private let requestFactory = RequestFactory()
     
@@ -22,22 +25,33 @@ class ReviewCreatorViewModel: ObservableObject {
     
     // MARK: - Functions
     
-    func addReview(text: String, rating: Int?, completion: @escaping ((Bool) -> Void)) {
+    func addReview(text: String, rating: Int?) async {
         guard
             let userID = UserSession.shared.user?.id,
             let rating = rating,
             !text.isEmpty
         else { return }
+        let token = UserSession.shared.token
         
-        let reviewRequest = requestFactory.makeReviewRequestFactory()
-        reviewRequest.addReview(userID: userID, productID: product.id, review: text, rating: rating) { response in
-            switch response.result {
-            case .success(let reviewResult):
-                print(reviewResult)
-                completion(reviewResult.result == 1)
-            case .failure(let error):
-                print(error.localizedDescription)
-                completion(false)
+        let requestModel = ReviewRequest.AddReview(
+            baseUrl: URL(string: "baseURL")!,
+            headers: [.authorization(bearerToken: token)],
+            userID: userID,
+            productID: product.id,
+            review: text,
+            rating: rating
+        )
+        let response = await ReviewAPI.addReview(router: requestModel)
+        
+        switch response {
+        case .success:
+            await MainActor.run {
+                isPublished = false
+            }
+        case .failure(let failure):
+            await MainActor.run {
+                error = .error(message: failure.localizedDescription)
+                hasError = true
             }
         }
     }

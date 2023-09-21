@@ -61,6 +61,7 @@ extension ReviewRequest: ReviewRequestFactory {
 extension ReviewRequest {
     struct Reviews: RequestRouter {
         var baseUrl: URL
+        var headers: HTTPHeaders?
         var method: HTTPMethod = .get
         var path: String = "/reviews/get"
         let productID: UUID
@@ -77,6 +78,7 @@ extension ReviewRequest {
 
     struct AddReview: RequestRouter {
         var baseUrl: URL
+        var headers: HTTPHeaders?
         var method: HTTPMethod = .post
         var path: String = "/reviews/add"
         let userID: UUID
@@ -95,6 +97,7 @@ extension ReviewRequest {
 
     struct DeleteReview: RequestRouter {
         var baseUrl: URL
+        var headers: HTTPHeaders?
         var method: HTTPMethod = .delete
         var path: String
         let reviewID: UUID

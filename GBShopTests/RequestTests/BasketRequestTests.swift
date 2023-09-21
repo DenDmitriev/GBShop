@@ -28,7 +28,7 @@ final class BasketRequestTests: XCTestCase {
     
     func testGetBasket() {
         let mockUserID = UUID()
-        request.getBasket(of: mockUserID) { response in
+        request.getBasket(user: mockUserID) { response in
             switch response.result {
             case .success(let result):
                 XCTAssertEqual(result.result, .zero)
@@ -60,7 +60,7 @@ final class BasketRequestTests: XCTestCase {
     func testDeleteFromBasket() {
         let mockUserID = UUID()
         let mockProductID = UUID()
-        request.deleteFromBasket(of: mockUserID, for: mockProductID, on: 1) { response in
+        request.deleteFromBasket(user: mockUserID, for: mockProductID, on: 1) { response in
             switch response.result {
             case .success(let result):
                 XCTAssertEqual(result.result, .zero)
@@ -75,7 +75,7 @@ final class BasketRequestTests: XCTestCase {
     
     func testPayment() {
         let mockUserID = UUID()
-        request.payment(of: mockUserID, total: .zero) { response in
+        request.payment(user: mockUserID, total: .zero) { response in
             switch response.result {
             case .success(let result):
                 XCTAssertEqual(result.result, .zero)

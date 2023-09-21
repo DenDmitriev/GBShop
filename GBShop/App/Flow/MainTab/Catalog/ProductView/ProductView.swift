@@ -62,7 +62,7 @@ struct ProductView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top)
                 
-                ReviewListView(reviews: $viewModel.reviews)
+                ReviewListView(viewModel: ReviewListViewModel(product: viewModel.product))
             }
             .padding(.all, 16)
         }
@@ -71,11 +71,8 @@ struct ProductView: View {
 
 struct ProductView_Previews: PreviewProvider {
     static var previews: some View {
-        ProductView(viewModel: ProductViewModel(product: DummyData.product,
-                                                reviews: [DummyData.review1,
-                                                          DummyData.review2,
-                                                          DummyData.review3]))
-        .environmentObject(OrderService())
-        .environmentObject(CatalogCoordinator())
+        ProductView(viewModel: ProductViewModel(product: DummyData.product))
+            .environmentObject(OrderService())
+            .environmentObject(CatalogCoordinator())
     }
 }

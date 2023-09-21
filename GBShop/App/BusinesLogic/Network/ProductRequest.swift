@@ -26,7 +26,8 @@ class ProductRequest: AbstractRequestFactory {
 
 extension ProductRequest: ProductRequestFactory {
     func categories(completionHandler: @escaping (AFDataResponse<[ProductCategory]>) -> Void) {
-        let requestModel = All(baseUrl: baseUrl)
+        let token = UserSession.shared.token
+        let requestModel = All(baseUrl: baseUrl, headers: [.authorization(bearerToken: token)])
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 
@@ -34,12 +35,14 @@ extension ProductRequest: ProductRequestFactory {
                   page: Int,
                   per: Int,
                   completionHandler: @escaping (AFDataResponse<ProductsByCategoryResult>) -> Void) {
-        let requestModel = ProductsByCategory(baseUrl: baseUrl, page: page, per: per, categoryID: categoryID)
+        let token = UserSession.shared.token
+        let requestModel = ProductsByCategory(baseUrl: baseUrl, headers: [.authorization(bearerToken: token)], page: page, per: per, categoryID: categoryID)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 
     func product(id: UUID, completionHandler: @escaping (AFDataResponse<ProductResult>) -> Void) {
-        let requestModel = Product(baseUrl: baseUrl, id: id)
+        let token = UserSession.shared.token
+        let requestModel = Product(baseUrl: baseUrl, headers: [.authorization(bearerToken: token)], id: id)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 }
@@ -47,6 +50,7 @@ extension ProductRequest: ProductRequestFactory {
 extension ProductRequest {
     struct All: RequestRouter {
         var baseUrl: URL
+        var headers: HTTPHeaders?
         var method: HTTPMethod = .get
         var path: String = "/categories/all"
         var parameters: Parameters? {
@@ -56,6 +60,7 @@ extension ProductRequest {
 
     struct ProductsByCategory: RequestRouter {
         var baseUrl: URL
+        var headers: HTTPHeaders?
         var method: HTTPMethod = .get
         var path: String = "/products/category"
         let page: Int
@@ -72,6 +77,7 @@ extension ProductRequest {
 
     struct Product: RequestRouter {
         var baseUrl: URL
+        var headers: HTTPHeaders?
         var method: HTTPMethod = .get
         let id: UUID
         var path: String
@@ -79,7 +85,7 @@ extension ProductRequest {
             [:]
         }
 
-        init(baseUrl: URL, id: UUID) {
+        init(baseUrl: URL, headers: HTTPHeaders?, id: UUID) {
             self.baseUrl = baseUrl
             self.id = id
             self.path = "/products/\(id.uuidString)"
