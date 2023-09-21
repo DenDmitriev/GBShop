@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 class CatalogViewModel: ObservableObject {
     
@@ -36,11 +37,13 @@ class CatalogViewModel: ObservableObject {
                 self.category = success
                 self.categoryViewModels = success.map({ CategoryViewModel(category: $0) })
             }
+            Crashlytics.crashlytics().log("Catalog fetch")
         case .failure(let failure):
             await MainActor.run {
                 self.error = APIError.error(message: failure.localizedDescription)
                 self.hasError = true
             }
+            Crashlytics.crashlytics().record(error: failure)
         }
         
     }

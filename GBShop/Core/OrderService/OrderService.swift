@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Firebase
 
 final class OrderService: ObservableObject {
     
@@ -85,8 +86,10 @@ final class OrderService: ObservableObject {
                     guard let basket = basketResult.basket else { return }
                     self.loadOrder(basket: basket)
                 }
+                Crashlytics.crashlytics().log("Basket fetch")
             case .failure(let error):
                 print(error.localizedDescription)
+                Crashlytics.crashlytics().record(error: error)
             }
         }
     }
@@ -109,8 +112,10 @@ final class OrderService: ObservableObject {
                                     total: total,
                                     completion: completion)
                 }
+                Crashlytics.crashlytics().log("Payment success")
             case .failure(let error):
                 print(error.localizedDescription)
+                Crashlytics.crashlytics().record(error: error)
             }
         }
     }
@@ -132,8 +137,10 @@ final class OrderService: ObservableObject {
                     print(basketUpdate.userMessage ?? "")
                     self.isSynchronized(true)
                 }
+                Crashlytics.crashlytics().log("Add product to order")
             case .failure(let error):
                 print(error.localizedDescription)
+                Crashlytics.crashlytics().record(error: error)
             }
         }
     }
@@ -151,8 +158,10 @@ final class OrderService: ObservableObject {
                     print(basketUpdate.userMessage ?? "")
                     self.isSynchronized(true)
                 }
+                Crashlytics.crashlytics().log("Remove product from order")
             case .failure(let error):
                 print(error.localizedDescription)
+                Crashlytics.crashlytics().record(error: error)
             }
         }
     }

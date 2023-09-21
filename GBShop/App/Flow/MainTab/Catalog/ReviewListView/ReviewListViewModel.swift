@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 class ReviewListViewModel: ObservableObject, Pageable {
     
@@ -54,10 +55,12 @@ class ReviewListViewModel: ObservableObject, Pageable {
                     self.state = .loaded
                 }
             }
+            Crashlytics.crashlytics().log("Reviews fetch")
         case .failure(let failure):
             await MainActor.run {
                 self.state = .error(error: failure)
             }
+            Crashlytics.crashlytics().record(error: failure)
         }
     }
     

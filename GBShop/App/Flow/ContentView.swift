@@ -18,6 +18,9 @@ struct ContentView: View {
         case false:
             AuthView()
         }
+//        Button("Crush") {
+//            fatalError()
+//        }
     }
 }
 

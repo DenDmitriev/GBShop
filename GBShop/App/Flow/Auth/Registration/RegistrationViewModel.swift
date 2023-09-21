@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Firebase
 
 class RegistrationViewModel: ObservableObject {
 
@@ -32,11 +33,13 @@ class RegistrationViewModel: ObservableObject {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     isPresentation.wrappedValue.dismiss()
                 }
+                Crashlytics.crashlytics().log("Registered, \(create.email)")
             }
         case .failure(let failure):
             await MainActor.run {
                 self.errorMessage = failure.localizedDescription
             }
+            Crashlytics.crashlytics().record(error: failure)
         }
     }
 

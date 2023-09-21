@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 class UserViewModel: ObservableObject {
 
@@ -32,11 +33,14 @@ class UserViewModel: ObservableObject {
             case .success(let logout):
                 if logout.result != .zero {
                     self.closeSession()
+                    Crashlytics.crashlytics().log("logout")
                 } else {
                     print(logout.errorMessage ?? "")
+                    Crashlytics.crashlytics().log(logout.errorMessage ?? "Logout error")
                 }
             case .failure(let error):
                 print(error.localizedDescription)
+                Crashlytics.crashlytics().record(error: error)
             }
         }
     }
@@ -56,11 +60,15 @@ class UserViewModel: ObservableObject {
                         DispatchQueue.main.async {
                             self.isUpdate = false
                         }
+                        Crashlytics.crashlytics().log("updated user data")
                     } else {
-                        print(updateResult.errorMessage ?? "")
+                        let errorMessage = updateResult.errorMessage ?? ""
+                        print(errorMessage)
+                        Crashlytics.crashlytics().log(errorMessage)
                     }
                 case .failure(let error):
                     print(error.localizedDescription)
+                    Crashlytics.crashlytics().record(error: error)
                 }
             }
         }
