@@ -67,6 +67,15 @@ struct UserView: View {
                             .foregroundColor(.red)
                     }
                 }
+                
+                Section {
+                    Button {
+                        fatalError("Test crush")
+                    } label: {
+                        Text("Crush")
+                            .foregroundColor(.red)
+                    }
+                }
             }
             .toolbar {
                 ToolbarItem {

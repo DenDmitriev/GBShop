@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 class ReviewCreatorViewModel: ObservableObject {
     
@@ -26,6 +27,10 @@ class ReviewCreatorViewModel: ObservableObject {
     // MARK: - Functions
     
     func addReview(text: String, rating: Int?) async {
+        Analytics.logEvent("Add review", parameters: [
+            AnalyticsParameterItemID: product.id.uuidString
+        ])
+        
         guard
             let userID = UserSession.shared.user?.id,
             let rating = rating,
@@ -41,6 +46,7 @@ class ReviewCreatorViewModel: ObservableObject {
             review: text,
             rating: rating
         )
+        Crashlytics.crashlytics().log("Adding new review")
         let response = await ReviewAPI.addReview(router: requestModel)
         
         switch response {
@@ -48,11 +54,13 @@ class ReviewCreatorViewModel: ObservableObject {
             await MainActor.run {
                 isPublished = false
             }
+            Crashlytics.crashlytics().log("Added new review")
         case .failure(let failure):
             await MainActor.run {
                 error = .error(message: failure.localizedDescription)
                 hasError = true
             }
+            Crashlytics.crashlytics().record(error: failure)
         }
     }
     

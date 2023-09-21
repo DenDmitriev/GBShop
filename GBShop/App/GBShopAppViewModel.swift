@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 class GBShopAppViewModel: ObservableObject {
     
@@ -19,6 +20,13 @@ class GBShopAppViewModel: ObservableObject {
     
     // MARK: - Functions
     
+    func log() {
+        let userName = UserDefaultsStore.userName
+        Analytics.logEvent(AnalyticsEventAppOpen, parameters: [
+            AnalyticsParameterItemName: userName
+        ])
+    }
+    
     func authWithToken() async {
         guard let token = getToken() else { return }
         let requestModel = AuthRequest.LoginUserWithToken(
@@ -30,11 +38,13 @@ class GBShopAppViewModel: ObservableObject {
         switch result {
         case .success(let success):
             self.createSession(by: success, with: token)
+            Crashlytics.crashlytics().log("auth with token")
         case .failure(let failure):
             await MainActor.run {
                 self.error = APIError.error(message: failure.localizedDescription)
                 self.hasError = true
             }
+            Crashlytics.crashlytics().record(error: failure)
         }
     }
     

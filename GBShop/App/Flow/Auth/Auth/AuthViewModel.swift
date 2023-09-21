@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 class AuthViewModel: ObservableObject {
     
@@ -27,6 +28,11 @@ class AuthViewModel: ObservableObject {
             email: login,
             password: password
         )
+        
+        Analytics.logEvent(AnalyticsEventLogin, parameters: [
+          AnalyticsParameterItemName: login
+        ])
+        
         let result = await AuthAPI.login(router: requestModel)
         
         switch result {
@@ -34,10 +40,12 @@ class AuthViewModel: ObservableObject {
             await MainActor.run {
                 self.createSession(by: success)
             }
+            Crashlytics.crashlytics().log("Logging…, \(login)")
         case .failure(let failure):
             await MainActor.run {
                 self.errorMessage = failure.localizedDescription
             }
+            Crashlytics.crashlytics().record(error: failure)
         }
     }
     

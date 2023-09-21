@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 class UserViewModel: ObservableObject {
 
@@ -27,22 +28,36 @@ class UserViewModel: ObservableObject {
         guard let id = UserSession.shared.user?.id else {
             return
         }
+        
+        Analytics.logEvent("Logout", parameters: [
+            AnalyticsParameterItemID: id,
+            "email": UserSession.shared.user?.email ?? "nil"
+        ])
+        
         authRequests.logout(userId: id) { response in
             switch response.result {
             case .success(let logout):
                 if logout.result != .zero {
                     self.closeSession()
+                    Crashlytics.crashlytics().log("logout")
                 } else {
                     print(logout.errorMessage ?? "")
+                    Crashlytics.crashlytics().log(logout.errorMessage ?? "Logout error")
                 }
             case .failure(let error):
                 print(error.localizedDescription)
+                Crashlytics.crashlytics().record(error: error)
             }
         }
     }
 
     func updateUserData(name: String, email: String, creditCard: String) {
         let authRequests = requestFactory.makeAuthRequestFactory()
+        
+        Analytics.logEvent("UpdateUserData", parameters: [
+            "email": email
+        ])
+        
         if let user = UserSession.shared.user {
             let update: User.Update = .init(id: user.id, name: name, email: email, creditCard: creditCard)
             authRequests.changeUserData(update: update) { response in
@@ -56,11 +71,15 @@ class UserViewModel: ObservableObject {
                         DispatchQueue.main.async {
                             self.isUpdate = false
                         }
+                        Crashlytics.crashlytics().log("updated user data")
                     } else {
-                        print(updateResult.errorMessage ?? "")
+                        let errorMessage = updateResult.errorMessage ?? ""
+                        print(errorMessage)
+                        Crashlytics.crashlytics().log(errorMessage)
                     }
                 case .failure(let error):
                     print(error.localizedDescription)
+                    Crashlytics.crashlytics().record(error: error)
                 }
             }
         }

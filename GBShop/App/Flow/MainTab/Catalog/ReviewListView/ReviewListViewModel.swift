@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 class ReviewListViewModel: ObservableObject, Pageable {
     
@@ -29,6 +30,10 @@ class ReviewListViewModel: ObservableObject, Pageable {
     // MARK: - Functions
     
     func getReviews(page: Int = 1, per: Int? = nil) async {
+        Analytics.logEvent("Get reviews", parameters: [
+            AnalyticsParameterItemID: product.id.uuidString
+        ])
+        
         let token = UserSession.shared.token
         let requestModel = ReviewRequest.Reviews(
             baseUrl: URL(string: "baseURL")!,
@@ -54,10 +59,12 @@ class ReviewListViewModel: ObservableObject, Pageable {
                     self.state = .loaded
                 }
             }
+            Crashlytics.crashlytics().log("Reviews fetch")
         case .failure(let failure):
             await MainActor.run {
                 self.state = .error(error: failure)
             }
+            Crashlytics.crashlytics().record(error: failure)
         }
     }
     

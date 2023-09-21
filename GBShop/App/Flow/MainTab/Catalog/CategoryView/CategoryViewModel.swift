@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 class CategoryViewModel: ObservableObject {
 
@@ -26,6 +27,8 @@ class CategoryViewModel: ObservableObject {
     // MARK: - Functions
 
     func getProducts() async {
+        Analytics.logEvent("Get products", parameters: nil)
+        
         let token = userSession.token
         let requestModel = ProductRequest.ProductsByCategory(
             baseUrl: URL(string: "baseURL")!,
@@ -40,11 +43,13 @@ class CategoryViewModel: ObservableObject {
             await MainActor.run {
                 self.products = success
             }
+            Crashlytics.crashlytics().log("Get products")
         case .failure(let failure):
             await MainActor.run {
                 self.error = APIError.error(message: failure.localizedDescription)
                 self.hasError = true
             }
+            Crashlytics.crashlytics().record(error: failure)
         }
     }
 }

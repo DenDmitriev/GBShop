@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Firebase
 
 class BasketViewModel: ObservableObject {
     
@@ -35,8 +36,17 @@ class BasketViewModel: ObservableObject {
     }
     
     func payment(orderService: OrderService) {
+        Analytics.logEvent(AnalyticsEventPurchase, parameters: [
+            AnalyticsParameterItemID: orderService.userID?.uuidString ?? "nil",
+            "total": orderService.total
+        ])
+        
+        Crashlytics.crashlytics().log("Payment")
         orderService.payment { [weak self] receipt in
-            guard let receipt = receipt else { return }
+            guard let receipt = receipt else {
+                Crashlytics.crashlytics().log("receipt is nil")
+                return
+            }
             self?.coordinator.present(sheet: .receipt(receipt: receipt))
         }
     }
