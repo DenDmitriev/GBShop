@@ -9,7 +9,6 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-
     @ObservedObject private var userSession = UserSession.shared
 
     var body: some View {
