@@ -20,6 +20,13 @@ class GBShopAppViewModel: ObservableObject {
     
     // MARK: - Functions
     
+    func log() {
+        let userName = UserDefaultsStore.userName
+        Analytics.logEvent(AnalyticsEventAppOpen, parameters: [
+            AnalyticsParameterItemName: userName
+        ])
+    }
+    
     func authWithToken() async {
         guard let token = getToken() else { return }
         let requestModel = AuthRequest.LoginUserWithToken(

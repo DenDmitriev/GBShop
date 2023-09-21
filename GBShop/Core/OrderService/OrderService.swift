@@ -125,6 +125,10 @@ final class OrderService: ObservableObject {
     // MARK: Requests
     
     private func addProductRequest(productID: UUID, count: Int) {
+        Analytics.logEvent(AnalyticsEventAddToCart, parameters: [
+            AnalyticsParameterItemID: productID.uuidString
+        ])
+        
         guard let userID = userID else { return }
         isSynchronized(false)
         let basketRequest = requestFactory.makeBasketRequestFactory()
@@ -146,6 +150,10 @@ final class OrderService: ObservableObject {
     }
     
     private func removeProductRequest(productID: UUID, count: Int) {
+        Analytics.logEvent(AnalyticsEventRemoveFromCart, parameters: [
+            AnalyticsParameterItemID: productID.uuidString
+        ])
+        
         guard let userID = userID else { return }
         isSynchronized(false)
         let basketRequest = requestFactory.makeBasketRequestFactory()

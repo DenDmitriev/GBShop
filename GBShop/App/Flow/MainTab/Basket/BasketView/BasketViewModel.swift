@@ -36,6 +36,11 @@ class BasketViewModel: ObservableObject {
     }
     
     func payment(orderService: OrderService) {
+        Analytics.logEvent(AnalyticsEventPurchase, parameters: [
+            AnalyticsParameterItemID: orderService.userID?.uuidString ?? "nil",
+            "total": orderService.total
+        ])
+        
         Crashlytics.crashlytics().log("Payment")
         orderService.payment { [weak self] receipt in
             guard let receipt = receipt else {

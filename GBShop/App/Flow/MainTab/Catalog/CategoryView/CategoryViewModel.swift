@@ -27,6 +27,8 @@ class CategoryViewModel: ObservableObject {
     // MARK: - Functions
 
     func getProducts() async {
+        Analytics.logEvent("Get products", parameters: nil)
+        
         let token = userSession.token
         let requestModel = ProductRequest.ProductsByCategory(
             baseUrl: URL(string: "baseURL")!,

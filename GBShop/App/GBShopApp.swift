@@ -32,6 +32,7 @@ struct GBShopApp: App {
             ContentView()
                 .onAppear {
                     Task {
+                        viewModel.log()
                         await viewModel.authWithToken()
                     }
                 }

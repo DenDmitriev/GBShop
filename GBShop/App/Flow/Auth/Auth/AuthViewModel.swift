@@ -28,6 +28,11 @@ class AuthViewModel: ObservableObject {
             email: login,
             password: password
         )
+        
+        Analytics.logEvent(AnalyticsEventLogin, parameters: [
+          AnalyticsParameterItemName: login
+        ])
+        
         let result = await AuthAPI.login(router: requestModel)
         
         switch result {

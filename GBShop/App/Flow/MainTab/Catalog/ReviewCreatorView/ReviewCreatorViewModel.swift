@@ -27,6 +27,10 @@ class ReviewCreatorViewModel: ObservableObject {
     // MARK: - Functions
     
     func addReview(text: String, rating: Int?) async {
+        Analytics.logEvent("Add review", parameters: [
+            AnalyticsParameterItemID: product.id.uuidString
+        ])
+        
         guard
             let userID = UserSession.shared.user?.id,
             let rating = rating,

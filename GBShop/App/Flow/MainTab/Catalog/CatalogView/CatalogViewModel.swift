@@ -25,6 +25,8 @@ class CatalogViewModel: ObservableObject {
     // MARK: - Functions
     
     func getCatalog() async {
+        Analytics.logEvent("Get catalog", parameters: nil)
+        
         let token = UserSession.shared.token
         let requestModel = ProductRequest.All(
             baseUrl: URL(string: "baseUrl")!,

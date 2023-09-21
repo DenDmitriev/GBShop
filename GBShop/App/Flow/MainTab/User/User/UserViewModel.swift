@@ -28,6 +28,12 @@ class UserViewModel: ObservableObject {
         guard let id = UserSession.shared.user?.id else {
             return
         }
+        
+        Analytics.logEvent("Logout", parameters: [
+            AnalyticsParameterItemID: id,
+            "email": UserSession.shared.user?.email ?? "nil"
+        ])
+        
         authRequests.logout(userId: id) { response in
             switch response.result {
             case .success(let logout):
@@ -47,6 +53,11 @@ class UserViewModel: ObservableObject {
 
     func updateUserData(name: String, email: String, creditCard: String) {
         let authRequests = requestFactory.makeAuthRequestFactory()
+        
+        Analytics.logEvent("UpdateUserData", parameters: [
+            "email": email
+        ])
+        
         if let user = UserSession.shared.user {
             let update: User.Update = .init(id: user.id, name: name, email: email, creditCard: creditCard)
             authRequests.changeUserData(update: update) { response in

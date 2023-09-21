@@ -26,6 +26,11 @@ class RegistrationViewModel: ObservableObject {
         let requestModel = AuthRequest.RegisterUser(baseUrl: URL(string: "baseURL")!, create: create)
         let response = await AuthAPI.registerUser(router: requestModel)
         
+        Analytics.logEvent(AnalyticsEventSignUp, parameters: [
+            "name": create.name,
+            "email": create.email
+        ])
+        
         switch response {
         case .success(let success):
             await MainActor.run {

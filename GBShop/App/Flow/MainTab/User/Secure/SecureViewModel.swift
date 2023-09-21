@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import Firebase
 
 class SecureViewModel: ObservableObject {
     
     func updatePassword() {
+        Analytics.logEvent("Update password", parameters: nil)
         print("update password")
     }
 }
