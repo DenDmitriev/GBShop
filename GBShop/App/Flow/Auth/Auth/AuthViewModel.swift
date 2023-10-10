@@ -25,7 +25,7 @@ class AuthViewModel: ObservableObject {
         let requestModel = AuthRequest.LoginUser(
             baseUrl: URL(string: "baseUrl")!,
             headers: [.authorization(username: login, password: password)],
-            email: login,
+            email: login.lowercased(),
             password: password
         )
         
