@@ -49,7 +49,6 @@ struct AuthView: View {
                             isPasswordFocused.toggle()
                         }
                         .accessibilityIdentifier("email")
-                        
 
                     SecureField("Password", text: $password)
                         .textContentType(.password)

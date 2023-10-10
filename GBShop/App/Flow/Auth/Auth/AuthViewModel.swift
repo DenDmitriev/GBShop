@@ -24,8 +24,8 @@ class AuthViewModel: ObservableObject {
     func loginNew(login: String, password: String) async {
         let requestModel = AuthRequest.LoginUser(
             baseUrl: URL(string: "baseUrl")!,
-            headers: [.authorization(username: login, password: password)],
-            email: login,
+            headers: [.authorization(username: login.lowercased(), password: password)],
+            email: login.lowercased(),
             password: password
         )
         
