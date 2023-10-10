@@ -56,7 +56,7 @@ final class ProductRequestTests: XCTestCase {
     }
 
     func testProducts() {
-        let categoryID = UUID(uuidString: "A46A350F-0CBE-4359-92CB-99CC46D4A04C")!
+        let categoryID = UUID(uuidString: "FADBC09E-83FB-4FF4-B3B6-C412B6CBF4CB")!
         request.products(by: categoryID, page: .zero, per: .zero) { response in
             switch response.result {
             case .success(let products):

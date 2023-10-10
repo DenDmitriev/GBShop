@@ -26,18 +26,21 @@ class MainTabCoordinator: ObservableObject, TabCoordinatorProtocol {
                 .tabItem {
                     Label("Catalog", systemImage: "house")
                 }
+                .accessibilityIdentifier("catalog")
         case .basket:
             BasketCoordinatorView()
                 .tag(tab)
                 .tabItem {
                     Label("Basket", systemImage: "basket")
                 }
+                .accessibilityIdentifier("basket")
         case .user:
             UserCoordinatorView()
                 .tag(tab)
                 .tabItem {
                     Label("User", systemImage: "person")
                 }
+                .accessibilityIdentifier("user")
         }
     }
 }

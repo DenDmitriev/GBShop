@@ -30,6 +30,7 @@ struct CatalogHeader: View {
                     .foregroundColor(.gray)
                     .font(.headline)
             }
+            .accessibilityIdentifier("catalog")
         }
         .padding(8.0)
         .background(.ultraThinMaterial)

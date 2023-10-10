@@ -61,7 +61,7 @@ class ReviewAPI: NetworkAPI {
             )
             let result: ReviewResult = try self.parseData(data: data)
             
-            if result.result == 1  {
+            if result.result == 1 {
                 return .success(result)
             } else {
                 let error: APIError = .error(message: result.errorMessage)

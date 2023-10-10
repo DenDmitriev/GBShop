@@ -10,8 +10,8 @@ import SwiftUI
 struct AuthView: View {
 
     @ObservedObject var viewModel: AuthViewModel
-    @State private var login: String = "test@vapor.codes"
-    @State private var password: String = "secret42"
+    @State private var login: String = "" // "test@vapor.codes"
+    @State private var password: String = "" // "secret42"
     @State private var userMessage: String = "Hello, there!👋"
     @State private var errorMessage: String = ""
     @State private var isLoading: Bool = false
@@ -48,6 +48,8 @@ struct AuthView: View {
                             isEmailFocused.toggle()
                             isPasswordFocused.toggle()
                         }
+                        .accessibilityIdentifier("email")
+                        
 
                     SecureField("Password", text: $password)
                         .textContentType(.password)
@@ -56,6 +58,7 @@ struct AuthView: View {
                         .onSubmit {
                             isPasswordFocused.toggle()
                         }
+                        .accessibilityIdentifier("password")
 
                     HStack {
                         Button {
@@ -74,6 +77,7 @@ struct AuthView: View {
                             }
                             
                         }
+                        .accessibilityIdentifier("login")
                         .disabled(isLoading)
                         .buttonStyle(.borderedProminent)
                         .font(.headline)

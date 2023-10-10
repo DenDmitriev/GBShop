@@ -26,6 +26,7 @@ struct CatalogLinksView: View {
                             .font(.title2)
                             .fontWeight(.semibold)
                     }
+                    .accessibilityIdentifier("category")
                     .foregroundColor(.primary)
                     
                     Spacer()

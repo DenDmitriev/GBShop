@@ -62,6 +62,7 @@ struct BasketView: View {
                         
                     }
                 }
+                .accessibilityIdentifier("pay")
                 .buttonStyle(.borderedProminent)
                 .disabled(viewModel.basketIsEmpty(orderService: orderService)
                     || !$orderService.isSynchronized.wrappedValue)

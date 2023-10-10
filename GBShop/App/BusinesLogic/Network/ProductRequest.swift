@@ -36,7 +36,13 @@ extension ProductRequest: ProductRequestFactory {
                   per: Int,
                   completionHandler: @escaping (AFDataResponse<ProductsByCategoryResult>) -> Void) {
         let token = UserSession.shared.token
-        let requestModel = ProductsByCategory(baseUrl: baseUrl, headers: [.authorization(bearerToken: token)], page: page, per: per, categoryID: categoryID)
+        let requestModel = ProductsByCategory(
+            baseUrl: baseUrl, 
+            headers: [.authorization(bearerToken: token)], 
+            page: page, 
+            per: per, 
+            categoryID: categoryID
+        )
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 

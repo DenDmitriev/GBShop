@@ -1,0 +1,53 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+APP_NAME = "GBShop"
+APP_TEST_SCHEME = "GBShopTests"
+APP_UITEST_SCHEME = "GBShopUITests"
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Description of what the lane does"
+  lane :custom_lane do
+    # add actions here: https://docs.fastlane.tools/actions
+
+    # checkout release branch
+    # вызывает исключение, если есть незафиксированные изменения git, и завершает работу Fastlane
+    # ensure_git_status_clean
+
+    # clear data
+    # удаляет производные данные Xcode DerivedData
+    clear_derived_data 
+
+    # очищает проект, используя xcodebuild для cocoapods
+    xcclean(
+      scheme: "GBShop",
+      project: "GBShop.xcodeproj"
+      # if cocoapods
+      # workspace: "GBShop.xcworkspace"
+    )
+
+    # run all tests
+    # run_tests
+    run_tests(
+     scheme: "GBShop"
+    )
+
+    # make screenshots
+    capture_ios_screenshots
+
+  end
+end

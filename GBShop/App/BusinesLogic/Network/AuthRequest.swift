@@ -44,7 +44,6 @@ extension AuthRequest: AuthRequestFactory {
     }
 
     func registerUser(create: User.Create, completionHandler: @escaping (AFDataResponse<RegisterUserResult>) -> Void) {
-        let token = UserSession.shared.token
         let requestModel = RegisterUser(baseUrl: baseUrl, create: create)
         self.request(request: requestModel, completionHandler: completionHandler)
     }
@@ -52,7 +51,12 @@ extension AuthRequest: AuthRequestFactory {
     func changeUserData(update: User.Update,
                         completionHandler: @escaping (AFDataResponse<ChangeUserDataResult>) -> Void) {
         let token = UserSession.shared.token
-        let requestModel = ChangeUserData(baseUrl: baseUrl, headers: [.authorization(bearerToken: token)], update: update)
+        let requestModel = ChangeUserData(
+            baseUrl: baseUrl,
+            headers: [.authorization(bearerToken: token)],
+            update: update
+        )
+        
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 }

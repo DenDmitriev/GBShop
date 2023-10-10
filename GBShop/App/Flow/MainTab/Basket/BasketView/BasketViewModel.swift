@@ -24,7 +24,7 @@ class BasketViewModel: ObservableObject {
         let startIndex = cardNumber.index(cardNumber.endIndex, offsetBy: publicOffset)
         let range: Range<String.Index> = startIndex..<cardNumber.endIndex
         let secureRange = cardNumber.count + publicOffset
-        var secureNumber = String(repeating: "•", count: secureRange)
+        let secureNumber = String(repeating: "•", count: secureRange)
         return secureNumber + cardNumber[range].lowercased()
     }
     

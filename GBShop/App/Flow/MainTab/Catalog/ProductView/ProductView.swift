@@ -47,6 +47,7 @@ struct ProductView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 OrderButton(count: orderService.count(for: viewModel.product))
+                    .accessibilityIdentifier("order")
                 
                 HStack {
                     Text("Отзывы")

@@ -66,6 +66,7 @@ struct UserView: View {
                         Text("Logout")
                             .foregroundColor(.red)
                     }
+                    .accessibilityIdentifier("logout")
                 }
                 
                 Section {

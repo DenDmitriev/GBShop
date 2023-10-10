@@ -37,7 +37,13 @@ extension BasketRequest: BasketRequestFactory {
                      on count: Int,
                      completionHandler: @escaping (AFDataResponse<Basket.Update>) -> Void) {
         let token = UserSession.shared.token
-        let requestModel = Add(baseUrl: baseUrl, headers: [.authorization(bearerToken: token)], userID: userID, productID: productID, count: count)
+        let requestModel = Add(
+            baseUrl: baseUrl,
+            headers: [.authorization(bearerToken: token)],
+            userID: userID,
+            productID: productID,
+            count: count
+        )
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
@@ -46,7 +52,13 @@ extension BasketRequest: BasketRequestFactory {
                           on count: Int,
                           completionHandler: @escaping (AFDataResponse<Basket.Update>) -> Void) {
         let token = UserSession.shared.token
-        let requestModel = Delete(baseUrl: baseUrl, headers: [.authorization(bearerToken: token)], userID: userID, productID: productID, count: count)
+        let requestModel = Delete(
+            baseUrl: baseUrl,
+            headers: [.authorization(bearerToken: token)],
+            userID: userID,
+            productID: productID,
+            count: count
+        )
         self.request(request: requestModel, completionHandler: completionHandler)
     }
     
@@ -54,7 +66,12 @@ extension BasketRequest: BasketRequestFactory {
                  total: Double,
                  completionHandler: @escaping (AFDataResponse<Basket.PaymentResult>) -> Void) {
         let token = UserSession.shared.token
-        let requestModel = Payment(baseUrl: baseUrl, headers: [.authorization(bearerToken: token)], userID: userID, total: total)
+        let requestModel = Payment(
+            baseUrl: baseUrl,
+            headers: [.authorization(bearerToken: token)],
+            userID: userID,
+            total: total
+        )
         self.request(request: requestModel, completionHandler: completionHandler)
     }
 }

@@ -56,7 +56,7 @@ final class AuthRequestTests: XCTestCase {
             switch response.result {
             case .success(let register):
                 print(#function, register)
-                
+                sleep(UInt32(0.1))
                 self.request.login(email: self.userCreate.email, password: self.userCreate.password) { response in
                     switch response.result {
                     case .success(let result):
@@ -72,8 +72,8 @@ final class AuthRequestTests: XCTestCase {
             case .failure(let error):
                 print(#function, error.localizedDescription)
                 XCTFail("failure response")
+                self.expectation.fulfill()
             }
-            self.expectation.fulfill()
         }
         
         wait(for: [expectation], timeout: 3.0)
@@ -121,8 +121,8 @@ final class AuthRequestTests: XCTestCase {
             case .failure(let error):
                 print(#function, error.localizedDescription)
                 XCTFail("failure response")
+                self.expectation.fulfill()
             }
-            self.expectation.fulfill()
         }
         
         wait(for: [expectation], timeout: 3.0)

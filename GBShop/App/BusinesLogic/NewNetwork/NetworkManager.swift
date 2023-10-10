@@ -17,7 +17,12 @@ actor NetworkManager: GlobalActor {
     
     private init() {}
     
-    func get(path: String, parameters: Parameters?, method: HTTPMethod, headers: HTTPHeaders? = nil) async throws -> Data {
+    func get(
+        path: String,
+        parameters: Parameters?,
+        method: HTTPMethod,
+        headers: HTTPHeaders? = nil
+    ) async throws -> Data {
         return try await withCheckedThrowingContinuation { continuation in
             AF.request(
                 apiBaseURL + path,

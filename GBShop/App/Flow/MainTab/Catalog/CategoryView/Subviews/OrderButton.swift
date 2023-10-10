@@ -21,6 +21,7 @@ struct OrderButton: View {
                     Text("В корзину")
                         .frame(maxWidth: .infinity, alignment: .center)
                 }
+                .accessibilityIdentifier("order")
             default:
                 HStack {
                     Button {
@@ -29,6 +30,7 @@ struct OrderButton: View {
                         Image(systemName: "minus")
                             .frame(maxWidth: .infinity, alignment: .center)
                     }
+                    .accessibilityIdentifier("popOrder")
                     
                     Text(count.formatted(.number))
                         .frame(maxWidth: .infinity, alignment: .center)
@@ -39,6 +41,7 @@ struct OrderButton: View {
                         Image(systemName: "plus")
                             .frame(maxWidth: .infinity, alignment: .center)
                     }
+                    .accessibilityIdentifier("pushOrder")
                 }
             }
         }
