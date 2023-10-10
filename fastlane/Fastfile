@@ -50,4 +50,23 @@ platform :ios do
     capture_ios_screenshots
 
   end
+
+  # увеличивает номер сборки проекта.
+  lane :project do 
+    increment_build_number
+    # set_info_plist_value(
+    #   path: "./GBShop/Environment/Info.plist", 
+    #   key:"CFBundleShortVersionString", value: "2.0"
+    #   )
+
+  gym(
+    scheme: "GBShop", 
+    configuration: "Debug", # конфигурация, используемая при создании приложения
+    export_method: "development", # метод, используемый для экспорта архива 
+    include_symbols: true, 
+    include_bitcode: true, 
+    silent: false
+  )
+
+  end
 end

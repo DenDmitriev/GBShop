@@ -9,10 +9,16 @@
     }
   ],
   "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:GBShop.xcodeproj",
+      "identifier" : "9503786C2A44226900DDC848",
+      "name" : "GBShop"
+    },
     "testTimeoutsEnabled" : true
   },
   "testTargets" : [
     {
+      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:GBShop.xcodeproj",
         "identifier" : "950378812A44226A00DDC848",
@@ -20,6 +26,7 @@
       }
     },
     {
+      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:GBShop.xcodeproj",
         "identifier" : "9503788B2A44226A00DDC848",
