@@ -1,20 +1,38 @@
 # GBShop
+[Frontend layer for online mock shop](https://github.com/DenDmitriev/GBShop)
 
-[Frontend](https://github.com/DenDmitriev/GBShop)
+# Overview
 
-[Backend](https://github.com/DenDmitriev/GBShopBackend)
+https://github.com/DenDmitriev/GBShop/assets/65191747/0d39f487-aaea-463b-91c0-32752c7f27d7
 
-Сервер запущен на [Amvera](https://gbshopbe-denisdmitriev.amvera.io)
+# Stack
+SwiftUI, Alamafire, Firebase, CI/CD, Fastlane, Keychain, MVVM
 
-## Автоматизация
-### Запуск тестов и создание скриншотов 
+# Development
+- [API](#api)
+- [Architecture](#architecture)
+- [Libraries](#libraries)
+- [UI](#ui)
 
-```console
-fastlane ios custom_lane
-```
+## API
+### Backend
+[Backend](https://github.com/DenDmitriev/GBShopBackend) on Vaper framework.
+Server started on [Amvera](https://gbshopbe-denisdmitriev.amvera.io).
 
-### Cборка проекта
+### HTTP Request Methods
+Method
+- GET	
+- POST
 
-```console
-fastlane ios project
-```
+### Authorization
+Authorization header, using Basic for login and password and Bearer for token.
+
+## Architecture
+MVVM
+
+## Libraries
+ - Alamafire
+ - Firebase (Analytics, Crashlytics)
+
+## UI
+SwiftUI
