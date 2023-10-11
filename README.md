@@ -1,5 +1,5 @@
 # GBShop
-[Frontend layer for online mock shop](https://github.com/DenDmitriev/GBShop)
+Frontend layer for online mock shop
 
 # Overview
 
@@ -16,7 +16,7 @@ SwiftUI, Alamafire, Firebase, CI/CD, Fastlane, Keychain, MVVM
 
 ## API
 ### Backend
-[Backend](https://github.com/DenDmitriev/GBShopBackend) on Vaper framework.
+[Backend](https://github.com/DenDmitriev/GBShopBackend) on Vapor framework.
 Server started on [Amvera](https://gbshopbe-denisdmitriev.amvera.io).
 
 ### HTTP Request Methods
