@@ -6,7 +6,7 @@ Frontend layer for online mock shop
 https://github.com/DenDmitriev/GBShop/assets/65191747/0d39f487-aaea-463b-91c0-32752c7f27d7
 
 # Stack
-SwiftUI, Alamafire, Firebase, CI/CD, Fastlane, Keychain, MVVM
+SwiftUI, Alamofire, Firebase, CI/CD, Fastlane, Keychain, MVVM
 
 # Development
 - [API](#api)
